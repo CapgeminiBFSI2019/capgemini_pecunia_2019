@@ -68,7 +68,8 @@ public class Account {
 		this.accountType = accountType;
 		this.lastUpdated = date;
 		this.accountBalance = 0.0;
-		this.accountId = accountBranchId+ (Integer.toString(id)); 
+		this.accountId = accountBranchId+ (Integer.toString(id));
+		this.id++;
 		this.accountStatus = "Active";
 		this.accountHolderId = null;
 		if(accountType=="Savings")
