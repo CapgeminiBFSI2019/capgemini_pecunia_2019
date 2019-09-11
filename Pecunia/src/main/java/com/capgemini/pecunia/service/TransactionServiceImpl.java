@@ -8,6 +8,7 @@ public class TransactionServiceImpl implements TransactionService{
 	TransactionDAOImpl transactionDAOImpl ;
 	public void creditAccountUsingSlip(String accountNo, Double amount) {
 		// TODO Auto-generated method stub
+		
 		transactionDAOImpl.creditAccountUsingSlip(accountNo, amount);
 	}
 
