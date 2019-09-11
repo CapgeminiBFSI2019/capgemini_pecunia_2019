@@ -1,6 +1,6 @@
 package com.capgemini.pecunia.model;
 import java.sql.Date;
-import java.util.*;
+//import java.util.*;
 
 public class Customer {
 private String customerId;
@@ -10,7 +10,11 @@ private String customerPan;
 private String customerContact;
 private String customerGender;
 private Date customerDob;
-private int id = 101;
+
+//private int id = 101;
+
+
+
 
 
 	public void setCustomerId(String customerId) {
@@ -65,6 +69,7 @@ private int id = 101;
 		return customerDob;
 	}
 
+
 	public Customer(String customerName, String customerAadhar, String customerPan, String customerContact,
 			String customerGender, Date customerDob) {
 		super();
@@ -74,7 +79,8 @@ private int id = 101;
 		this.customerContact = customerContact;
 		this.customerGender = customerGender;
 		this.customerDob = customerDob;
-		this.customerId = Integer.toString(this.id);
-		this.id++;
-	}
+//		this.customerId = Integer.toString(this.id);
+//		this.id++;
+
+}
 }

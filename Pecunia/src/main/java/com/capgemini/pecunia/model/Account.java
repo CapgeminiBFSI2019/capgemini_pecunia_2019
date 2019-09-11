@@ -11,7 +11,7 @@ public class Account {
 	private double accountBalance;
 	private double accountInterest;
 	private Date lastUpdated;
-	private int id = 001;
+	//private int id = 001;
 	
 	
 	public String getAccountId() {
@@ -63,21 +63,35 @@ public class Account {
 		this.lastUpdated = lastUpdated;
 	}
 	
-	public Account(String accountBranchId, String accountType, Date date){
+//	public Account(String accountBranchId, String accountType, Date date){
+//		this.accountBranchId = accountBranchId;
+//		this.accountType = accountType;
+//		this.lastUpdated = date;
+//		this.accountBalance = 0.0;
+//		//this.accountId = accountBranchId+ (Integer.toString(id));
+//		//this.id++;
+//		this.accountStatus = "Active";
+//		this.accountHolderId = null;
+//		if(accountType=="Savings")
+//			this.accountInterest = 7.0;
+//		else if(accountType=="Current")
+//			this.accountInterest = 5.5;
+//		else if(accountType=="FD")
+//			this.accountInterest = 10.0;
+//	}
+		
+	
+		public Account(String accountId, String accountHolderId, String accountBranchId, String accountType,
+			String accountStatus, double accountBalance, double accountInterest, Date lastUpdated) {
+		super();
+		this.accountId = accountId;
+		this.accountHolderId = accountHolderId;
 		this.accountBranchId = accountBranchId;
 		this.accountType = accountType;
-		this.lastUpdated = date;
-		this.accountBalance = 0.0;
-		this.accountId = accountBranchId+ (Integer.toString(id));
-		this.id++;
-		this.accountStatus = "Active";
-		this.accountHolderId = null;
-		if(accountType=="Savings")
-			this.accountInterest = 7.0;
-		else if(accountType=="Current")
-			this.accountInterest = 5.5;
-		else if(accountType=="FD")
-			this.accountInterest = 10.0;
+		this.accountStatus = accountStatus;
+		this.accountBalance = accountBalance;
+		this.accountInterest = accountInterest;
+		this.lastUpdated = lastUpdated;
 	}
-	
+		
 }
