@@ -9,6 +9,7 @@ private String customerPan;
 private String customerContact;
 private String customerGender;
 private Date customerDob;
+private Address address;
 
 
 
@@ -62,5 +63,12 @@ private Date customerDob;
 	
 	public Date getCustomerDob() {
 		return customerDob;
+	}
+	public void setCustomerAddress(Address address) {
+		this.address = address;
+	}
+	
+	public Address getCustomerAddress() {
+		return address;
 	}
 }
