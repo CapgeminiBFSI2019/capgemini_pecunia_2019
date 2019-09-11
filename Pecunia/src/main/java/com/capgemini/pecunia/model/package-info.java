@@ -1,0 +1,1 @@
+package com.capgemini.pecunia.model;
