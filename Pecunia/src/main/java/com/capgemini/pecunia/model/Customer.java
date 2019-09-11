@@ -11,9 +11,6 @@ private String customerGender;
 private Date customerDob;
 
 
-	public Customer() {
-		
-	}
 
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
