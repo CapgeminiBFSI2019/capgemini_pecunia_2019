@@ -1,38 +1,27 @@
 package com.capgemini.pecunia.dao;
 
-import java.util.Scanner;
-
 public class LoginMain {
+	
+	private String username;
+	private String password;
+	
+	public LoginMain() {
+		
+	}
 
-public static void main(String[] args) {
+	public LoginMain(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+	
+	
+	public boolean validateLogin() {
+		if(username.equals("capgemini") && password.equals("123")) {
+			return true;
+		}else return false;
+	}
 
-    String Username;
-    String Password;
-
-    Password = "123";
-    Username = "wisdom";
-
-    Scanner input1 = new Scanner(System.in);
-    System.out.println("Enter Username : ");
-    String username = input1.next();
-
-    Scanner input2 = new Scanner(System.in);
-    System.out.println("Enter Password : ");
-    String password = input2.next();
-
-    if (username.equals(Username) && password.equals(Password)) {
-
-        System.out.println("Access Granted! Welcome!");
-    }
-
-    else if (username.equals(Username)) {
-        System.out.println("Invalid Password!");
-    } else if (password.equals(Password)) {
-        System.out.println("Invalid Username!");
-    } else {
-        System.out.println("Invalid Username & Password!");
-    }
-
-}
-
+	
+	
 }
