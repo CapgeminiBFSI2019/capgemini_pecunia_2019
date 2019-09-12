@@ -26,22 +26,29 @@ public class LoginMain {
 	}
 
 	public LoginMain(String username, String password) {
-		super();
+		
 		this.username = username;
 		this.password = password;
 	}
 	
-	
-	public boolean validateLogin(String username, String password) {
-		if(username == null || password == null) {
-			throw new RuntimeException("Invalid inputs");
-		}
-		if(username.equals("capgemini") && password.equals("123")) {
-			return true;
-		}else {
-			return false;
-		}
+	/*
+	 * Method for username validation
+	 */
+	public static boolean validateLoginUsername(String username) {
+		return false;
+		
 	}
+	
+	/*
+	 * Method for password validation
+	 */
+	public static boolean validateLoginPassword(String username) {
+		return false;
+		
+	}
+	
+	
+	
 
 	
 	

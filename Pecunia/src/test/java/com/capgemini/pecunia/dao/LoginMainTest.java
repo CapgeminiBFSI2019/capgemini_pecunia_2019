@@ -2,84 +2,106 @@ package com.capgemini.pecunia.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.security.InvalidParameterException;
+
 
 import org.junit.jupiter.api.Test;
 
-class LoginMainTest {
-    
-	
-	
-	
-	/*
-	 * Valid login credentials only (Check from database)
-	 */
-	@Test
-	void testScenario2() {
-		LoginMain lm = new LoginMain("capgemini","123");
-		assertTrue(lm.validateLogin(lm.getUsername(), lm.getPassword()));
-	}
-
-	/*
-	 * No null values in either username or password
-	 * Should throw null pointer exception
-	 */
-	
-	
-	@Test
-	void testScenario3() {
-		LoginMain lm = new LoginMain(null,"123");
-		
-		assertThrows(NullPointerException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
-	}
-	
-	@Test
-	void testScenario4() {
-		LoginMain lm = new LoginMain("capgemini",null);
-		
-		assertThrows(NullPointerException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
-	}
-	
-	@Test
-	void testScenario5() {
-		LoginMain lm = new LoginMain(null,null);
-		
-		assertThrows(NullPointerException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
-	}
-	
-	/*
-	 * No special characters in username or password
-	 * should throw invalid parameter exception
-	 */
-	
-	
-	@Test
-	void testScenario6() {
-		LoginMain lm = new LoginMain("capgemini^&","123");
-		
-		assertThrows(InvalidParameterException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
-	}
-	
-	
-	@Test
-	void testScenario7() {
-		LoginMain lm = new LoginMain("capgemini","123^&");
-		
-		assertThrows(InvalidParameterException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
-	}
-	
-	@Test
-	void testScenario8() {
-		LoginMain lm = new LoginMain("capgemini^&_","123^&");
-		
-		assertThrows(InvalidParameterException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
-	}
-	
-	
-	
-	
-	
-	
-	
-	
+public class LoginMainTest {
+	 
+    @Test
+    public void validatePassword_Null() {
+       // setup
+        String password = null;
+ 
+        // execute
+        boolean actual = LoginMain.validateLoginPassword(password);
+ 
+        // assert
+        assertFalse(actual);
+    }
+ 
+    @Test
+    public void validatePassword_EmptyString() {
+       // setup
+        String password = "";
+ 
+        // execute
+        boolean actual = LoginMain.validateLoginPassword(password);
+ 
+        // assert
+        assertFalse(actual);
+    }
+ 
+    @Test
+    public void validatePassword_Missing_OneNumber() {
+       // setup
+        String password = "Abcdefg#";
+ 
+        // execute
+        boolean actual = LoginMain.validateLoginPassword(password);
+ 
+        // assert
+        assertFalse(actual);
+    }
+ 
+    @Test
+    public void validatePassword_Missing_OneUpperCaseLetter() {
+       // setup
+        String password = "abcdefg5#";
+ 
+        // execute
+        boolean actual = LoginMain.validateLoginPassword(password);
+ 
+        // assert
+        assertFalse(actual);
+    }
+ 
+    @Test
+    public void validatePassword_Missing_OneLowerCaseLetter() {
+       // setup
+        String password = "ABCDEFG5#";
+ 
+        // execute
+        boolean actual = LoginMain.validateLoginPassword(password);
+ 
+        // assert
+        assertFalse(actual);
+    }
+ 
+    @Test
+    public void validatePassword_Missing_OneSymbol() {
+       // setup
+        String password = "Abcdefg5";
+ 
+        // execute
+        boolean actual = LoginMain.validateLoginPassword(password);
+ 
+        // assert
+        assertFalse(actual);
+    }
+ 
+    @Test
+    public void validatePassword_AllRulesMet() {
+       // setup
+        String password = "Abcdefg5#";
+ 
+        // execute
+        boolean actual = LoginMain.validateLoginPassword(password);
+ 
+        // assert
+        assertTrue(actual);
+    }
+ 
+    @Test
+    public void validatePassword_LengthTooLong() {
+       // setup
+        String password = "Abcdefg5#abcdefgabcd";
+ 
+        // execute
+        boolean actual = LoginMain.validateLoginPassword(password);
+ 
+        // assert
+        assertFalse(actual);
+    }
+ 
 }
