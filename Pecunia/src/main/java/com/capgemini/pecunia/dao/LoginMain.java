@@ -38,7 +38,9 @@ public class LoginMain {
 		}
 		if(username.equals("capgemini") && password.equals("123")) {
 			return true;
-		}else return false;
+		}else {
+			return false;
+		}
 	}
 
 	
