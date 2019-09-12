@@ -3,6 +3,8 @@ package com.capgemini.pecunia.dao;
 import java.io.File;
 import java.util.Date;
 
+import com.capgemini.pecunia.model.Transaction;
+
 public class TransactionDAOImpl implements TransactionDAO{
 
 	@Override
@@ -24,9 +26,36 @@ public class TransactionDAOImpl implements TransactionDAO{
 	}
 
 	@Override
-	public int createNewTransaction(String accountId, double amount, Date transactionDate) {
+	public int saveTransaction(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int creditUsingSlip(String accountNum, double amount, Date transactionDate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int debitUsingSlip(String accountNum, double amount, Date transactionDate) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
+			String chequeAccount) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int debitUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
+			String chequeAccount) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 }
