@@ -1,15 +1,45 @@
 package com.capgemini.pecunia.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import java.util.Scanner;
 
-public class LoginMainTest {
+import org.junit.jupiter.api.Test;
+
+class LoginMainTest {
 
 	@Test
-	public void test() {
-		LoginMain log = new LoginMain("capgemini","123");
-		assertTrue(log.validateLogin());
+	void testScenario1() {
+		LoginMain lm = new LoginMain("capgemini","123");
+		assertTrue(lm.validateLogin(lm.getUsername(), lm.getPassword()));
 	}
 
+	
+	@Test
+	void testScenario2() {
+		LoginMain lm = new LoginMain("capgeminisdasd","123");
+		
+		assertFalse(lm.validateLogin(lm.getUsername(), lm.getPassword()));
+	}
+	
+	@Test
+	void testScenario3() {
+		LoginMain lm = new LoginMain(null,"123");
+		
+		assertThrows(RuntimeException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
+	}
+	
+	@Test
+	void testScenario4() {
+		LoginMain lm = new LoginMain("capgemini",null);
+		
+		assertThrows(RuntimeException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
+	}
+	
+	@Test
+	void testScenario5() {
+		LoginMain lm = new LoginMain(null,null);
+		
+		assertThrows(RuntimeException.class, () -> {lm.validateLogin(lm.getUsername(), lm.getPassword());});
+	}
 }
