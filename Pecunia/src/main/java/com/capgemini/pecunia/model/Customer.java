@@ -11,11 +11,6 @@ private String customerContact;
 private String customerGender;
 private Date customerDob;
 
-//private int id = 101;
-
-
-
-
 
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
