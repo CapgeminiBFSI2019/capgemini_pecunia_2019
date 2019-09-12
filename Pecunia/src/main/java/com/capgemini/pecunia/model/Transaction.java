@@ -2,6 +2,79 @@ package com.capgemini.pecunia.model;
 
 import java.util.*;
 public class Transaction {
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((transAccountId == null) ? 0 : transAccountId.hashCode());
+		result = prime * result + ((transAmount == null) ? 0 : transAmount.hashCode());
+		result = prime * result + ((transChequeId == null) ? 0 : transChequeId.hashCode());
+		result = prime * result + ((transClosingBalance == null) ? 0 : transClosingBalance.hashCode());
+		result = prime * result + ((transDate == null) ? 0 : transDate.hashCode());
+		result = prime * result + ((transFrom == null) ? 0 : transFrom.hashCode());
+		result = prime * result + ((transOption == null) ? 0 : transOption.hashCode());
+		result = prime * result + ((transTo == null) ? 0 : transTo.hashCode());
+		result = prime * result + ((transType == null) ? 0 : transType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Transaction other = (Transaction) obj;
+		if (transAccountId == null) {
+			if (other.transAccountId != null)
+				return false;
+		} else if (!transAccountId.equals(other.transAccountId))
+			return false;
+		if (transAmount == null) {
+			if (other.transAmount != null)
+				return false;
+		} else if (!transAmount.equals(other.transAmount))
+			return false;
+		if (transChequeId == null) {
+			if (other.transChequeId != null)
+				return false;
+		} else if (!transChequeId.equals(other.transChequeId))
+			return false;
+		if (transClosingBalance == null) {
+			if (other.transClosingBalance != null)
+				return false;
+		} else if (!transClosingBalance.equals(other.transClosingBalance))
+			return false;
+		if (transDate == null) {
+			if (other.transDate != null)
+				return false;
+		} else if (!transDate.equals(other.transDate))
+			return false;
+		if (transFrom == null) {
+			if (other.transFrom != null)
+				return false;
+		} else if (!transFrom.equals(other.transFrom))
+			return false;
+		if (transOption == null) {
+			if (other.transOption != null)
+				return false;
+		} else if (!transOption.equals(other.transOption))
+			return false;
+		if (transTo == null) {
+			if (other.transTo != null)
+				return false;
+		} else if (!transTo.equals(other.transTo))
+			return false;
+		if (transType == null) {
+			if (other.transType != null)
+				return false;
+		} else if (!transType.equals(other.transType))
+			return false;
+		return true;
+	}
+
 	String transAccountId;
 	String transType;
 	Double transAmount;

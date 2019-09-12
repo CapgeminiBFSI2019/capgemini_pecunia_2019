@@ -9,6 +9,69 @@ public class Account {
 	private String accountType;
 	private String accountStatus;
 	private double accountBalance;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(accountBalance);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((accountBranchId == null) ? 0 : accountBranchId.hashCode());
+		result = prime * result + ((accountHolderId == null) ? 0 : accountHolderId.hashCode());
+		result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+		temp = Double.doubleToLongBits(accountInterest);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((accountStatus == null) ? 0 : accountStatus.hashCode());
+		result = prime * result + ((accountType == null) ? 0 : accountType.hashCode());
+		result = prime * result + ((lastUpdated == null) ? 0 : lastUpdated.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Account other = (Account) obj;
+		if (Double.doubleToLongBits(accountBalance) != Double.doubleToLongBits(other.accountBalance))
+			return false;
+		if (accountBranchId == null) {
+			if (other.accountBranchId != null)
+				return false;
+		} else if (!accountBranchId.equals(other.accountBranchId))
+			return false;
+		if (accountHolderId == null) {
+			if (other.accountHolderId != null)
+				return false;
+		} else if (!accountHolderId.equals(other.accountHolderId))
+			return false;
+		if (accountId == null) {
+			if (other.accountId != null)
+				return false;
+		} else if (!accountId.equals(other.accountId))
+			return false;
+		if (Double.doubleToLongBits(accountInterest) != Double.doubleToLongBits(other.accountInterest))
+			return false;
+		if (accountStatus == null) {
+			if (other.accountStatus != null)
+				return false;
+		} else if (!accountStatus.equals(other.accountStatus))
+			return false;
+		if (accountType == null) {
+			if (other.accountType != null)
+				return false;
+		} else if (!accountType.equals(other.accountType))
+			return false;
+		if (lastUpdated == null) {
+			if (other.lastUpdated != null)
+				return false;
+		} else if (!lastUpdated.equals(other.lastUpdated))
+			return false;
+		return true;
+	}
+
 	private double accountInterest;
 	private Date lastUpdated;
 	//private int id = 001;

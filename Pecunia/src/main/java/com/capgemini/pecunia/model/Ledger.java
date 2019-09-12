@@ -4,6 +4,56 @@ import java.util.Date;
 
 public class Ledger 
 {
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ledgerCreditAmount == null) ? 0 : ledgerCreditAmount.hashCode());
+		result = prime * result + ((ledgerDate == null) ? 0 : ledgerDate.hashCode());
+		result = prime * result + ((ledgerDebitAmount == null) ? 0 : ledgerDebitAmount.hashCode());
+		result = prime * result + ((ledgerId == null) ? 0 : ledgerId.hashCode());
+		result = prime * result + ledgerNumOfLoans;
+		result = prime * result + ((ledgerTotalLoanAmt == null) ? 0 : ledgerTotalLoanAmt.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ledger other = (Ledger) obj;
+		if (ledgerCreditAmount == null) {
+			if (other.ledgerCreditAmount != null)
+				return false;
+		} else if (!ledgerCreditAmount.equals(other.ledgerCreditAmount))
+			return false;
+		if (ledgerDate == null) {
+			if (other.ledgerDate != null)
+				return false;
+		} else if (!ledgerDate.equals(other.ledgerDate))
+			return false;
+		if (ledgerDebitAmount == null) {
+			if (other.ledgerDebitAmount != null)
+				return false;
+		} else if (!ledgerDebitAmount.equals(other.ledgerDebitAmount))
+			return false;
+		if (ledgerId == null) {
+			if (other.ledgerId != null)
+				return false;
+		} else if (!ledgerId.equals(other.ledgerId))
+			return false;
+		if (ledgerNumOfLoans != other.ledgerNumOfLoans)
+			return false;
+		if (ledgerTotalLoanAmt == null) {
+			if (other.ledgerTotalLoanAmt != null)
+				return false;
+		} else if (!ledgerTotalLoanAmt.equals(other.ledgerTotalLoanAmt))
+			return false;
+		return true;
+	}
 	private String ledgerId;
 	private Date ledgerDate;
 	private Double ledgerDebitAmount;
