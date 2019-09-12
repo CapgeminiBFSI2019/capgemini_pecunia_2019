@@ -2,6 +2,67 @@ package com.capgemini.pecunia.model;
 
 public class Address {
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((addressCity == null) ? 0 : addressCity.hashCode());
+		result = prime * result + ((addressCountry == null) ? 0 : addressCountry.hashCode());
+		result = prime * result + ((addressId == null) ? 0 : addressId.hashCode());
+		result = prime * result + ((addressLine1 == null) ? 0 : addressLine1.hashCode());
+		result = prime * result + ((addressLine2 == null) ? 0 : addressLine2.hashCode());
+		result = prime * result + ((addressState == null) ? 0 : addressState.hashCode());
+		result = prime * result + ((addressZipcode == null) ? 0 : addressZipcode.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Address other = (Address) obj;
+		if (addressCity == null) {
+			if (other.addressCity != null)
+				return false;
+		} else if (!addressCity.equals(other.addressCity))
+			return false;
+		if (addressCountry == null) {
+			if (other.addressCountry != null)
+				return false;
+		} else if (!addressCountry.equals(other.addressCountry))
+			return false;
+		if (addressId == null) {
+			if (other.addressId != null)
+				return false;
+		} else if (!addressId.equals(other.addressId))
+			return false;
+		if (addressLine1 == null) {
+			if (other.addressLine1 != null)
+				return false;
+		} else if (!addressLine1.equals(other.addressLine1))
+			return false;
+		if (addressLine2 == null) {
+			if (other.addressLine2 != null)
+				return false;
+		} else if (!addressLine2.equals(other.addressLine2))
+			return false;
+		if (addressState == null) {
+			if (other.addressState != null)
+				return false;
+		} else if (!addressState.equals(other.addressState))
+			return false;
+		if (addressZipcode == null) {
+			if (other.addressZipcode != null)
+				return false;
+		} else if (!addressZipcode.equals(other.addressZipcode))
+			return false;
+		return true;
+	}
+
 	private String addressId;
 	private String addressLine1;
 	private String addressLine2;

@@ -1,6 +1,65 @@
 package com.capgemini.pecunia.model;
 
 public class Employee {
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((employeeBranchId == null) ? 0 : employeeBranchId.hashCode());
+		result = prime * result + ((employeeDesignation == null) ? 0 : employeeDesignation.hashCode());
+		result = prime * result + ((employeeId == null) ? 0 : employeeId.hashCode());
+		result = prime * result + ((employeeName == null) ? 0 : employeeName.hashCode());
+		result = prime * result + ((employeePassword == null) ? 0 : employeePassword.hashCode());
+		result = prime * result + ((employeeSalt == null) ? 0 : employeeSalt.hashCode());
+		result = prime * result + ((transId == null) ? 0 : transId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (employeeBranchId == null) {
+			if (other.employeeBranchId != null)
+				return false;
+		} else if (!employeeBranchId.equals(other.employeeBranchId))
+			return false;
+		if (employeeDesignation == null) {
+			if (other.employeeDesignation != null)
+				return false;
+		} else if (!employeeDesignation.equals(other.employeeDesignation))
+			return false;
+		if (employeeId == null) {
+			if (other.employeeId != null)
+				return false;
+		} else if (!employeeId.equals(other.employeeId))
+			return false;
+		if (employeeName == null) {
+			if (other.employeeName != null)
+				return false;
+		} else if (!employeeName.equals(other.employeeName))
+			return false;
+		if (employeePassword == null) {
+			if (other.employeePassword != null)
+				return false;
+		} else if (!employeePassword.equals(other.employeePassword))
+			return false;
+		if (employeeSalt == null) {
+			if (other.employeeSalt != null)
+				return false;
+		} else if (!employeeSalt.equals(other.employeeSalt))
+			return false;
+		if (transId == null) {
+			if (other.transId != null)
+				return false;
+		} else if (!transId.equals(other.transId))
+			return false;
+		return true;
+	}
 	private String employeeId;
 	private String employeeName;
 	private String employeeBranchId;
