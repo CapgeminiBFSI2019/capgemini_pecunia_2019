@@ -2,74 +2,59 @@ package com.capgemini.pecunia.model;
 
 import java.util.Date;
 
-public class Ledger 
+	public class Ledger
 {
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ledgerCreditAmount == null) ? 0 : ledgerCreditAmount.hashCode());
-		result = prime * result + ((ledgerDate == null) ? 0 : ledgerDate.hashCode());
-		result = prime * result + ((ledgerDebitAmount == null) ? 0 : ledgerDebitAmount.hashCode());
-		result = prime * result + ((ledgerId == null) ? 0 : ledgerId.hashCode());
-		result = prime * result + ledgerNumOfLoans;
-		result = prime * result + ((ledgerTotalLoanAmt == null) ? 0 : ledgerTotalLoanAmt.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			long temp;
+			temp = Double.doubleToLongBits(ledgerCreditAmount);
+			result = prime * result + (int) (temp ^ (temp >>> 32));
+			result = prime * result + ((ledgerDate == null) ? 0 : ledgerDate.hashCode());
+			temp = Double.doubleToLongBits(ledgerDebitAmount);
+			result = prime * result + (int) (temp ^ (temp >>> 32));
+			result = prime * result + ((ledgerId == null) ? 0 : ledgerId.hashCode());
+			result = prime * result + ledgerNumOfLoans;
+			temp = Double.doubleToLongBits(ledgerTotalLoanAmt);
+			result = prime * result + (int) (temp ^ (temp >>> 32));
+			return result;
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Ledger other = (Ledger) obj;
+			if (Double.doubleToLongBits(ledgerCreditAmount) != Double.doubleToLongBits(other.ledgerCreditAmount))
+				return false;
+			if (ledgerDate == null) {
+				if (other.ledgerDate != null)
+					return false;
+			} else if (!ledgerDate.equals(other.ledgerDate))
+				return false;
+			if (Double.doubleToLongBits(ledgerDebitAmount) != Double.doubleToLongBits(other.ledgerDebitAmount))
+				return false;
+			if (ledgerId == null) {
+				if (other.ledgerId != null)
+					return false;
+			} else if (!ledgerId.equals(other.ledgerId))
+				return false;
+			if (ledgerNumOfLoans != other.ledgerNumOfLoans)
+				return false;
+			if (Double.doubleToLongBits(ledgerTotalLoanAmt) != Double.doubleToLongBits(other.ledgerTotalLoanAmt))
+				return false;
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Ledger other = (Ledger) obj;
-		if (ledgerCreditAmount == null) {
-			if (other.ledgerCreditAmount != null)
-				return false;
-		} else if (!ledgerCreditAmount.equals(other.ledgerCreditAmount))
-			return false;
-		if (ledgerDate == null) {
-			if (other.ledgerDate != null)
-				return false;
-		} else if (!ledgerDate.equals(other.ledgerDate))
-			return false;
-		if (ledgerDebitAmount == null) {
-			if (other.ledgerDebitAmount != null)
-				return false;
-		} else if (!ledgerDebitAmount.equals(other.ledgerDebitAmount))
-			return false;
-		if (ledgerId == null) {
-			if (other.ledgerId != null)
-				return false;
-		} else if (!ledgerId.equals(other.ledgerId))
-			return false;
-		if (ledgerNumOfLoans != other.ledgerNumOfLoans)
-			return false;
-		if (ledgerTotalLoanAmt == null) {
-			if (other.ledgerTotalLoanAmt != null)
-				return false;
-		} else if (!ledgerTotalLoanAmt.equals(other.ledgerTotalLoanAmt))
-			return false;
-		return true;
-	}
+		}
 	private String ledgerId;
 	private Date ledgerDate;
-	private Double ledgerDebitAmount;
-	private Double ledgerCreditAmount;
+	private double ledgerDebitAmount;
+	private double ledgerCreditAmount;
 	private int ledgerNumOfLoans;
-	private Double ledgerTotalLoanAmt;
-	public Ledger(String ledgerId, Date ledgerDate, Double ledgerDebitAmount, Double ledgerCreditAmount,
-			int ledgerNumOfLoans, Double ledgerTotalLoanAmt) {
-		super();
-		this.ledgerId = ledgerId;
-		this.ledgerDate = ledgerDate;
-		this.ledgerDebitAmount = ledgerDebitAmount;
-		this.ledgerCreditAmount = ledgerCreditAmount;
-		this.ledgerNumOfLoans = ledgerNumOfLoans;
-		this.ledgerTotalLoanAmt = ledgerTotalLoanAmt;
-	}
+	private double ledgerTotalLoanAmt;
 	public String getLedgerId() {
 		return ledgerId;
 	}
@@ -82,16 +67,16 @@ public class Ledger
 	public void setLedgerDate(Date ledgerDate) {
 		this.ledgerDate = ledgerDate;
 	}
-	public Double getLedgerDebitAmount() {
+	public double getLedgerDebitAmount() {
 		return ledgerDebitAmount;
 	}
-	public void setLedgerDebitAmount(Double ledgerDebitAmount) {
+	public void setLedgerDebitAmount(double ledgerDebitAmount) {
 		this.ledgerDebitAmount = ledgerDebitAmount;
 	}
-	public Double getLedgerCreditAmount() {
+	public double getLedgerCreditAmount() {
 		return ledgerCreditAmount;
 	}
-	public void setLedgerCreditAmount(Double ledgerCreditAmount) {
+	public void setLedgerCreditAmount(double ledgerCreditAmount) {
 		this.ledgerCreditAmount = ledgerCreditAmount;
 	}
 	public int getLedgerNumOfLoans() {
@@ -100,11 +85,12 @@ public class Ledger
 	public void setLedgerNumOfLoans(int ledgerNumOfLoans) {
 		this.ledgerNumOfLoans = ledgerNumOfLoans;
 	}
-	public Double getLedgerTotalLoanAmt() {
+	public double getLedgerTotalLoanAmt() {
 		return ledgerTotalLoanAmt;
 	}
-	public void setLedgerTotalLoanAmt(Double ledgerTotalLoanAmt) {
+	public void setLedgerTotalLoanAmt(double ledgerTotalLoanAmt) {
 		this.ledgerTotalLoanAmt = ledgerTotalLoanAmt;
 	}
+	
 	
 }
