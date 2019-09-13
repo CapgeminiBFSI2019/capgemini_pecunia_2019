@@ -8,8 +8,7 @@ import com.capgemini.pecunia.model.Transaction;
 
 public class AccountServiceImpl implements AccountService {
 
-
-	public ArrayList<Transaction> updatePassbookOne(String accountId) throws Exception 
+	public ArrayList<Transaction> updatePassbook1(String accountId) throws Exception 
 	{
 	
 		 File file = new File("Transaction.csv");
