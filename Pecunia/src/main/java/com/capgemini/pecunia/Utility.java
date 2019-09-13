@@ -6,7 +6,7 @@ public class Utility {
 		// chose a Character random from this String
 		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
 
-		// create StringBuffer size of AlphaNumericString
+		// create StringBuffer size of AlphaNumericStringsss
 		StringBuilder sb = new StringBuilder(20);
 
 		for (int i = 0; i < 20; i++) {

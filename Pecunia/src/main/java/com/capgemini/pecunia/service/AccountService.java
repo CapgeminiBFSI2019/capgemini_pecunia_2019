@@ -20,6 +20,6 @@ public interface AccountService {
 	public boolean validateTransAmt(Double transAmt);
 	public boolean validateChequeNum(Integer ChequeNum);
 	
-	public ArrayList<Transaction> updatePassbook(String accountId) throws Exception;
+	public ArrayList<Transaction> updatePassbookOne(String accountId) throws Exception;
 
 }
