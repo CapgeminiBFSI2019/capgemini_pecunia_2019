@@ -6,7 +6,7 @@ import java.util.*;
 
 import com.capgemini.pecunia.model.Transaction;
 
-public class AccountServiceImpl {
+public class AccountServiceImpl implements AccountService{
 
 	public ArrayList<Transaction> updatePassbook(String accountId) throws Exception 
 	{
@@ -30,5 +30,26 @@ public class AccountServiceImpl {
 	        }
 	        br.close();
 	        return transactionList;
+	}
+
+	@Override
+	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
+			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
+			String addressState, String addressCountry, String addressZipcode, String accountType, String accountStatus,
+			double accountBalance, double accountInterest, Date lastUpdated) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean editAccount(String accountId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteAccount(String accountId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

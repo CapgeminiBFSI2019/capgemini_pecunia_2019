@@ -1,6 +1,9 @@
 package com.capgemini.pecunia.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import com.capgemini.pecunia.model.Transaction;
 
 public interface AccountService {
 	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
@@ -10,5 +13,5 @@ public interface AccountService {
 	
 	public boolean editAccount(String accountId);
 	public boolean deleteAccount(String accountId);
-	public boolean updatePassbook(String accountId);
+	public ArrayList<Transaction> updatePassbook(String accountId) throws Exception;
 }
