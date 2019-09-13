@@ -2,6 +2,8 @@ package com.capgemini.pecunia.service;
 
 import java.util.Date;
 
+import com.capgemini.pecunia.dao.TransactionDAOImpl;
+
 public class TransactionServiceImpl implements TransactionService{
 
 	@Override
@@ -14,7 +16,9 @@ public class TransactionServiceImpl implements TransactionService{
 	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
 			String chequeAccount) {
 		// TODO Auto-generated method stub
-		return 0;
+		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
+		int transactionId = transactionDAOImpl.creditUsingCheque(accountId, amount, transactionDate, checkNum, chequeAccount);
+		return transactionId;
 	}
 
 	@Override

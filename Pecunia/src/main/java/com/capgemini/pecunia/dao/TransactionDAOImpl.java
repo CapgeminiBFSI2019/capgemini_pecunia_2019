@@ -1,5 +1,4 @@
 package com.capgemini.pecunia.dao;
-
 import java.io.File;
 import java.util.Date;
 
@@ -47,6 +46,7 @@ public class TransactionDAOImpl implements TransactionDAO{
 	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
 			String chequeAccount) {
 		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
