@@ -3,19 +3,30 @@ import java.sql.Date;
 //import java.util.*;
 
 public class Customer {
+	
+	private String customerId;
+	private String customerName;
+	private String customerAddressId;
+	private String customerAadhar;
+	private String customerPan;
+	private String customerContact;
+	private String customerGender;
+	private Date customerDob;
+
 @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((customerAadhar == null) ? 0 : customerAadhar.hashCode());
-		result = prime * result + ((customerContact == null) ? 0 : customerContact.hashCode());
-		result = prime * result + ((customerDob == null) ? 0 : customerDob.hashCode());
-		result = prime * result + ((customerGender == null) ? 0 : customerGender.hashCode());
-		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
-		result = prime * result + ((customerName == null) ? 0 : customerName.hashCode());
-		result = prime * result + ((customerPan == null) ? 0 : customerPan.hashCode());
-		return result;
-	}
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((customerAadhar == null) ? 0 : customerAadhar.hashCode());
+	result = prime * result + ((customerAddressId == null) ? 0 : customerAddressId.hashCode());
+	result = prime * result + ((customerContact == null) ? 0 : customerContact.hashCode());
+	result = prime * result + ((customerDob == null) ? 0 : customerDob.hashCode());
+	result = prime * result + ((customerGender == null) ? 0 : customerGender.hashCode());
+	result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
+	result = prime * result + ((customerName == null) ? 0 : customerName.hashCode());
+	result = prime * result + ((customerPan == null) ? 0 : customerPan.hashCode());
+	return result;
+}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -30,6 +41,11 @@ public class Customer {
 			if (other.customerAadhar != null)
 				return false;
 		} else if (!customerAadhar.equals(other.customerAadhar))
+			return false;
+		if (customerAddressId == null) {
+			if (other.customerAddressId != null)
+				return false;
+		} else if (!customerAddressId.equals(other.customerAddressId))
 			return false;
 		if (customerContact == null) {
 			if (other.customerContact != null)
@@ -65,15 +81,6 @@ public class Customer {
 	}
 
 
-private String customerId;
-private String customerName;
-private String customerAadhar;
-private String customerPan;
-private String customerContact;
-private String customerGender;
-private Date customerDob;
-
-
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
@@ -97,6 +104,28 @@ private Date customerDob;
 		return customerAadhar;
 	}
 	
+	public String getCustomerAddressId() {
+		return customerAddressId;
+	}
+
+	public void setCustomerAddressId(String customerAddressId) {
+		this.customerAddressId = customerAddressId;
+	}
+
+
+	public Customer(String customerId, String customerName, String customerAddressId, String customerAadhar,
+			String customerPan, String customerContact, String customerGender, Date customerDob) {
+		super();
+		this.customerId = customerId;
+		this.customerName = customerName;
+		this.customerAddressId = customerAddressId;
+		this.customerAadhar = customerAadhar;
+		this.customerPan = customerPan;
+		this.customerContact = customerContact;
+		this.customerGender = customerGender;
+		this.customerDob = customerDob;
+	}
+
 	public void setCustomerPan(String customerPan) {
 		this.customerPan = customerPan;
 	}
@@ -126,18 +155,4 @@ private Date customerDob;
 		return customerDob;
 	}
 
-
-	public Customer(String customerName, String customerAadhar, String customerPan, String customerContact,
-			String customerGender, Date customerDob) {
-		super();
-		this.customerName = customerName;
-		this.customerAadhar = customerAadhar;
-		this.customerPan = customerPan;
-		this.customerContact = customerContact;
-		this.customerGender = customerGender;
-		this.customerDob = customerDob;
-//		this.customerId = Integer.toString(this.id);
-//		this.id++;
-
-}
 }

@@ -9,6 +9,9 @@ public class Account {
 	private String accountType;
 	private String accountStatus;
 	private double accountBalance;
+	private double accountInterest;
+	private Date lastUpdated;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,11 +75,7 @@ public class Account {
 		return true;
 	}
 
-	private double accountInterest;
-	private Date lastUpdated;
-	//private int id = 001;
-	
-	
+		
 	public String getAccountId() {
 		return accountId;
 	}
