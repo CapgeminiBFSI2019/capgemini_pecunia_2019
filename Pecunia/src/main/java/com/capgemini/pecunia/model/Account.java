@@ -28,6 +28,7 @@ public class Account {
 		result = prime * result + ((accountType == null) ? 0 : accountType.hashCode());
 		result = prime * result + ((lastUpdated == null) ? 0 : lastUpdated.hashCode());
 		//hello
+		//helloavizek
 		return result;
 	}
 	@Override
