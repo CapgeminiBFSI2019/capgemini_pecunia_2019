@@ -11,7 +11,7 @@ public class Utility {
 
 		for (int i = 0; i < 20; i++) {
 
-			// generate a random number between
+			// generate a random number between asaas
 			// 0 to AlphaNumericString variable length
 			int index = (int) (AlphaNumericString.length() * Math.random());
 
