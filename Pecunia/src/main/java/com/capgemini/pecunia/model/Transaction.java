@@ -2,6 +2,10 @@ package com.capgemini.pecunia.model;
 
 import java.util.*;
 public class Transaction {
+	public Transaction(String string, Date date1, String string3, String string4, double amount, double closeBal) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

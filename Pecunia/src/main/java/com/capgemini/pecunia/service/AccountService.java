@@ -10,4 +10,5 @@ public interface AccountService {
 	
 	public boolean editAccount(String accountId);
 	public boolean deleteAccount(String accountId);
+	public boolean updatePassbook(String accountId);
 }
