@@ -13,5 +13,13 @@ public interface AccountService {
 	
 	public boolean editAccount(String accountId);
 	public boolean deleteAccount(String accountId);
+
+	public boolean updatePassbook(String accountId);
+	public boolean validateAccountId(String accountId);
+	public boolean validateAccountName(String accountName);
+	public boolean validateTransAmt(Double transAmt);
+	public boolean validateChequeNum(Integer ChequeNum);
+	
 	public ArrayList<Transaction> updatePassbook(String accountId) throws Exception;
+
 }
