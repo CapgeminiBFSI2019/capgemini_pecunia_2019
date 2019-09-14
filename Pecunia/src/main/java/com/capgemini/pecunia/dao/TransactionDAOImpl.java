@@ -97,18 +97,18 @@ public class TransactionDAOImpl implements TransactionDAO {
 		                
 		                double oldBalance,newbalance;
 		                oldBalance = Double.parseDouble(accountArray[5]);
-	                    if(amount > oldBalance)
-	                    {
-	                        System.out.println("Debit amount is less than account balance");
-	                       
-	                    }
-	                    else
-	                    {
-	                        newbalance = oldBalance - amount;
+		                
+		                if(isSufficientBalance(accountId, amount))
+		                {
+		                	newbalance = oldBalance - amount;
 	                        accountArray[5] = Double.toString(newbalance);
 	                        String transId = Utility.getAlphaNumericString();
 	                      // return transId;
-	                    }
+		                }
+		                else
+		                {
+		                	System.out.println("Debit amount is more than account balance");
+		                }
 	                    
 	                }
 				 else
@@ -133,8 +133,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	@Override
-	public int debitUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
-			String chequeAccount) {
+	public int debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
+			String chequeAccount,String chequeHolderName,String chequeIFSC,String chequeStatus) {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/java/com/capgemini/pecunia/dao/DbFiles/Account.csv"));
 			String accountRow = getAccountRow(chequeAccount);
@@ -171,14 +171,13 @@ public class TransactionDAOImpl implements TransactionDAO {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader("Account.csv"));
 			String input;
-			int count = 1;
 			String accountRow = null;
 			while ((input = bufferedReader.readLine()) != null) {
-				if (count == Integer.parseInt(accountNo)) {
-					accountRow = input;
-					break;
+				String arr[] = input.split(",");
+				if(arr[0].contentEquals(accountNo))
+				{
+					return input;
 				}
-				count++;
 			}
 			return accountRow;
 		} catch (Exception e) {
