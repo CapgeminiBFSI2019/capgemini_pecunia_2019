@@ -9,7 +9,7 @@ public class AccountSummaryImpl implements AccountService {
 
 
 
-	public ArrayList<Transaction> getAccountSummary(String accountId, Date startDate, Date endDate)throws Exception
+	public ArrayList<Transaction> getAccountSummarya(String accountId, Date startDate, Date endDate)throws Exception
 	{
 		while(startDate.compareTo(endDate)<0)
 		{
