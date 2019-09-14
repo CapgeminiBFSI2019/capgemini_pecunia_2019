@@ -22,11 +22,12 @@ public class TransactionServiceImpl implements TransactionService{
 	}
 
 	@Override
-	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
-			String chequeAccount) {
+	public int creditUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
+			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus) {
 		// TODO Auto-generated method stub
 		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
-		int transactionId = transactionDAOImpl.creditUsingCheque(accountId, amount, transactionDate, checkNum, chequeAccount);
+		int transactionId = transactionDAOImpl.creditUsingCheque(accountId,amount,chequeIssueDate,checkNum,
+				chequeAccount,chequeBankName,chequeHolderName,chequeIFSC,chequeStatus);
 		return transactionId;
 	}
 
@@ -41,10 +42,10 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Override
 	public int debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
-			String chequeAccount,String chequeHolderName,String chequeIFSC,String chequeStatus) {
+			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus) {
 		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
-		int transactionId = transactionDAOImpl. debitUsingCheque(accountId,amount,chequeIssueDate,checkNum,
-				chequeAccount,chequeHolderName,chequeIFSC,chequeStatus);
+		int transactionId = transactionDAOImpl.debitUsingCheque(accountId,amount,chequeIssueDate,checkNum,
+				chequeAccount,chequeBankName,chequeHolderName,chequeIFSC,chequeStatus);
 		//return transactionId;
 		//changed again
 		return 0;

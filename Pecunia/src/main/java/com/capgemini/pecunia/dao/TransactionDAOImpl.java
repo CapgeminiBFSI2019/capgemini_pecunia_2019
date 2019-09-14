@@ -125,16 +125,16 @@ public class TransactionDAOImpl implements TransactionDAO {
 		}
 
 	@Override
-	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
-			String chequeAccount) {
+	public int creditUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
+			String chequeAccount, String chequeBankName,String chequeHolderName, String chequeIFSC, String chequeStatus) {
 		// TODO Auto-generated method stub
-
+		
 		return 0;
 	}
 
 	@Override
 	public int debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
-			String chequeAccount,String chequeHolderName,String chequeIFSC,String chequeStatus) {
+			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus) {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/java/com/capgemini/pecunia/dao/DbFiles/Account.csv"));
 			String accountRow = getAccountRow(chequeAccount);
@@ -191,5 +191,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		boolean result = obj.isSufficientBalance("20190001000001", 6000);
 		System.out.println(result);
 	}
+
+	
 
 }
