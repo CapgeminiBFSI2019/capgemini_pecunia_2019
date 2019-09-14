@@ -1,5 +1,9 @@
 package com.capgemini.pecunia.dao;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Date;
 
 import com.capgemini.pecunia.model.Transaction;
@@ -7,21 +11,47 @@ import com.capgemini.pecunia.model.Transaction;
 public class TransactionDAOImpl implements TransactionDAO{
 
 	@Override
-	public int getTransactionId(File file) {
+	public String getTransactionId(File file) {
 		// TODO Auto-generated method stub
-		return 0;
+		return "a";
 	}
 
 	@Override
-	public int getCheckId(File file) {
+	public String getCheckId(File file) {
 		// TODO Auto-generated method stub
-		return 0;
+		return "a";
 	}
 
 	@Override
-	public boolean isSufficientBalance(String accountId, double transactionAmount) {
+	public boolean isSufficientBalance(String accountId, double transactionAmount)  {
 		// TODO Auto-generated method stub
-		return false;
+		try
+		{
+//			System.out.println(System.getProperty("user.dir"));
+			File file = new File("src/main/java/com/capgemini/pecunia/dao/DbFiles/Account.csv");
+			// \src\main\java\com\capgemini\pecunia\dao\DbFiles
+			BufferedReader br = new BufferedReader(new FileReader(file));
+	        String line;
+	        while((line = br.readLine())!= null)
+	        {
+	        	String arr[] = line.split(",");
+	        	if(arr[0].equals(accountId))
+	        	{
+	        		double balance = Double.parseDouble(arr[5]);
+	        		if(balance > transactionAmount)
+	        			return true;
+	        		else
+	        			return false;
+	        	}
+	        }
+	        return false;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+			return false;
+		}
+		
 	}
 
 	@Override
@@ -55,6 +85,12 @@ public class TransactionDAOImpl implements TransactionDAO{
 			String chequeAccount) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public static void main(String[] args) {
+		TransactionDAOImpl obj = new TransactionDAOImpl();
+		boolean result = obj.isSufficientBalance("20190001000001", 6000);
+		System.out.println(result);
 	}
 
 	
