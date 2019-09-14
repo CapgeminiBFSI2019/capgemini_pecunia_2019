@@ -8,5 +8,5 @@ public interface TransactionService {
 			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,Date chequeIssueDate,String chequeStatus);
 	public int debitUsingSlip(String accountId,Double amount,Date transactionDate);
 	public int debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
-			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus);
+			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus,Date transactionDate);
 }
