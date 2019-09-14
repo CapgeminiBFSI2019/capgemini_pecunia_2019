@@ -35,10 +35,35 @@ public class TransactionDAOImpl implements TransactionDAO{
 	}
 
 	@Override
-	public int creditUsingSlip(String accountNum, double amount, Date transactionDate) {
-		// TODO Auto-generated method stub
+	public int creditUsingSlip(String accountId, Double amount, Date transactionDate) {
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("Account.csv"));
+			 String accountRow = getAccountRow(accountId);
+			 
+			 if(accountRow != null)
+	            {
+	                String accountArray[] = accountRow.split(",");
+	                
+	                double oldBalance,newbalance;
+	                oldBalance = Double.parseDouble(accountArray[5]);   
+                    newbalance = oldBalance - amount;
+                    accountArray[5] = Double.toString(newbalance);
+                    String transId = Utility.getAlphaNumericString();
+                      // return transId;
+                }
+			 else
+	            {
+	                System.out.println("Account does not exist");
+	                
+	            }
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
+	
 
 	@Override
 	public int debitUsingSlip(String accountNum, double amount, Date transactionDate) {
@@ -95,7 +120,6 @@ public class TransactionDAOImpl implements TransactionDAO{
 	}
 	
 	
-
 	
 	@Override
 	public String getAccountRow(String accountNo)
@@ -123,5 +147,6 @@ public class TransactionDAOImpl implements TransactionDAO{
             return null;
         }
     }
+
 	
 }

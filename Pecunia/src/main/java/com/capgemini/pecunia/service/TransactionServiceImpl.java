@@ -13,8 +13,12 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public int creditUsingSlip(String accountId, Double amount, Date transactionDate) {
 		// TODO Auto-generated method stub
-		//hguvchgbvuhybgujhbgh
+		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
+		int transactionId = transactionDAOImpl.creditUsingSlip(accountId, amount, transactionDate);
+		//return transactionId;
+		//changed again
 		return 0;
+		
 	}
 
 	@Override
