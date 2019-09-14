@@ -8,21 +8,13 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.capgemini.pecunia.Utility;
+import com.capgemini.pecunia.Values;
+import com.capgemini.pecunia.model.Cheque;
 import com.capgemini.pecunia.model.Transaction;
 
 public class TransactionDAOImpl implements TransactionDAO {
 
-	@Override
-	public String getTransactionId(File file) {
-		// TODO Auto-generated method stub
-		return "a";
-	}
-
-	@Override
-	public String getCheckId(File file) {
-		// TODO Auto-generated method stub
-		return "a";
-	}
+	
 
 	@Override
 	public boolean isSufficientBalance(String accountId, double transactionAmount) {
@@ -58,7 +50,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public int creditUsingSlip(String accountId, Double amount, Date transactionDate) {
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/java/com/capgemini/pecunia/dao/DbFiles/Account.csv"));
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
 			String accountRow = getAccountRow(accountId);
 
 			if (accountRow != null) {
@@ -87,7 +79,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		// TODO Auto-generated method stub
 		
 			try {
-				BufferedReader bufferedReader = new BufferedReader(new FileReader("Account.csv"));
+				BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
 //				 String acountId;
 				String accountRow = getAccountRow(accountId);
 				 
@@ -125,10 +117,58 @@ public class TransactionDAOImpl implements TransactionDAO {
 		}
 
 	@Override
-	public int creditUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
-			String chequeAccount, String chequeBankName,String chequeHolderName, String chequeIFSC, String chequeStatus) {
+	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String chequeNum,
+			String chequeAccount, String chequeBankName,String chequeHolderName, String chequeIFSC, Date chequeIssueDate,String chequeStatus) {
 		// TODO Auto-generated method stub
-		
+		double oldBalPayee,newBalPayee,oldBalBeneficiary,newBalBenificiary;
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
+			String accountRow = getAccountRow(accountId);
+
+			if (accountRow != null) {
+				String accountArray[] = accountRow.split(",");
+				oldBalBeneficiary = Double.parseDouble(accountArray[5]);
+				if(chequeBankName.equals(Values.BANK_NAME))
+				{
+					if(isSufficientBalance(chequeAccount, amount))
+					{
+						String payeeAccount = getAccountRow(chequeAccount);
+						String payeeAccArray[] = payeeAccount.split(",");
+						oldBalPayee = Double.parseDouble(payeeAccArray[5]);
+						
+						newBalBenificiary = oldBalBeneficiary + amount;
+						newBalPayee = oldBalPayee - amount;
+						
+						String chequeId = Utility.getAlphaNumericString();
+						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount, chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_2);
+						String transId1 = Utility.getAlphaNumericString();
+						Transaction transaction1 = new Transaction(transId1,accountId,Values.TRANSACTION_CREDIT,amount,Values.TRANSACTION_OPTION_2,transactionDate,chequeId,payeeAccount,Values.NA,newBalBenificiary);
+						String transId2 = Utility.getAlphaNumericString();
+						Transaction transaction2 = new Transaction(transId2,payeeAccount,Values.TRANSACTION_DEBIT,amount,Values.TRANSACTION_OPTION_2,transactionDate,chequeId,Values.NA,payeeAccount,newBalPayee);
+					}
+					else
+					{
+						String chequeId = Utility.getAlphaNumericString();
+						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount, chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_3);
+						System.out.println("Insufficient balance");
+					}
+				}
+				else
+				{
+					String chequeId = Utility.getAlphaNumericString();
+					Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount, chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_1);
+					
+				}
+
+			} else {
+				System.out.println("Account does not exist");
+
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
@@ -136,8 +176,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public int debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
 			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus) {
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/java/com/capgemini/pecunia/dao/DbFiles/Account.csv"));
-			String accountRow = getAccountRow(chequeAccount);
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
+			String accountRow = getAccountRow(accountId);
 
 			if (accountRow != null) {
 				String accountArray[] = accountRow.split(",");
@@ -169,7 +209,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public String getAccountRow(String accountNo) {
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader("Account.csv"));
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
 			String input;
 			String accountRow = null;
 			while ((input = bufferedReader.readLine()) != null) {
@@ -186,11 +226,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		}
 	}
 
-	public static void main(String[] args) {
-		TransactionDAOImpl obj = new TransactionDAOImpl();
-		boolean result = obj.isSufficientBalance("20190001000001", 6000);
-		System.out.println(result);
-	}
+	
 
 	
 

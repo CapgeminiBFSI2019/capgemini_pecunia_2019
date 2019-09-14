@@ -31,8 +31,8 @@ public class AccountServiceImpl implements AccountService {
 	        		Date date1=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(arr[1]);
 	            double amount = Integer.parseInt(arr[4]);
 	            double closeBal = Integer.parseInt(arr[5]);
-	    		Transaction t=new Transaction(arr[0],date1,arr[2],arr[3],amount,closeBal);
-	    		transactionList.add(t);
+//	    		Transaction t=new Transaction(arr[0],date1,arr[2],arr[3],amount,closeBal);
+//	    		transactionList.add(t);
 	        	}
 	        }
 	        br.close();
