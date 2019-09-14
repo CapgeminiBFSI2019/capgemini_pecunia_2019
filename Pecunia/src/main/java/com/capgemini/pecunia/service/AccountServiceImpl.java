@@ -4,6 +4,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.capgemini.pecunia.Utility;
 import com.capgemini.pecunia.model.Transaction;
 
 public class AccountServiceImpl implements AccountService {
@@ -20,9 +21,11 @@ public class AccountServiceImpl implements AccountService {
 	        while((line = br.readLine())!= null)
 	        {
 	        	String arr[] = line.split(",");
-	        	if(arr[0].equals(accountId))
+	            String updatedDate1= updateCurrentDate(accountId);
+	        	boolean ans = Utility.getUpdatedTrans(arr[1], updatedDate1);
+	        	if(arr[0].equals(accountId) && ans==true )
 	        	{
-	        		Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(arr[1]);
+	        		Date date1=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(arr[1]);
 	            double amount = Integer.parseInt(arr[4]);
 	            double closeBal = Integer.parseInt(arr[5]);
 	    		Transaction t=new Transaction(arr[0],date1,arr[2],arr[3],amount,closeBal);
@@ -32,7 +35,24 @@ public class AccountServiceImpl implements AccountService {
 	        br.close();
 	        return transactionList;
 	}
-
+	
+	public String updateCurrentDate(String accountId) throws Exception
+	{
+		    File file = new File("Account.csv");
+	        BufferedReader br1 = new BufferedReader(new FileReader(file));
+	        String line1;
+	        while((line1 = br1.readLine())!= null)
+	        {
+	        	String arr1[] = line1.split(",");
+	        	if(arr1[0].equals(accountId))
+	        	{
+	        		return arr1[7];
+	        	}
+	        }	
+	        br1.close();
+	        return "Account Id not found";
+	}
+   
 	@Override
 	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,

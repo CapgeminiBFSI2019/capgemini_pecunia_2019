@@ -1,5 +1,8 @@
 package com.capgemini.pecunia;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;  
+
 public class Utility {
 	static String getAlphaNumericString() {
 
@@ -22,7 +25,22 @@ public class Utility {
 		return sb.toString();
 	}
 	
+	public static boolean getUpdatedTrans(String transDate, String updatedDate) {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	    Date currentDate = new Date();  
+	    String strDate = formatter.format(currentDate);   
+		
+		if(transDate.compareToIgnoreCase(updatedDate)>0 && transDate.compareToIgnoreCase(strDate)<0)
+		{
+			return true;
+		}
+		else 
+			return false;
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(getAlphaNumericString());
+		
 	}
 }
