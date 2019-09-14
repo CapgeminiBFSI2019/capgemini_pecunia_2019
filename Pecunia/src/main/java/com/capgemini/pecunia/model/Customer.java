@@ -130,6 +130,18 @@ public int hashCode() {
 		this.customerPan = customerPan;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public String getCustomerPan() {
 		return customerPan;
 	}
