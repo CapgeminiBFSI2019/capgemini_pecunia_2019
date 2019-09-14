@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import com.capgemini.pecunia.Utility;
 import com.capgemini.pecunia.dao.LoanRequestDAO;
@@ -16,7 +15,7 @@ import com.capgemini.pecunia.model.LoanRequest;
 public class LoanRequestDAOImpl implements LoanRequestDAO {
 
 	
-	public static double calculateEMI(double amount, int tenure, double loanRoi) {
+	public double calculateEMI(double amount, int tenure, double loanRoi) {
 		double p = amount;
 		double r = loanRoi / 1200;
 		int t = tenure - 1;
