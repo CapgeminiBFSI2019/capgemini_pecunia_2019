@@ -1,7 +1,7 @@
 package com.capgemini.pecunia;
 
 public class Utility {
-	static String getAlphaNumericString() {
+	public static String getAlphaNumericString() {
 
 		// chose a Character random from this String
 		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";

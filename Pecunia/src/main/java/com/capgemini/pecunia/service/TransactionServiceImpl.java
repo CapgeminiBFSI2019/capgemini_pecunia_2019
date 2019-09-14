@@ -1,7 +1,11 @@
 package com.capgemini.pecunia.service;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Date;
 
+import com.capgemini.pecunia.Utility;
 import com.capgemini.pecunia.dao.TransactionDAOImpl;
 
 public class TransactionServiceImpl implements TransactionService{
@@ -9,8 +13,12 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public int creditUsingSlip(String accountId, Double amount, Date transactionDate) {
 		// TODO Auto-generated method stub
-		//hguvchgbvuhybgujhbgh
+		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
+		int transactionId = transactionDAOImpl.creditUsingSlip(accountId, amount, transactionDate);
+		//return transactionId;
+		//changed again
 		return 0;
+		
 	}
 
 	@Override
@@ -31,8 +39,12 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public int debitUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
 			String chequeAccount) {
-		// TODO Auto-generated method stub
+		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
+		int transactionId = transactionDAOImpl.debitUsingCheque(accountId, amount, transactionDate, checkNum, chequeAccount);
+		//return transactionId;
+		//changed again
 		return 0;
-	}
-
+	
+	
+}
 }
