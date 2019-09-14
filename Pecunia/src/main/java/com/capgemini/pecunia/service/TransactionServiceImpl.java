@@ -22,12 +22,12 @@ public class TransactionServiceImpl implements TransactionService{
 	}
 
 	@Override
-	public int creditUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
-			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus) {
+	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
+			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,Date chequeIssueDate,String chequeStatus) {
 		// TODO Auto-generated method stub
 		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
-		int transactionId = transactionDAOImpl.creditUsingCheque(accountId,amount,chequeIssueDate,checkNum,
-				chequeAccount,chequeBankName,chequeHolderName,chequeIFSC,chequeStatus);
+		int transactionId = transactionDAOImpl.creditUsingCheque(accountId,amount,transactionDate,checkNum,
+				chequeAccount,chequeBankName,chequeHolderName,chequeIFSC, chequeIssueDate,chequeStatus);
 		return transactionId;
 	}
 

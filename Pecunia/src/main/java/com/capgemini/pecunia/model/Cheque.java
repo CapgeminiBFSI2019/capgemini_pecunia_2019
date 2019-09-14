@@ -72,6 +72,9 @@ public class Cheque {
 		this.chequeStatus = chequeStatus;
 	}
 	
-	
+	public String getChequeDetails()
+	{
+		return (this.chequeId + "," + this.chequeNum + "," + this.chequeAccountNo + "," + this.chequeHolderName + "," + this.chequeBankName + "," + this.chequeIFSC + "," + this.chequeIssueDate + "," + this.chequeStatus );
+	}
 	
 }

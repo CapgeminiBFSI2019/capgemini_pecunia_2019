@@ -1,9 +1,32 @@
 package com.capgemini.pecunia.model;
 
 import java.util.*;
+
 public class Transaction {
-	public Transaction(String string, Date date1, String string3, String string4, double amount, double closeBal) {
-		// TODO Auto-generated constructor stub
+	String transId;
+	String transAccountId;
+	String transType;
+	Double transAmount;
+	String transOption;
+	Date transDate;
+	String transChequeId;
+	String transFrom;
+	String transTo;
+	Double transClosingBalance;
+
+	public Transaction(String transId, String transAccountId, String transType, Double transAmount, String transOption,
+			Date transDate, String transChequeId, String transFrom, String transTo, Double transClosingBalance) {
+		super();
+		this.transId = transId;
+		this.transAccountId = transAccountId;
+		this.transType = transType;
+		this.transAmount = transAmount;
+		this.transOption = transOption;
+		this.transDate = transDate;
+		this.transChequeId = transChequeId;
+		this.transFrom = transFrom;
+		this.transTo = transTo;
+		this.transClosingBalance = transClosingBalance;
 	}
 
 	@Override
@@ -79,16 +102,6 @@ public class Transaction {
 		return true;
 	}
 
-	String transAccountId;
-	String transType;
-	Double transAmount;
-	String transOption;
-	Date transDate;
-	String transChequeId;
-	String transFrom;
-	String transTo;
-	Double transClosingBalance;
-
 	public String getTransAccountId() {
 		return transAccountId;
 	}
@@ -160,9 +173,18 @@ public class Transaction {
 	public void setTransClosingBalance(Double transClosingBalance) {
 		this.transClosingBalance = transClosingBalance;
 	}
-	public Transaction() {
-		
-	}
+
+	public String getTransId() {
+		return transId;
 	}
 
+	public void setTransId(String transId) {
+		this.transId = transId;
+	}
+	
+	public String getTransactionString()
+	{
+		return (this.transId + "," + this.transAccountId + "," + this.transType + "," + this.transAmount + "," + this.transOption + "," + this.transDate + "," + this.transChequeId + "," + this.transFrom + "," + this.transTo + "," + this.transClosingBalance );
+	}
 
+}
