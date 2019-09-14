@@ -1,17 +1,20 @@
 package com.capgemini.pecunia.dao;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 import com.capgemini.pecunia.model.Transaction;
 
 public interface TransactionDAO {
-	public int getTransactionId(File file);
-	public int getCheckId(File file);
+	public String getTransactionId(File file);
+	public String getCheckId(File file);
 	public boolean isSufficientBalance(String accountId,double transactionAmount);
 	public int saveTransaction(Transaction transaction);
-	public int creditUsingSlip(String accountNum,double amount,Date transactionDate);
 	public int debitUsingSlip(String accountNum,double amount,Date transactionDate);
 	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum, String chequeAccount);
 	public int debitUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,String chequeAccount);
+	public String getAccountRow(String accountId);
+	public int creditUsingSlip(String accountId, Double amount, Date transactionDate);
+	
 }

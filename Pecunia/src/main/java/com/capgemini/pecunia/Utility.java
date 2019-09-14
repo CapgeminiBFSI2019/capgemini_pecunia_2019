@@ -4,7 +4,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;  
 
 public class Utility {
-	static String getAlphaNumericString() {
+	public static String getAlphaNumericString() {
 
 		// chose a Character random from this String
 		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
