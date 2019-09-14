@@ -32,6 +32,9 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Override
 	public int debitUsingSlip(String accountId, Double amount, Date transactionDate) {
+		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
+		int transactionId = transactionDAOImpl.debitUsingSlip(accountId, amount, transactionDate);
+		//return transactionId;
 		// TODO Auto-generated method stub
 		return 0;
 	}
