@@ -11,7 +11,7 @@ public interface TransactionDAO {
 	public String getCheckId(File file);
 	public boolean isSufficientBalance(String accountId,double transactionAmount);
 	public int saveTransaction(Transaction transaction);
-	public int debitUsingSlip(String accountNum,double amount,Date transactionDate);
+	public int debitUsingSlip(String accountId,double amount,Date transactionDate);
 	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum, String chequeAccount);
 	public int debitUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,String chequeAccount);
 	public String getAccountRow(String accountId);

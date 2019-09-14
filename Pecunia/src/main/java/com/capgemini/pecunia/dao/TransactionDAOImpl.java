@@ -93,10 +93,48 @@ public class TransactionDAOImpl implements TransactionDAO{
 	
 
 	@Override
-	public int debitUsingSlip(String accountNum, double amount, Date transactionDate) {
+	public int debitUsingSlip(String accountId, double amount, Date transactionDate) {
 		// TODO Auto-generated method stub
-		return 0;
-	}
+		
+			try {
+				BufferedReader bufferedReader = new BufferedReader(new FileReader("Account.csv"));
+//				 String acountId;
+				String accountRow = getAccountRow(accountId);
+				 
+				 if(accountRow != null)
+		            {
+		                String accountArray[] = accountRow.split(",");
+		                
+		                double oldBalance,newbalance;
+		                oldBalance = Double.parseDouble(accountArray[5]);
+	                    if(amount > oldBalance)
+	                    {
+	                        System.out.println("Debit amount is less than account balance");
+	                       
+	                    }
+	                    else
+	                    {
+	                        newbalance = oldBalance - amount;
+	                        accountArray[5] = Double.toString(newbalance);
+	                        String transId = Utility.getAlphaNumericString();
+	                      // return transId;
+	                    }
+	                    
+	                }
+				 else
+		            {
+		                System.out.println("Account does not exist");
+		                
+		            }
+
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return 0;
+		}
+
+		
 
 	@Override
 	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
