@@ -5,10 +5,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import com.capgemini.pecunia.Utility;
+import com.capgemini.pecunia.model.Account;
+import com.capgemini.pecunia.model.Address;
+import com.capgemini.pecunia.model.Customer;
 import com.capgemini.pecunia.model.Transaction;
 
 public class AccountServiceImpl implements AccountService {
@@ -56,113 +61,100 @@ public class AccountServiceImpl implements AccountService {
 	        return "Account Id not found";
 	}
    
-	@Override
 	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
-			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
-			String addressState, String addressCountry, String addressZipcode, String accountType, String accountStatus,
-			double accountBalance, double accountInterest, Date lastUpdated) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+				String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
+				String addressState, String addressCountry, String addressZipcode, String accountType,
+				double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
 
-	public boolean editAccount(String accountId) {
-		Scanner scanner = new Scanner(System.in);
-		try {
-			Path FILE_PATH = null;
-			BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
-			List<String> fileContent = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
-			boolean validated = validateAccountId(accountId);
-			if(validated) {
-				String inputAcc = null;
-				String inputCust = null;
-				String inputAddr = null;
-				String arrCust[] = new String[40];
-				String arrAddr[] = new String[40];
-				String customerRow = null;
-				int countAcc=0;
-				int countCust=0;
-				int countAddr=0;
-			    while((inputAcc = bufferedReaderAcc.readLine()) != null)
-			    {
-				    String[] arrAcc = inputAcc.split(",");
-				    if(arrAcc[0] == accountId)
-			    	{
-					BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
-					FILE_PATH = Paths.get("Customer.csv");
-			    	while((inputCust = bufferedReaderCust.readLine())!=null) {
-			    		if(arrCust[0]==arrAcc[1]) {
-			    			customerRow = inputCust;
-			    			arrCust = inputCust.split(",");
-				    		break;
-			    		}
-			    		countCust++;
-			    	}
-			    	bufferedReaderCust.close();
-			    	}
-				    countAcc++;
-			    }
-				System.out.println("Enter the field to be changed: 1. Name \n"
-										+ "2. Contact \n"
-										+ "3. Address");
-				int choice = scanner.nextInt();
-			    switch(choice) {
-				case 1: 
-					System.out.println("Enter new name: ");
-					String newName = scanner.nextLine();
-					arrCust[1] = newName;
-					String newDataName = String.join(",",arrCust);
-			        fileContent.set(countCust,newDataName);
-			        return true;
-				case 2:
-					System.out.println("Enter new contact number: ");
-					String newNumber = scanner.nextLine();
-					arrCust[5] = newNumber;
-					String newDataContact = String.join(",",arrCust);
-			        fileContent.set(countCust,newDataContact);
-			        return true;
-				case 3:
-					BufferedReader bufferedReaderAddr = new BufferedReader(new FileReader("Address.csv"));
-					FILE_PATH = Paths.get("Address.csv");
-			    	while((inputAddr = bufferedReaderAddr.readLine())!=null) {
-			    		if(arrAddr[0]==arrCust[2]) {
-			    			customerRow = inputCust;
-			    			arrAddr = inputAddr.split(",");
-				    		break;
-			    			}
-			    		countAddr++;
-			            }
-					System.out.println("Enter address line 1:");
-					arrAddr[1]= scanner.nextLine();
-					System.out.println("Enter address line 2:");
-					arrAddr[2]= scanner.nextLine();
-					System.out.println("Enter City:");
-					arrAddr[3]= scanner.nextLine();
-					System.out.println("Enter State:");
-					arrAddr[4]= scanner.nextLine();
-					System.out.println("Enter Country:");
-					arrAddr[5]= scanner.nextLine();
-					System.out.println("Enter Zipcode:");
-					arrAddr[6]= scanner.nextLine();
-					String newData = String.join(",",arrAddr);
-			        fileContent.set(countAddr,newData);
-			        bufferedReaderAddr.close();
-			        return true;
+			try {	
+				if( customerName== null || customerAadhar== null || customerPan== null || customerContact== null || customerGender== null
+						|| customerDob==null ||addressLine1 == null || addressLine2 == null|| addressCity== null ||
+								addressState == null || addressCountry== null || addressZipcode== null || accountType== null ||
+								 lastUpdated== null ||accountBranchId == null)
+				{
+					throw new InvalidParameterException("All fields compulsory");
 				}
-			    }
-			Files.write(FILE_PATH, fileContent, StandardCharsets.UTF_8);
-			bufferedReaderAcc.close();
-			return true;
-		} 
-		     catch (Exception e) 
-		     {
-		            //TODO: handle exception
-		            System.out.println("Error occured");
-		            return false;
-		     }
-		finally {
-			scanner.close();
-		}
-			
+				if(Pattern.matches("[0-9]", customerName))
+				{
+					throw new InvalidParameterException("Your name is a digit?");
+				}		
+				if(customerGender!= "Male" || customerGender!= "Female" || customerGender!="Prefer not to say." )	
+				{
+					throw new InvalidParameterException("Invalid Input");
+				}
+				if(Pattern.matches("[0-9]", addressCity))
+				{
+					throw new InvalidParameterException("Invalid Input");
+				}
+
+				if(Pattern.matches("[0-9]", addressState))
+				{
+					throw new InvalidParameterException("Invalid Input");
+				}
+				if(Pattern.matches("[0-9]", addressCountry))
+				{
+					throw new InvalidParameterException("Invalid Input");
+				}
+
+				if(accountType!= "Savings" || accountType!="FD" || accountType!="Current")
+				{
+
+					throw new InvalidParameterException("Invalid Input");
+				}
+
+				if(customerAadhar.length()!= 16 && Pattern.matches("[^A-Za-z]",customerAadhar))
+				{
+					throw new InvalidParameterException("Invalid Aadhar");
+					//System.out.println("Invalid Aadhar");
+
+				}
+
+				if(customerPan.length()!=10 && Pattern.matches("[^A-Za-z]", customerPan))
+				{
+					throw new InvalidParameterException("Invalid PAN");
+					//System.out.println("Invalid PAN");
+				}
+				if(customerContact.length()!=10 && Pattern.matches("[^A-Za-z]",customerContact) )
+				{
+					throw new InvalidParameterException("Invalid Contact Number");
+					//			System.out.println("Invalid Number");
+				}
+
+				if(addressZipcode.length()!=6 && Pattern.matches("[^A-Za-z]",addressZipcode) )
+				{
+					throw new InvalidParameterException("Invalid Contact Number");
+					//System.out.println("Invalid Zip");
+				}
+				if(accountBalance<0)
+				{
+					throw new InvalidParameterException("Invalid Account Balance");
+					//		System.out.print("Invalid Balance");
+				}
+				if(accountInterest<0)
+				{
+					throw new InvalidParameterException("Invalid Account Interest");	
+					//System.out.print("Invalid Interest");
+				}
+
+				Address add= new Address(addressLine1, addressLine2, addressCity, addressState,
+						addressCountry,addressZipcode);
+
+				String tempaddId =add.getAddressId(); //generating address Id
+
+				Customer cust= new Customer(customerName, tempaddId,  customerAadhar,
+						customerPan,  customerContact, customerGender, (java.sql.Date) customerDob);
+				String tempcustId= cust.getCustomerAddressId(); //generating customer Id
+
+				Account acc= new Account (tempcustId, accountBranchId, accountType,
+						"Active",accountBalance, accountInterest, lastUpdated);
+
+				return acc.getAccountId();
+			}catch (Exception e) {
+				throw new InvalidParameterException("Failure occured.");
+//				return "Account not created!";
+				// TODO: handle exception
+			}
+	//generating AccountId
 	}
 
 	@Override
@@ -200,4 +192,22 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return false;
 	}
-}
+
+
+
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+	
+	
+
