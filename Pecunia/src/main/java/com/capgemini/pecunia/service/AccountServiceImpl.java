@@ -1,6 +1,10 @@
 package com.capgemini.pecunia.service;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -61,10 +65,104 @@ public class AccountServiceImpl implements AccountService {
 		return null;
 	}
 
-	@Override
 	public boolean editAccount(String accountId) {
-		// TODO Auto-generated method stub
-		return false;
+		Scanner scanner = new Scanner(System.in);
+		try {
+			Path FILE_PATH = null;
+			BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
+			List<String> fileContent = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+			boolean validated = validateAccountId(accountId);
+			if(validated) {
+				String inputAcc = null;
+				String inputCust = null;
+				String inputAddr = null;
+				String arrCust[] = new String[40];
+				String arrAddr[] = new String[40];
+				String customerRow = null;
+				int countAcc=0;
+				int countCust=0;
+				int countAddr=0;
+			    while((inputAcc = bufferedReaderAcc.readLine()) != null)
+			    {
+				    String[] arrAcc = inputAcc.split(",");
+				    if(arrAcc[0] == accountId)
+			    	{
+					BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
+					FILE_PATH = Paths.get("Customer.csv");
+			    	while((inputCust = bufferedReaderCust.readLine())!=null) {
+			    		if(arrCust[0]==arrAcc[1]) {
+			    			customerRow = inputCust;
+			    			arrCust = inputCust.split(",");
+				    		break;
+			    		}
+			    		countCust++;
+			    	}
+			    	bufferedReaderCust.close();
+			    	}
+				    countAcc++;
+			    }
+				System.out.println("Enter the field to be changed: 1. Name \n"
+										+ "2. Contact \n"
+										+ "3. Address");
+				int choice = scanner.nextInt();
+			    switch(choice) {
+				case 1: 
+					System.out.println("Enter new name: ");
+					String newName = scanner.nextLine();
+					arrCust[1] = newName;
+					String newDataName = String.join(",",arrCust);
+			        fileContent.set(countCust,newDataName);
+			        return true;
+				case 2:
+					System.out.println("Enter new contact number: ");
+					String newNumber = scanner.nextLine();
+					arrCust[5] = newNumber;
+					String newDataContact = String.join(",",arrCust);
+			        fileContent.set(countCust,newDataContact);
+			        return true;
+				case 3:
+					BufferedReader bufferedReaderAddr = new BufferedReader(new FileReader("Address.csv"));
+					FILE_PATH = Paths.get("Address.csv");
+			    	while((inputAddr = bufferedReaderAddr.readLine())!=null) {
+			    		if(arrAddr[0]==arrCust[2]) {
+			    			customerRow = inputCust;
+			    			arrAddr = inputAddr.split(",");
+				    		break;
+			    			}
+			    		countAddr++;
+			            }
+					System.out.println("Enter address line 1:");
+					arrAddr[1]= scanner.nextLine();
+					System.out.println("Enter address line 2:");
+					arrAddr[2]= scanner.nextLine();
+					System.out.println("Enter City:");
+					arrAddr[3]= scanner.nextLine();
+					System.out.println("Enter State:");
+					arrAddr[4]= scanner.nextLine();
+					System.out.println("Enter Country:");
+					arrAddr[5]= scanner.nextLine();
+					System.out.println("Enter Zipcode:");
+					arrAddr[6]= scanner.nextLine();
+					String newData = String.join(",",arrAddr);
+			        fileContent.set(countAddr,newData);
+			        bufferedReaderAddr.close();
+			        return true;
+				}
+			    }
+			Files.write(FILE_PATH, fileContent, StandardCharsets.UTF_8);
+			bufferedReaderAcc.close();
+			return true;
+		} 
+		     catch (Exception e) 
+		     {
+		            //TODO: handle exception
+		            System.out.println("Error occured");
+		            return false;
+		     }
+		finally {
+			scanner.close();
+		}
+			
 	}
 
 	@Override
