@@ -9,7 +9,7 @@ import com.capgemini.pecunia.model.Transaction;
 
 public class AccountServiceImpl implements AccountService {
 
-	public ArrayList<Transaction> updatePassbook1(String accountId) throws Exception 
+	public static ArrayList<Transaction> updatePassbookOne(String accountId) throws Exception 
 	{
 	
 		 File file = new File("Transaction.csv");
@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
 	        return transactionList;
 	}
 	
-	public String updateCurrentDate(String accountId) throws Exception
+	public static String updateCurrentDate(String accountId) throws Exception
 	{
 		    File file = new File("Account.csv");
 	        BufferedReader br1 = new BufferedReader(new FileReader(file));

@@ -160,6 +160,9 @@ public class Transaction {
 	public void setTransClosingBalance(Double transClosingBalance) {
 		this.transClosingBalance = transClosingBalance;
 	}
+	public Transaction() {
+		
+	}
 	}
 
 
