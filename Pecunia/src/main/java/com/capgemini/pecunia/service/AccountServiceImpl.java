@@ -136,18 +136,56 @@ public class AccountServiceImpl implements AccountService {
 					throw new InvalidParameterException("Invalid Account Interest");	
 					//System.out.print("Invalid Interest");
 				}
-
+				String inputAcc;
+				String inputCust;
+				String inputAddr;
+				int countCust=0, countAcc=0, countAddr=0;
 				Address add= new Address(addressLine1, addressLine2, addressCity, addressState,
 						addressCountry,addressZipcode);
+				Path FILE_PATH = Paths.get("Address.csv");
+				BufferedReader bufferedReaderAddr = new BufferedReader(new FileReader("Address.csv"));
+				List<String> fileContentAddr = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+				while((inputAddr = bufferedReaderAddr.readLine()) != null) {
+					countAddr++;
+				}
+				fileContentAddr.set(countAddr+1,add.getAddressId()+","+add.getAddressLine1()+","+add.getAddressLine2()+","+
+								add.getAddressCity()+","+add.getAddressState()+","+add.getAddressCountry()+","+
+								add.getAddressZipcode());
+		        Files.write(FILE_PATH, fileContentAddr, StandardCharsets.UTF_8);
+				bufferedReaderAddr.close();
+				
 
 				String tempaddId =add.getAddressId(); //generating address Id
 
 				Customer cust= new Customer(customerName, tempaddId,  customerAadhar,
 						customerPan,  customerContact, customerGender, (java.sql.Date) customerDob);
+				FILE_PATH = Paths.get("Customer.csv");
+				BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
+				List<String> fileContentCust = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+				while((inputCust = bufferedReaderCust.readLine()) != null) {
+					countCust++;
+				}
+				fileContentCust.set(countCust+1,cust.getCustomerId()+","+cust.getCustomerName()+","+cust.getCustomerAddressId()+
+								","+cust.getCustomerAadhar()+","+cust.getCustomerPan()+","+cust.getCustomerContact()+
+								","+cust.getCustomerGender()+","+cust.getCustomerDob());
+		        Files.write(FILE_PATH, fileContentCust, StandardCharsets.UTF_8);
+				bufferedReaderCust.close();
+				
 				String tempcustId= cust.getCustomerAddressId(); //generating customer Id
 
 				Account acc= new Account (tempcustId, accountBranchId, accountType,
 						"Active",accountBalance, accountInterest, lastUpdated);
+				FILE_PATH = Paths.get("Account.csv");
+				BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
+				List<String> fileContentAcc = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+				while((inputAcc = bufferedReaderAcc.readLine()) != null) {
+					countAcc++;
+				}
+				fileContentAcc.set(countAcc+1,acc.getAccountId()+","+acc.getAccountHolderId()+","+acc.getAccountBranchId()+
+									","+acc.getAccountType()+","+acc.getAccountStatus()+","+acc.getAccountBalance()+
+									","+acc.getAccountInterest()+","+acc.getLastUpdated());
+		        Files.write(FILE_PATH, fileContentAcc, StandardCharsets.UTF_8);
+				bufferedReaderAcc.close();
 
 				return acc.getAccountId();
 			}catch (Exception e) {
