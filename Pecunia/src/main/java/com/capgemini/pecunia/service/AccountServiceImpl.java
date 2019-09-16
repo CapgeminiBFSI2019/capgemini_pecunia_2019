@@ -159,9 +159,39 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean deleteAccount(String accountId) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		int countAcc=0;
+		String inputAcc;
+		String[] arrAcc = new String[50];
+		try {
+			
+			boolean validated=validateAccountId(accountId);
+			if(validated) {
+				Path FILE_PATH = Paths.get("Account.csv");
+				BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
+				List<String> fileContent = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+				while((inputAcc = bufferedReaderAcc.readLine()) != null)
+				{
+					arrAcc = inputAcc.split(",");
+					if(arrAcc[0] == accountId)
+					{
+						arrAcc[3]="Closed";
+						break;
+					}
+					countAcc++;
+				}
+			String newData = String.join(",",arrAcc);
+	        fileContent.set(countAcc,newData);
+	        Files.write(FILE_PATH, fileContent, StandardCharsets.UTF_8);
+	        bufferedReaderAcc.close();
+	        return true;
+			}
+			return false;
+		}catch(Exception e) {
+			return false;
+		}
 	}
+	
 
 	@Override
 	public boolean updatePassbook(String accountId) {
