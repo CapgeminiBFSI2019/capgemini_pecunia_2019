@@ -28,7 +28,6 @@ public class UpdateServiceImpl implements UpdateService {
 		}catch(Exception e) {
 			throw new InvalidParameterException("Failure occured.");
 		}
-		Scanner scanner = new Scanner(System.in);
 		String inputAcc = null;
 		String inputCust = null;
 		String arrCust[] = new String[40];
@@ -66,8 +65,6 @@ public class UpdateServiceImpl implements UpdateService {
 			return true;
 			}catch(Exception e) {
 				return false;
-			}finally {
-				scanner.close();
 			}
 		}
 
@@ -85,7 +82,6 @@ public class UpdateServiceImpl implements UpdateService {
 		}catch(Exception e) {
 			throw new InvalidParameterException("Failure occured.");
 		}
-		Scanner scanner = new Scanner(System.in);
 		String inputAcc = null;
 		String inputCust = null;
 		String arrCust[] = new String[40];
@@ -123,8 +119,6 @@ public class UpdateServiceImpl implements UpdateService {
 			return true;
 			}catch(Exception e) {
 				return false;
-			}finally {
-				scanner.close();
 			}
 		}
 
@@ -157,7 +151,6 @@ public class UpdateServiceImpl implements UpdateService {
 		}catch(Exception e) {
 			throw new InvalidParameterException("Failure occured.");
 		}
-		Scanner scanner = new Scanner(System.in);
 		String inputAcc = null;
 		String inputCust = null;
 		String inputAddr = null;
@@ -197,14 +190,14 @@ public class UpdateServiceImpl implements UpdateService {
 		    	bufferedReaderCust.close();
 		    	break;
 		    	}
-			    countAcc++;
+			    countAcc++;  
 		    }
 			arrAddr[1] = addressLine1;
 			arrAddr[2] = addressLine2;
 			arrAddr[3] = addressCity;
 			arrAddr[4] = addressState;
 			arrAddr[5] = addressCountry;
-			arrAddr[6] = addressZipcode;
+			arrAddr[6] = addressZipcode;   //adding address
 			
 			String newData = String.join(",",arrAddr);
 	        fileContent.set(countCust,newData);
@@ -214,8 +207,6 @@ public class UpdateServiceImpl implements UpdateService {
 			
 		}catch(Exception e) {
 			return false;
-		}finally {
-			scanner.close();
 		}
 	}
 	}
