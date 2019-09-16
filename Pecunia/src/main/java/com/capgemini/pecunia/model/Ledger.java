@@ -1,6 +1,9 @@
 package com.capgemini.pecunia.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.capgemini.pecunia.Values;
 
 	public class Ledger
 {
@@ -55,6 +58,18 @@ import java.util.Date;
 	private double ledgerCreditAmount;
 	private int ledgerNumOfLoans;
 	private double ledgerTotalLoanAmt;
+	
+	
+	public Ledger(String ledgerId, Date ledgerDate, double ledgerDebitAmount, double ledgerCreditAmount,
+			int ledgerNumOfLoans, double ledgerTotalLoanAmt) {
+		super();
+		this.ledgerId = ledgerId;
+		this.ledgerDate = ledgerDate;
+		this.ledgerDebitAmount = ledgerDebitAmount;
+		this.ledgerCreditAmount = ledgerCreditAmount;
+		this.ledgerNumOfLoans = ledgerNumOfLoans;
+		this.ledgerTotalLoanAmt = ledgerTotalLoanAmt;
+	}
 	public String getLedgerId() {
 		return ledgerId;
 	}
@@ -92,5 +107,24 @@ import java.util.Date;
 		this.ledgerTotalLoanAmt = ledgerTotalLoanAmt;
 	}
 	
+	public static Ledger getLedgerObject(String row) {
+		String arr[] = row.split(",");
+		Date date;
+		try {
+		date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[1]);
+		Ledger ledger= new Ledger(arr[0],date,Double.parseDouble(arr[2]),Double.parseDouble(arr[3]),Integer.parseInt(arr[4]),Double.parseDouble(arr[5]));
+		return ledger;
+	}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	
+	return null;
+}
+	
+	@Override
+	public String toString() {
+		return this.ledgerId+" "+this.ledgerDate+" "+this.ledgerDebitAmount+" "+this.ledgerCreditAmount+" "+this.ledgerNumOfLoans+
+				" "+this.ledgerTotalLoanAmt;
+	}
 }

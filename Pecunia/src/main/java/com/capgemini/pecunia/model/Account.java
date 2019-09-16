@@ -1,5 +1,10 @@
 package com.capgemini.pecunia.model;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import com.capgemini.pecunia.Utility;
+import com.capgemini.pecunia.Values;
 
 
 public class Account {
@@ -145,10 +150,10 @@ public class Account {
 //	}
 		
 	
-		public Account(String accountId, String accountHolderId, String accountBranchId, String accountType,
+		public Account(String accountHolderId, String accountBranchId, String accountType,
 			String accountStatus, double accountBalance, double accountInterest, Date lastUpdated) {
 		super();
-		this.accountId = accountId;
+		this.accountId = Utility.getAlphaNumericString();
 		this.accountHolderId = accountHolderId;
 		this.accountBranchId = accountBranchId;
 		this.accountType = accountType;
@@ -157,5 +162,23 @@ public class Account {
 		this.accountInterest = accountInterest;
 		this.lastUpdated = lastUpdated;
 	}
+		
+		public static Account getAccountObject(String row) {
+			String arr[] = row.split(",");
+			Date date;
+			try {
+				date =  (Date) new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[7]);
+				Account acc= new Account(arr[1],arr[2],arr[3],arr[4],Double.parseDouble(arr[5]),Double.parseDouble(arr[6]),date);
+				return acc;
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		public String getAccountString() {
+			return (this.accountHolderId + "," + this.accountBranchId + "," + this.accountType + "," + this.accountStatus + "," + this.accountBalance + "," + this.accountInterest + "," + this.lastUpdated);
+		}
+		
 		
 }

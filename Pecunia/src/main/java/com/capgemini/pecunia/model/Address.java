@@ -1,5 +1,12 @@
 package com.capgemini.pecunia.model;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import com.capgemini.pecunia.Utility;
+import com.capgemini.pecunia.Values;
+
 public class Address {
 
 	@Override
@@ -128,10 +135,10 @@ public class Address {
 		return addressZipcode;
 	}
 	
-	public Address(String addressId, String addressLine1, String addressLine2, String addressCity, String addressState,
+	public Address( String addressLine1, String addressLine2, String addressCity, String addressState,
 			String addressCountry, String addressZipcode) {
 		super();
-		this.addressId = addressId;
+		this.addressId = Utility.getAlphaNumericString();
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.addressCity = addressCity;
@@ -144,6 +151,12 @@ public class Address {
 	public String toString() {
 		return this.addressLine1+" "+this.addressLine2+" "+this.addressCity+" "+this.addressCountry+" "+this.addressState+
 				" "+this.addressCountry+" -"+this.addressZipcode;
+	}
+	
+	public static Address getAddressObject(String row) {
+		String arr[] = row.split(",");
+			Address address= new Address(arr[1],arr[2],arr[3],arr[4],arr[5],arr[6]);
+		return address;
 	}
 
 }

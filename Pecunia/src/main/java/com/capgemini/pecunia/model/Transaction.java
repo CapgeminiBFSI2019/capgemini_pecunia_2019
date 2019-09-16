@@ -1,9 +1,36 @@
 package com.capgemini.pecunia.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
+import com.capgemini.pecunia.Values;
+
 public class Transaction {
-	public Transaction(String string, Date date1, String string3, String string4, double amount, double closeBal) {
-		// TODO Auto-generated constructor stub
+	String transId;
+	String transAccountId;
+	String transType;
+	Double transAmount;
+	String transOption;
+	Date transDate;
+	String transChequeId;
+	String transFrom;
+	String transTo;
+	Double transClosingBalance;
+
+	public Transaction(String transId, String transAccountId, String transType, String transOption, Double transAmount,
+			Date transDate, String transChequeId, String transFrom, String transTo, Double transClosingBalance) {
+		super();
+		this.transId = transId;
+		this.transAccountId = transAccountId;
+		this.transType = transType;
+		this.transAmount = transAmount;
+		this.transOption = transOption;
+		this.transDate = transDate;
+		this.transChequeId = transChequeId;
+		this.transFrom = transFrom;
+		this.transTo = transTo;
+		this.transClosingBalance = transClosingBalance;
 	}
 
 	@Override
@@ -79,16 +106,6 @@ public class Transaction {
 		return true;
 	}
 
-	String transAccountId;
-	String transType;
-	Double transAmount;
-	String transOption;
-	Date transDate;
-	String transChequeId;
-	String transFrom;
-	String transTo;
-	Double transClosingBalance;
-
 	public String getTransAccountId() {
 		return transAccountId;
 	}
@@ -160,6 +177,37 @@ public class Transaction {
 	public void setTransClosingBalance(Double transClosingBalance) {
 		this.transClosingBalance = transClosingBalance;
 	}
+
+	public String getTransId() {
+		return transId;
 	}
 
+	public void setTransId(String transId) {
+		this.transId = transId;
+	}
+	
+	public String getTransactionString()
+	{
+		return (this.transId + "," + this.transAccountId + "," + this.transType + "," + this.transAmount + "," + this.transOption + "," + this.transDate + "," + this.transChequeId + "," + this.transFrom + "," + this.transTo + "," + this.transClosingBalance );
+	}
+	
+	public static Transaction getTransactionObject(String row) {
+		// TODO Auto-generated method stub
+		String arr[] = row.split(",");
+		Date date;
+		Transaction transaction;
+		try {
+			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
+			transaction = new Transaction(arr[0],arr[1],arr[2],arr[3],Double.parseDouble(arr[4]),date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
+			return transaction;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
+	
+
+}
