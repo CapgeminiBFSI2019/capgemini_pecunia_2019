@@ -203,17 +203,20 @@ public class AccountServiceImpl implements AccountService {
 			}
 
 	@Override
-	public boolean validateTransAmt(Double transAmt) {
+	public boolean validateTransAmt(Double transAmt){
+		
 		if(transAmt==null || transAmt<0.00 || transAmt> 1000000.00 || transAmt<50.00)
 		return false;
 		else 
-			return true;
-	}
+			return true;			
+		}
 
 	@Override
-	public boolean validateChequeNum(Integer ChequeNum) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean validateChequeNum(Integer ChequeNum){
+		if(ChequeNum!=null && Integer.toString(ChequeNum).length()==6)
+			return true;
+			else
+			return false;
 	}
 
 
