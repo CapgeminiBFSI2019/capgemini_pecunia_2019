@@ -30,14 +30,14 @@ public class AccountServiceImpl implements AccountService {
 	        {
 	        	String arr[] = line.split(",");
 	            String updatedDate1= updateCurrentDate(accountId);
-	        	boolean ans = Utility.getUpdatedTrans(arr[1], updatedDate1);
-	        	if(arr[0].equals(accountId) && ans==true )
+	        	boolean ans = Utility.getUpdatedTrans(arr[5], updatedDate1);
+	        	if(arr[1].equals(accountId) && ans==true )
 	        	{
-	        		Date date1=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(arr[1]);
+	        		Date date1=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(arr[5]);
 	            double amount = Integer.parseInt(arr[4]);
-	            double closeBal = Integer.parseInt(arr[5]);
-//	    		Transaction t=new Transaction(arr[0],date1,arr[2],arr[3],amount,closeBal);
-//	    		transactionList.add(t);
+	            double closeBal = Integer.parseInt(arr[9]);
+         		Transaction t=new Transaction(arr[0],arr[1],arr[2],arr[3],amount,date1,arr[6],arr[7],arr[8],closeBal);
+	    		transactionList.add(t);
 	        	}
 	        }
 	        br.close();
@@ -70,7 +70,8 @@ public class AccountServiceImpl implements AccountService {
 				if( customerName== null || customerAadhar== null || customerPan== null || customerContact== null || customerGender== null
 						|| customerDob==null ||addressLine1 == null || addressLine2 == null|| addressCity== null ||
 								addressState == null || addressCountry== null || addressZipcode== null || accountType== null ||
-								 lastUpdated== null ||accountBranchId == null)
+								 lastUpdated== null ||accountBranchId == null) //all fields compulsory
+			
 				{
 					throw new InvalidParameterException("All fields compulsory");
 				}
@@ -233,17 +234,20 @@ public class AccountServiceImpl implements AccountService {
 			}
 
 	@Override
-	public boolean validateTransAmt(Double transAmt) {
+	public boolean validateTransAmt(Double transAmt){
+		
 		if(transAmt==null || transAmt<0.00 || transAmt> 1000000.00 || transAmt<50.00)
 		return false;
 		else 
-			return true;
-	}
+			return true;			
+		}
 
 	@Override
-	public boolean validateChequeNum(Integer ChequeNum) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean validateChequeNum(Integer ChequeNum){
+		if(ChequeNum!=null && Integer.toString(ChequeNum).length()==6)
+			return true;
+			else
+			return false;
 	}
 
 

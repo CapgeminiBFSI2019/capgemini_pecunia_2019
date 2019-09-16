@@ -22,7 +22,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public boolean isSufficientBalance(String accountId, double transactionAmount) {
 		// TODO Auto-generated method stub
 		try {
-			File file = new File("src/main/java/com/capgemini/pecunia/dao/DbFiles/Account.csv");
+			File file = new File(Values.ACCOUNT_CSV_FILE);
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = br.readLine()) != null) {
