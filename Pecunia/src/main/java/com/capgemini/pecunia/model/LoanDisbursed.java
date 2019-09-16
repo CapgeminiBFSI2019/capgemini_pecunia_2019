@@ -1,5 +1,8 @@
 package com.capgemini.pecunia.model;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
+import com.capgemini.pecunia.Values;
 public class LoanDisbursed {
 
 	@Override
@@ -66,6 +69,20 @@ public class LoanDisbursed {
 	private double emi;
 	private Date loanDueDate;
 	
+	
+	
+	public LoanDisbursed(String loanId, String loanCustAccId, String loanProcessId, double loanAmtDisbursed,
+			double loanAmtPaid, double emi, Date loanDueDate) {
+		super();
+		this.loanId = loanId;
+		this.loanCustAccId = loanCustAccId;
+		this.loanProcessId = loanProcessId;
+		this.loanAmtDisbursed = loanAmtDisbursed;
+		this.loanAmtPaid = loanAmtPaid;
+		this.emi = emi;
+		this.loanDueDate = loanDueDate;
+	}
+
 	public void setLoanId(String loanId) {
 		this.loanId = loanId;
 	}
@@ -120,6 +137,27 @@ public class LoanDisbursed {
 	
 	public Date getLoanDueDate() {
 		return loanDueDate;
+	}
+	
+	public static LoanDisbursed getLoanDisbursedObject(String row) {
+		String arr[] = row.split(",");
+		Date date;
+		try {
+		date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[6]);
+		LoanDisbursed loandis= new LoanDisbursed(arr[0],arr[1],arr[2],Double.parseDouble(arr[3]),Double.parseDouble(arr[4]),Double.parseDouble(arr[5]),date);
+		return loandis;
+	}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+	return null;
+}
+	
+	@Override
+	public String toString() {
+		return this.loanId+" "+this.loanCustAccId+" "+this.loanProcessId+" "+this.loanAmtDisbursed+" "+this.loanAmtPaid+
+				" "+this.emi+" "+this.loanDueDate;
 	}
 
 }
