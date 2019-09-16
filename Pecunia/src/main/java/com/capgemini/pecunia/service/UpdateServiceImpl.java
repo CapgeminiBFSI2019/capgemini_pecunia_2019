@@ -6,14 +6,28 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class UpdateServiceImpl implements UpdateService {
 
 	@Override
 	public boolean updateCustomerName(String accountId, String newName) {
+		try {	
+			if( newName== null)
+			{
+				throw new InvalidParameterException("New name has to be given");
+			}
+			if(Pattern.matches(".*[0-9]+.*", newName))
+			{
+				throw new InvalidParameterException("Your name is a digit?");
+			}
+		}catch(Exception e) {
+			throw new InvalidParameterException("Failure occured.");
+		}
 		Scanner scanner = new Scanner(System.in);
 		String inputAcc = null;
 		String inputCust = null;
@@ -59,6 +73,18 @@ public class UpdateServiceImpl implements UpdateService {
 
 	@Override
 	public boolean updateCustomerContact(String accountId, String newContact) {
+		try {	
+			if( newContact== null)
+			{
+				throw new InvalidParameterException("New number has to be given");
+			}
+			if(newContact.length()!=10 && Pattern.matches(".*[a-zA-Z]+.*",newContact) )
+			{
+				throw new InvalidParameterException("Invalid Contact Number");
+			}
+		}catch(Exception e) {
+			throw new InvalidParameterException("Failure occured.");
+		}
 		Scanner scanner = new Scanner(System.in);
 		String inputAcc = null;
 		String inputCust = null;
@@ -105,6 +131,32 @@ public class UpdateServiceImpl implements UpdateService {
 	public boolean updateCustomerAddress(String accountId, String addressLine1, String addressLine2,
 			String addressCity, String addressState, String addressCountry, String addressZipcode) 
 	{
+		try {	
+			if(addressLine1 == null || addressLine2 == null|| addressCity== null ||
+					addressState == null || addressCountry== null || addressZipcode== null)
+			{
+				throw new InvalidParameterException("Fill all the fields");
+			}
+			if(Pattern.matches(".*[0-9]+.*", addressCity))
+			{
+				throw new InvalidParameterException("Invalid City");
+			}
+
+			if(Pattern.matches(".*[0-9]+.*", addressState))
+			{
+				throw new InvalidParameterException("Invalid State");
+			}
+			if(Pattern.matches(".*[0-9]+.*", addressCountry))
+			{
+				throw new InvalidParameterException("Invalid Country");
+			}
+			if(addressZipcode.length()!=6 && Pattern.matches(".*[a-zA-Z]+.*",addressZipcode) )
+			{
+				throw new InvalidParameterException("Invalid Zipcode");
+			}
+		}catch(Exception e) {
+			throw new InvalidParameterException("Failure occured.");
+		}
 		Scanner scanner = new Scanner(System.in);
 		String inputAcc = null;
 		String inputCust = null;
@@ -130,7 +182,7 @@ public class UpdateServiceImpl implements UpdateService {
 		    		arrCust = inputCust.split(",");
 	    		 	if(arrCust[0]==arrAcc[1]) {
 		    			BufferedReader bufferedReaderAddr = new BufferedReader(new FileReader("Address.csv"));
-		    			while((inputCust = bufferedReaderCust.readLine())!=null) {
+		    			while((inputAddr = bufferedReaderAddr.readLine())!=null) {
 		    				arrAddr = inputAddr.split(",");
 		    				if(arrAddr[0]==arrCust[2]) {
 		    					customerRow = inputCust;
@@ -138,6 +190,7 @@ public class UpdateServiceImpl implements UpdateService {
 		    				}
 				    	}
 		    			countAddr++;
+		    			bufferedReaderAddr.close();
 		    		}
 		    		countCust++;
 		    	}
