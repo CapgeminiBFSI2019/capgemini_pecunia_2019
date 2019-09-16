@@ -1,6 +1,10 @@
 package com.capgemini.pecunia.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+
+import com.capgemini.pecunia.Values;
 
 public class Transaction {
 	String transId;
@@ -186,6 +190,24 @@ public class Transaction {
 	{
 		return (this.transId + "," + this.transAccountId + "," + this.transType + "," + this.transAmount + "," + this.transOption + "," + this.transDate + "," + this.transChequeId + "," + this.transFrom + "," + this.transTo + "," + this.transClosingBalance );
 	}
+	
+	public static Transaction getTransactionObject(String row) {
+		// TODO Auto-generated method stub
+		String arr[] = row.split(",");
+		Date date;
+		Transaction transaction;
+		try {
+			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
+			transaction = new Transaction(arr[0],arr[1],arr[2],arr[3],Double.parseDouble(arr[4]),date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
+			return transaction;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
 	
 
 }
