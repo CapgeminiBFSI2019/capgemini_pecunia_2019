@@ -201,7 +201,7 @@ public class UpdateServiceImpl implements UpdateService {
 			
 			String newData = String.join(",",arrAddr);
 	        fileContent.set(countCust,newData);
-	        Files.write(FILE_PATH, fileContent, StandardCharsets.UTF_8);
+	        Files.write(FILE_PATH, fileContent, StandardCharsets.UTF_8);  //writing
 			bufferedReaderAcc.close();
 			return true;
 			
