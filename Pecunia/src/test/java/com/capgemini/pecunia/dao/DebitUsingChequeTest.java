@@ -43,7 +43,7 @@ class DebitUsingChequeTest {
     @Test
     public void validateAccountId_Missing_Digits() {
        // setup
-        String accountId ="56801124";
+        String accountId ="201900010000";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountId(accountId);
@@ -55,7 +55,7 @@ class DebitUsingChequeTest {
     @Test
     public void validateAccountId_Excess_Digits() {
        // setup
-        String accountId ="5680112467";
+        String accountId ="2019000100000157";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountId(accountId);
