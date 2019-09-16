@@ -1,6 +1,9 @@
 package com.capgemini.pecunia.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.capgemini.pecunia.Values;
 
 public class Cheque {
 	private String chequeId;
@@ -77,4 +80,17 @@ public class Cheque {
 		return (this.chequeId + "," + this.chequeNum + "," + this.chequeAccountNo + "," + this.chequeHolderName + "," + this.chequeBankName + "," + this.chequeIFSC + "," + this.chequeIssueDate + "," + this.chequeStatus );
 	}
 	
+	public static Cheque getChequeObject(String row) {
+		String arr[] = row.split(",");
+		Date date;
+		try {
+			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[6]);
+		Cheque cheque=new Cheque(arr[0],Integer.parseInt(arr[1]),arr[2],arr[3],arr[4],arr[5],date,arr[7]);
+		return cheque;
+	}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	return null;
+}
 }

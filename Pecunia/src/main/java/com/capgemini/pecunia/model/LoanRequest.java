@@ -1,18 +1,24 @@
 package com.capgemini.pecunia.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.capgemini.pecunia.Values;
+
 public class LoanRequest {
 	String loanRequestId;
-	String loanCustomerId; 
-	double loanAmount; 
-	String loanType; 
+	String loanCustomerId;
+	double loanAmount;
+	String loanType;
 	int tenure;
-	double loanRoi; String loanStatus;
+	double loanRoi;
+	String loanStatus;
 	double loanEmi;
-	
-	public LoanRequest () {
-		
+
+	public LoanRequest() {
+
 	}
-	
+
 	public String getLoanRequestId() {
 		return loanRequestId;
 	}
@@ -89,11 +95,12 @@ public class LoanRequest {
 		this.loanStatus = loanStatus;
 		this.loanEmi = loanEmi;
 	}
-	
+
 	public String getLoanRequestData() {
-		return (this.loanRequestId+","+ this.loanCustomerId+","+
-		this.loanAmount+","+this.loanType+","+this.tenure+","+this.loanRoi+","+this.loanStatus +","+this.loanEmi);
+		return (this.loanRequestId + "," + this.loanCustomerId + "," + this.loanAmount + "," + this.loanType + ","
+				+ this.tenure + "," + this.loanRoi + "," + this.loanStatus + "," + this.loanEmi);
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -107,6 +114,7 @@ public class LoanRequest {
 		result = prime * result + tenure;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -129,6 +137,18 @@ public class LoanRequest {
 			return false;
 		return true;
 	}
-	
+
+	public static LoanRequest getLoanRequestObject(String row) {
+		String arr[] = row.split(",");
+		LoanRequest loanreq = new LoanRequest(arr[0], arr[1], Double.parseDouble(arr[2]), arr[3],
+				Integer.parseInt(arr[4]), Double.parseDouble(arr[5]), arr[6], Double.parseDouble(arr[7]));
+		return loanreq;
+	}
+
+	@Override
+	public String toString() {
+		return this.loanRequestId + " " + this.loanCustomerId + " " + this.loanAmount + " " + this.loanType + " "
+				+ this.tenure + " " + this.loanRoi + " " + this.loanStatus + " " + this.loanEmi;
+	}
 
 }

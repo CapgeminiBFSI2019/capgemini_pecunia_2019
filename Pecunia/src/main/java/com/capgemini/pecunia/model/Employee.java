@@ -1,5 +1,11 @@
 package com.capgemini.pecunia.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.capgemini.pecunia.Values;
+
 public class Employee {
 	@Override
 	public int hashCode() {
@@ -122,5 +128,17 @@ public class Employee {
 		this.transId = transId;
 	}
 	
+	public static Employee getEmployeeObject(String row) {
+		// TODO Auto-generated method stub
+		String arr[] = row.split(",");
+		Employee empl= new Employee(arr[0],arr[1],arr[2],arr[3],arr[4],arr[5],arr[6]);
+		return empl;
+	}
+	
+	@Override
+	public String toString() {
+		return this.employeeId+" "+this.employeeName+" "+this.employeeBranchId+" "+this.employeeDesignation+" "+this.employeeSalt+
+				" "+this.employeePassword+" -"+this.transId;
+	}
 	
 }
