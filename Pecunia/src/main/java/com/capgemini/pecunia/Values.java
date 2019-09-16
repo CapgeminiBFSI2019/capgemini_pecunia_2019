@@ -18,6 +18,6 @@ public class Values {
 	public static final String CUSTOMER_CSV_FILE = "src/main/java/com/capgemini/pecunia/dao/DbFiles/Customer.csv";
 	public static final String LOAN_REQUEST_CSV_FILE = "src/main/java/com/capgemini/pecunia/dao/DbFiles/LoanRequest.csv";
 	public static final String TRANSACTION_CSV_FILE = "src/main/java/com/capgemini/pecunia/dao/DbFiles/Transaction.csv";
-	
+
 	
 }

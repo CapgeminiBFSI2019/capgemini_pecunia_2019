@@ -1,9 +1,11 @@
 package com.capgemini.pecunia.dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +46,22 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public int saveTransaction(Transaction transaction) {
 		// TODO Auto-generated method stub
-		return 0;
+		try
+		{
+			String transString = transaction.getTransactionString();
+			File customerFile = new File(Values.TRANSACTION_CSV_FILE);
+	        FileWriter fr = new FileWriter(customerFile,true);
+	        BufferedWriter br = new BufferedWriter(fr);
+	        br.write(transString);
+	        br.newLine();
+	        br.close();
+	        fr.close();
+	        return 1;
+		}
+		catch(Exception e)
+		{
+			return 0;
+		}
 	}
 
 	@Override
