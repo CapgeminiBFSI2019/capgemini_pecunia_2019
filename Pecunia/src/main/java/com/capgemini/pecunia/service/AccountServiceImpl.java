@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
 	        return "Account Id not found";
 	}
    
-	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
+	public  String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 				String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
 				String addressState, String addressCountry, String addressZipcode, String accountType,
 				double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
@@ -103,7 +103,7 @@ public class AccountServiceImpl implements AccountService {
 					throw new InvalidParameterException("Invalid Input");
 				}
 
-				if(customerAadhar.length()!= 16 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar))
+				if(customerAadhar.length()!= 12 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar))
 				{
 					throw new InvalidParameterException("Invalid Aadhar");
 					//System.out.println("Invalid Aadhar");
