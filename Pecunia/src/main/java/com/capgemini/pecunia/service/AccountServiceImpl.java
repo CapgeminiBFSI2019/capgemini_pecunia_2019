@@ -78,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
 				{
 					throw new InvalidParameterException("Your name is a digit?");
 				}		
-				if(customerGender!= "Male" || customerGender!= "Female" || customerGender!="Prefer not to say." )	
+				if(customerGender!= "Male" || customerGender!= "Female" || customerGender!="Prefer not to say" )	
 				{
 					throw new InvalidParameterException("Invalid Input");
 				}

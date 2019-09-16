@@ -24,7 +24,7 @@ public class AccountSummaryImpl implements AccountService {
 			return null;
 		}
 
-	@Override
+	//@Override
 	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
 			String addressState, String addressCountry, String addressZipcode, String accountType, String accountStatus,
@@ -33,7 +33,6 @@ public class AccountSummaryImpl implements AccountService {
 		return null;
 	}
 
-	@Override
 	public boolean editAccount(String accountId) {
 		// TODO Auto-generated method stub
 		return false;
@@ -73,6 +72,15 @@ public class AccountSummaryImpl implements AccountService {
 	public boolean validateChequeNum(Integer ChequeNum) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
+			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
+			String addressState, String addressCountry, String addressZipcode, String accountType,
+			double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	}
