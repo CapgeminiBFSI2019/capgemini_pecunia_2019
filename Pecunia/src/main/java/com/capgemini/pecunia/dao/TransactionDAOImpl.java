@@ -78,8 +78,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 				newbalance = oldBalance + amount;
 				accountArray[5] = Double.toString(newbalance);
 				String transId = Utility.getAlphaNumericString();
-				Transaction transaction1 = new Transaction(transId, accountId, Values.TRANSACTION_CREDIT,
-						amount, Values.NA, transactionDate, Values.NA, Values.NA, Values.NA, newbalance);
+				Transaction transaction1 = new Transaction(transId, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_SLIP,amount, transactionDate, Values.NA, Values.NA,Values.NA, newbalance);
 				// return transId;
 			} else {
 				System.out.println("Account does not exist");
@@ -155,12 +154,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
 								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 						String transId1 = Utility.getAlphaNumericString();
-						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
-								amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, payeeAccount, Values.NA,
+						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_CHEQUE,
+								amount,  transactionDate, chequeId, payeeAccount, Values.NA,
 								newBalBenificiary);
 						String transId2 = Utility.getAlphaNumericString();
-						Transaction transaction2 = new Transaction(transId2, payeeAccount, Values.TRANSACTION_DEBIT,
-								amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA, payeeAccount,
+						Transaction transaction2 = new Transaction(transId2, payeeAccount, Values.TRANSACTION_DEBIT,Values.TRANSACTION_OPTION_CHEQUE,
+								amount,  transactionDate, chequeId, Values.NA, payeeAccount,
 								newBalPayee);
 					} else {
 						String chequeId = Utility.getAlphaNumericString();
@@ -214,8 +213,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount,
 							chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 					String transId1 = Utility.getAlphaNumericString();
-					Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
-							amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA,
+					Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_CHEQUE,
+							amount,  transactionDate, chequeId, Values.NA,
 							transId1, newbalance);
 					// return transId;
 				}
@@ -260,7 +259,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		Transaction transaction;
 		try {
 			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
-			transaction = new Transaction(arr[0],arr[1],arr[2],Double.parseDouble(arr[3]),arr[4],date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
+			transaction = new Transaction(arr[0],arr[1],arr[2],arr[3],Double.parseDouble(arr[4]),date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
 			return transaction;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
