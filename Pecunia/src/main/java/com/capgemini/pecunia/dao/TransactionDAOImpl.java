@@ -78,6 +78,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 				newbalance = oldBalance + amount;
 				accountArray[5] = Double.toString(newbalance);
 				String transId = Utility.getAlphaNumericString();
+				Transaction transaction1 = new Transaction(transId, accountId, Values.TRANSACTION_CREDIT,
+						amount, Values.NA, transactionDate, Values.NA, Values.NA, Values.NA, newbalance);
 				// return transId;
 			} else {
 				System.out.println("Account does not exist");
