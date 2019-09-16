@@ -16,5 +16,5 @@ public interface TransactionDAO {
 			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus,Date transactionDate);
 	public int creditUsingSlip(String accountId, Double amount, Date transactionDate);
 	public String getAccountRow(String accountNo);
-	public Transaction getTransactionObject(String row);
+	
 }
