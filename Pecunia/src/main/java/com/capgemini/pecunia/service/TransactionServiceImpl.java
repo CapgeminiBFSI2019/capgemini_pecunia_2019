@@ -42,10 +42,10 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Override
 	public int debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
-			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus) {
+			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus,Date transactionDate) {
 		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
 		int transactionId = transactionDAOImpl.debitUsingCheque(accountId,amount,chequeIssueDate,checkNum,
-				chequeAccount,chequeBankName,chequeHolderName,chequeIFSC,chequeStatus);
+				chequeAccount,chequeBankName,chequeHolderName,chequeIFSC,chequeStatus,transactionDate);
 		//return transactionId;
 		//changed again
 		return 0;
