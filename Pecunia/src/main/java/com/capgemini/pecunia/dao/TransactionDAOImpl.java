@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.capgemini.pecunia.Utility;
@@ -132,25 +134,25 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 						String chequeId = Utility.getAlphaNumericString();
 						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
-								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_2);
+								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 						String transId1 = Utility.getAlphaNumericString();
 						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
-								amount, Values.TRANSACTION_OPTION_2, transactionDate, chequeId, payeeAccount, Values.NA,
+								amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, payeeAccount, Values.NA,
 								newBalBenificiary);
 						String transId2 = Utility.getAlphaNumericString();
 						Transaction transaction2 = new Transaction(transId2, payeeAccount, Values.TRANSACTION_DEBIT,
-								amount, Values.TRANSACTION_OPTION_2, transactionDate, chequeId, Values.NA, payeeAccount,
+								amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA, payeeAccount,
 								newBalPayee);
 					} else {
 						String chequeId = Utility.getAlphaNumericString();
 						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
-								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_3);
+								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_BOUNCED);
 						System.out.println("Insufficient balance");
 					}
 				} else {
 					String chequeId = Utility.getAlphaNumericString();
 					Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount, chequeHolderName,
-							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_1);
+							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_PENDING);
 
 				}
 
@@ -182,7 +184,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 				if (amount > oldBalance) {
 					String chequeId = Utility.getAlphaNumericString();
 					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount,
-							chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_3);
+							chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_BOUNCED);
 					System.out.println("Debit amount is less than account balance");
 
 				} else {
@@ -191,10 +193,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 					String transId = Utility.getAlphaNumericString();
 					String chequeId = Utility.getAlphaNumericString();
 					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount,
-							chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_2);
+							chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 					String transId1 = Utility.getAlphaNumericString();
 					Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
-							amount, Values.TRANSACTION_OPTION_2, transactionDate, chequeId, Values.NA,
+							amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA,
 							transId1, newbalance);
 					// return transId;
 				}
@@ -228,6 +230,25 @@ public class TransactionDAOImpl implements TransactionDAO {
 			System.out.println(e);
 			return null;
 		}
+	}
+
+	
+	@Override
+	public Transaction getTransactionObject(String row) {
+		// TODO Auto-generated method stub
+		String arr[] = row.split(",");
+		Date date;
+		Transaction transaction;
+		try {
+			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
+			transaction = new Transaction(arr[0],arr[1],arr[2],Double.parseDouble(arr[3]),arr[4],date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
+			return transaction;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	
