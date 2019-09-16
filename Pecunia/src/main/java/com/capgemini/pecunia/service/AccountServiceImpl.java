@@ -172,7 +172,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean validateAccountId(String accountId) {
 		if(accountId!=null && !accountId.isEmpty() && accountId.length()==14) {
-			if(accountId.matches("[0-9]+")){
+			if(accountId.matches("^[0-9]+$")) {
 				return true;
 			}
 				else {
@@ -204,8 +204,10 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean validateTransAmt(Double transAmt) {
-		// TODO Auto-generated method stub
+		if(transAmt==null || transAmt<0.00 || transAmt> 1000000.00 || transAmt<50.00)
 		return false;
+		else 
+			return true;
 	}
 
 	@Override
