@@ -71,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
 						|| customerDob==null ||addressLine1 == null || addressLine2 == null|| addressCity== null ||
 								addressState == null || addressCountry== null || addressZipcode== null || accountType== null ||
 								 lastUpdated== null ||accountBranchId == null) //all fields compulsory
-				
+			
 				{
 					throw new InvalidParameterException("All fields compulsory");
 				}
