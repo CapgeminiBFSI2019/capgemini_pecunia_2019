@@ -58,7 +58,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 				double oldBalance, newbalance;
 				oldBalance = Double.parseDouble(accountArray[5]);
-				newbalance = oldBalance - amount;
+				newbalance = oldBalance + amount;
 				accountArray[5] = Double.toString(newbalance);
 				String transId = Utility.getAlphaNumericString();
 				// return transId;
