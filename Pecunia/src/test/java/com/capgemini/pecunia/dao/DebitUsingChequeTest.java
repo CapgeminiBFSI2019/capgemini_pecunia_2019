@@ -91,7 +91,7 @@ class DebitUsingChequeTest {
     @Test
     public void validateAccountId_SpecialChar() {
        // setup
-        String accountId = "5680#$@%!";
+        String accountId = "201900010000#!";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountId(accountId);
