@@ -74,7 +74,7 @@ public class AccountServiceImpl implements AccountService {
 				{
 					throw new InvalidParameterException("All fields compulsory");
 				}
-				if(Pattern.matches("[0-9]", customerName))
+				if(Pattern.matches(".*[0-9]+.*", customerName))
 				{
 					throw new InvalidParameterException("Your name is a digit?");
 				}		
@@ -82,16 +82,16 @@ public class AccountServiceImpl implements AccountService {
 				{
 					throw new InvalidParameterException("Invalid Input");
 				}
-				if(Pattern.matches("[0-9]", addressCity))
+				if(Pattern.matches(".*[0-9]+.*", addressCity))
 				{
 					throw new InvalidParameterException("Invalid Input");
 				}
 
-				if(Pattern.matches("[0-9]", addressState))
+				if(Pattern.matches(".*[0-9]+.*", addressState))
 				{
 					throw new InvalidParameterException("Invalid Input");
 				}
-				if(Pattern.matches("[0-9]", addressCountry))
+				if(Pattern.matches(".*[0-9]+.*", addressCountry))
 				{
 					throw new InvalidParameterException("Invalid Input");
 				}
@@ -122,7 +122,7 @@ public class AccountServiceImpl implements AccountService {
 
 				if(addressZipcode.length()!=6 && Pattern.matches((".*[a-zA-Z]+.*"),addressZipcode) )
 				{
-					throw new InvalidParameterException("Invalid Contact Number");
+					throw new InvalidParameterException("Invalid Zipcode");
 					//System.out.println("Invalid Zip");
 				}
 				if(accountBalance<0)
