@@ -1,5 +1,7 @@
 package com.capgemini.pecunia.model;
 
+import com.capgemini.pecunia.Utility;
+
 public class Address {
 
 	@Override
@@ -128,10 +130,10 @@ public class Address {
 		return addressZipcode;
 	}
 	
-	public Address(String addressId, String addressLine1, String addressLine2, String addressCity, String addressState,
+	public Address( String addressLine1, String addressLine2, String addressCity, String addressState,
 			String addressCountry, String addressZipcode) {
 		super();
-		this.addressId = addressId;
+		this.addressId = Utility.getAlphaNumericString();
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.addressCity = addressCity;

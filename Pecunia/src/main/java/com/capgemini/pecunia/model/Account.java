@@ -1,6 +1,8 @@
 package com.capgemini.pecunia.model;
 import java.sql.Date;
 
+import com.capgemini.pecunia.Utility;
+
 
 public class Account {
 	private String accountId;
@@ -145,10 +147,10 @@ public class Account {
 //	}
 		
 	
-		public Account(String accountId, String accountHolderId, String accountBranchId, String accountType,
+		public Account( String accountHolderId, String accountBranchId, String accountType,
 			String accountStatus, double accountBalance, double accountInterest, Date lastUpdated) {
 		super();
-		this.accountId = accountId;
+		this.accountId = Utility.getAlphaNumericString();
 		this.accountHolderId = accountHolderId;
 		this.accountBranchId = accountBranchId;
 		this.accountType = accountType;

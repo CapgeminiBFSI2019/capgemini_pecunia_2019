@@ -2,6 +2,8 @@ package com.capgemini.pecunia.model;
 import java.sql.Date;
 //import java.util.*;
 
+import com.capgemini.pecunia.Utility;
+
 public class Customer {
 	
 	private String customerId;
@@ -113,10 +115,10 @@ public int hashCode() {
 	}
 
 
-	public Customer(String customerId, String customerName, String customerAddressId, String customerAadhar,
+	public Customer( String customerName, String customerAddressId, String customerAadhar,
 			String customerPan, String customerContact, String customerGender, Date customerDob) {
 		super();
-		this.customerId = customerId;
+		this.customerId = Utility.getAlphaNumericString();
 		this.customerName = customerName;
 		this.customerAddressId = customerAddressId;
 		this.customerAadhar = customerAadhar;
