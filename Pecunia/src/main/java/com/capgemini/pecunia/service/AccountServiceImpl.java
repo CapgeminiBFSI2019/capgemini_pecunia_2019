@@ -188,9 +188,19 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean validateAccountName(String accountName) {
-		
-		return false;
-	}
+		 String[] Nametmp = accountName.split("\\s+");
+		   if(accountName!=null && !accountName.isEmpty()) {
+				if(Nametmp[0].matches("[A-Za-z]+") && Nametmp[1].matches("[A-Za-z]+")) {
+					return true;
+				}
+					else {
+					return false;
+					}
+				
+					
+				}
+			return false;	
+			}
 
 	@Override
 	public boolean validateTransAmt(Double transAmt) {
