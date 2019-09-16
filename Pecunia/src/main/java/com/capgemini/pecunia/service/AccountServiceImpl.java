@@ -171,16 +171,24 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean validateAccountId(String accountId) {
-		if(accountId==null || accountId.isEmpty() || accountId.length()!=14 || accountId.matches("[A-Za-z]") || accountId.matches("[!@#$%&*()_+=|<>?{}\\[\\]~-]"))
+		if(accountId!=null && !accountId.isEmpty() && accountId.length()==14) {
+			if(accountId.matches("[0-9]+")){
+				return true;
+			}
+				else {
+				return false;
+				}
+			
+				
+			}
 		return false;
-		else
-			return true;
 		//implemented
+	
 	}
 
 	@Override
 	public boolean validateAccountName(String accountName) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
