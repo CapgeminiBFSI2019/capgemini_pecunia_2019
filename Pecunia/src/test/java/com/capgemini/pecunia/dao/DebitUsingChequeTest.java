@@ -43,7 +43,7 @@ class DebitUsingChequeTest {
     @Test
     public void validateAccountId_Missing_Digits() {
        // setup
-        String accountId ="56801124";
+        String accountId ="201900010000";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountId(accountId);
@@ -55,7 +55,7 @@ class DebitUsingChequeTest {
     @Test
     public void validateAccountId_Excess_Digits() {
        // setup
-        String accountId ="5680112467";
+        String accountId ="2019000100000157";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountId(accountId);
@@ -67,7 +67,7 @@ class DebitUsingChequeTest {
     @Test
     public void validateAccountId_UpperCaseLetter() {
        // setup
-        String accountId = "568034AB";
+        String accountId = "201900010000AB";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountId(accountId);
@@ -79,7 +79,7 @@ class DebitUsingChequeTest {
     @Test
     public void validateAcoountId_LowerCaseLetter() {
        // setup
-        String accountId = "5680abc34";
+        String accountId = "201900010000ab";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountId(accountId);
@@ -91,7 +91,7 @@ class DebitUsingChequeTest {
     @Test
     public void validateAccountId_SpecialChar() {
        // setup
-        String accountId = "5680#$@%!";
+        String accountId = "201900010000#!";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountId(accountId);
@@ -132,6 +132,18 @@ class DebitUsingChequeTest {
     public void validateAccountName_Digits() {
        // setup
         String accountName ="Darshana Me65a";
+        AccountService accService= new AccountServiceImpl();
+        // execute
+        boolean actual = accService.validateAccountName(accountName);
+ 
+        // assert
+        assertFalse(actual);
+    }
+    
+    @Test
+    public void validateAccountName_SpecialChar() {
+       // setup
+        String accountName = "Darshana Me@%a";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountName(accountName);
