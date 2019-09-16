@@ -14,7 +14,7 @@ public class Transaction {
 	String transTo;
 	Double transClosingBalance;
 
-	public Transaction(String transId, String transAccountId, String transType, Double transAmount, String transOption,
+	public Transaction(String transId, String transAccountId, String transType, String transOption, Double transAmount,
 			Date transDate, String transChequeId, String transFrom, String transTo, Double transClosingBalance) {
 		super();
 		this.transId = transId;
