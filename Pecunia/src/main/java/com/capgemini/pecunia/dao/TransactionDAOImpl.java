@@ -1,9 +1,11 @@
 package com.capgemini.pecunia.dao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +22,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public boolean isSufficientBalance(String accountId, double transactionAmount) {
 		// TODO Auto-generated method stub
 		try {
-			File file = new File("src/main/java/com/capgemini/pecunia/dao/DbFiles/Account.csv");
+			File file = new File(Values.ACCOUNT_CSV_FILE);
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = br.readLine()) != null) {
@@ -44,7 +46,22 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public int saveTransaction(Transaction transaction) {
 		// TODO Auto-generated method stub
-		return 0;
+		try
+		{
+			String transString = transaction.getTransactionString();
+			File customerFile = new File(Values.TRANSACTION_CSV_FILE);
+	        FileWriter fr = new FileWriter(customerFile,true);
+	        BufferedWriter br = new BufferedWriter(fr);
+	        br.write(transString);
+	        br.newLine();
+	        br.close();
+	        fr.close();
+	        return 1;
+		}
+		catch(Exception e)
+		{
+			return 0;
+		}
 	}
 
 	@Override
@@ -61,6 +78,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 				newbalance = oldBalance + amount;
 				accountArray[5] = Double.toString(newbalance);
 				String transId = Utility.getAlphaNumericString();
+				Transaction transaction1 = new Transaction(transId, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_SLIP,amount, transactionDate, Values.NA, Values.NA,Values.NA, newbalance);
 				// return transId;
 			} else {
 				System.out.println("Account does not exist");
@@ -136,12 +154,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
 								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 						String transId1 = Utility.getAlphaNumericString();
-						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
-								amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, payeeAccount, Values.NA,
+						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_CHEQUE,
+								amount,  transactionDate, chequeId, payeeAccount, Values.NA,
 								newBalBenificiary);
 						String transId2 = Utility.getAlphaNumericString();
-						Transaction transaction2 = new Transaction(transId2, payeeAccount, Values.TRANSACTION_DEBIT,
-								amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA, payeeAccount,
+						Transaction transaction2 = new Transaction(transId2, payeeAccount, Values.TRANSACTION_DEBIT,Values.TRANSACTION_OPTION_CHEQUE,
+								amount,  transactionDate, chequeId, Values.NA, payeeAccount,
 								newBalPayee);
 					} else {
 						String chequeId = Utility.getAlphaNumericString();
@@ -195,8 +213,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount,
 							chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 					String transId1 = Utility.getAlphaNumericString();
-					Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
-							amount, Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA,
+					Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_CHEQUE,
+							amount,  transactionDate, chequeId, Values.NA,
 							transId1, newbalance);
 					// return transId;
 				}
@@ -233,23 +251,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	
-	@Override
-	public Transaction getTransactionObject(String row) {
-		// TODO Auto-generated method stub
-		String arr[] = row.split(",");
-		Date date;
-		Transaction transaction;
-		try {
-			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
-			transaction = new Transaction(arr[0],arr[1],arr[2],Double.parseDouble(arr[3]),arr[4],date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
-			return transaction;
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
+
+
 	
 }
