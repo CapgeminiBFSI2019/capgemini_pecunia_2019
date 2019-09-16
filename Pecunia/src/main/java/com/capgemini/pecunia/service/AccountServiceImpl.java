@@ -102,25 +102,25 @@ public class AccountServiceImpl implements AccountService {
 					throw new InvalidParameterException("Invalid Input");
 				}
 
-				if(customerAadhar.length()!= 16 && Pattern.matches("[^A-Za-z]",customerAadhar))
+				if(customerAadhar.length()!= 16 && Pattern.matches("[A-Za-z]",customerAadhar))
 				{
 					throw new InvalidParameterException("Invalid Aadhar");
 					//System.out.println("Invalid Aadhar");
 
 				}
 
-				if(customerPan.length()!=10 && Pattern.matches("[^A-Za-z]", customerPan))
+				if(customerPan.length()!=10)
 				{
 					throw new InvalidParameterException("Invalid PAN");
 					//System.out.println("Invalid PAN");
 				}
-				if(customerContact.length()!=10 && Pattern.matches("[^A-Za-z]",customerContact) )
+				if(customerContact.length()!=10 && Pattern.matches("[A-Za-z]",customerContact) )
 				{
 					throw new InvalidParameterException("Invalid Contact Number");
 					//			System.out.println("Invalid Number");
 				}
 
-				if(addressZipcode.length()!=6 && Pattern.matches("[^A-Za-z]",addressZipcode) )
+				if(addressZipcode.length()!=6 && Pattern.matches("[A-Za-z]",addressZipcode) )
 				{
 					throw new InvalidParameterException("Invalid Contact Number");
 					//System.out.println("Invalid Zip");
