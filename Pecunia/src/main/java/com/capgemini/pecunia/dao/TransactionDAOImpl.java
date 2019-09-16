@@ -251,23 +251,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	
-	@Override
-	public Transaction getTransactionObject(String row) {
-		// TODO Auto-generated method stub
-		String arr[] = row.split(",");
-		Date date;
-		Transaction transaction;
-		try {
-			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
-			transaction = new Transaction(arr[0],arr[1],arr[2],arr[3],Double.parseDouble(arr[4]),date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
-			return transaction;
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
+
+
 	
 }

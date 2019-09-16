@@ -93,5 +93,17 @@ public class Branch
 	{
 		this.branchAddress = branchAddress;
 	}
+	
+	public static Branch getBranchObject(String row) {
+		String arr[] = row.split(",");
+		Branch branch=new Branch(arr[0],arr[1],arr[2],arr[3]);
+		return branch;
+	}
+	
+	@Override
+	public String toString() {
+		return this.branchId+" "+this.branchName+" "+this.branchIFSC+" "+this.branchAddress;
+	}
+
 
 }
