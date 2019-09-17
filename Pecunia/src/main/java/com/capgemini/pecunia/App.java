@@ -26,10 +26,10 @@ public class App
         String result = obj.creditUsingSlip("20190001000001", 50000.00, date);
         System.out.println(result);
  
-        System.out.println( "chapp nish na" );
-        System.out.println("Anish edit");
-        System.out.println("Ankit");
-        System.out.println(new AccountServiceImpl().addAccount(null,null,null,null,null, null, null, null, null, null,null,null,"gfdestetjhesr", -1.4, -1.0, null, null));
+//        System.out.println( "chapp nish na" );
+//        System.out.println("Anish edit");
+//        System.out.println("Ankit");
+//        System.out.println(new AccountServiceImpl().addAccount(null,null,null,null,null, null, null, null, null, null,null,null,"gfdestetjhesr", -1.4, -1.0, null, null));
 //        new AccountServiceImpl().addAccount(null,null,null,null,null, null, null, null, null, null,null,null,"gfdestetjhesr", -1.4, -1.0, null, null);
     }
 }
