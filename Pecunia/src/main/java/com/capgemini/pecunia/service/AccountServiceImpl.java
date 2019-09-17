@@ -320,7 +320,7 @@ public class AccountServiceImpl implements AccountService {
 				{
 					throw new InvalidParameterException("New name has to be given");
 				}
-				if(Pattern.matches(".*[0-9]+.*", newName))
+				if(Pattern.matches(".*[0-9]+.*", newName) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", newName))
 				{
 					throw new InvalidParameterException("Your name has a digit?");
 				}
@@ -375,7 +375,7 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("New number has to be given");
 			}
-			if(newContact.length()!=10 && Pattern.matches(".*[a-zA-Z]+.*",newContact) )
+			if(newContact.length()!=10 || Pattern.matches(".*[a-zA-Z]+.*",newContact) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", newContact))
 			{
 				throw new InvalidParameterException("Invalid Contact Number");
 			}
@@ -431,20 +431,20 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("Fill all the fields");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCity))
+			if(Pattern.matches(".*[0-9]+.*", addressCity) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressCity))
 			{
 				throw new InvalidParameterException("Invalid City");
 			}
 
-			if(Pattern.matches(".*[0-9]+.*", addressState))
+			if(Pattern.matches(".*[0-9]+.*", addressState) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressState))
 			{
 				throw new InvalidParameterException("Invalid State");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCountry))
+			if(Pattern.matches(".*[0-9]+.*", addressCountry) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressCountry))
 			{
 				throw new InvalidParameterException("Invalid Country");
 			}
-			if(addressZipcode.length()!=6 && Pattern.matches(".*[a-zA-Z]+.*",addressZipcode) )
+			if(addressZipcode.length()!=6 || Pattern.matches(".*[a-zA-Z]+.*",addressZipcode) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressZipcode))
 			{
 				throw new InvalidParameterException("Invalid Zipcode");
 			}
