@@ -16,15 +16,12 @@ class CreditUsingSlipTest {
 	   
 	@Test
     public void validateAccountId_Null() {
-       // setup
-		 AccountService accService= new AccountServiceImpl();
-        String accountId = null;
- 
-        // execute
-        boolean actual = accService.validateAccountId(accountId);
+		// setup
+        String accName = null;
+      
  
         // assert
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, ()->{new AccountServiceImpl().validateAccountName(accName);});
     }
  
     @Test
@@ -106,14 +103,12 @@ class CreditUsingSlipTest {
     
     @Test
     public void validateAccountName_Null() {
-       // setup
-        String accountName = null;
-        AccountService accService= new AccountServiceImpl();
-        // execute
-        boolean actual = accService.validateAccountName(accountName);
+    	  // setup
+        String accName = null;
+      
  
         // assert
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, ()->{new AccountServiceImpl().validateAccountName(accName);});
     }
  
     @Test

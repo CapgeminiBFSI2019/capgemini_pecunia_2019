@@ -50,7 +50,7 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 		}
 	}
 	public String createLoanRequest(String loanCustomerId, double loanAmount, String loanType, int tenure,
-			double loanRoi, String loanStatus) {
+			double loanRoi, String loanStatus, int creditScore) {
 		
 		if(!validateCustomerId(loanCustomerId))
 		{
@@ -75,8 +75,9 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 		
 		double emi = calculateEMI(loanAmount, tenure, loanRoi);
 		String loanRequestId = Utility.getAlphaNumericString();
+		
 		LoanRequest loanreq = new LoanRequest(loanRequestId, loanCustomerId, loanAmount, loanType, tenure, loanRoi,
-				loanStatus, emi);
+				loanStatus, emi, creditScore);
 		try {
 			String loanRequestData = loanreq.getLoanRequestData();
 			File loancustomerFile = new File("LoanRequest.csv");
