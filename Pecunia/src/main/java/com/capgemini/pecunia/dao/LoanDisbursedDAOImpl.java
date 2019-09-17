@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import org.hamcrest.core.IsNull;
 
 import com.capgemini.pecunia.Values;
 import com.capgemini.pecunia.model.LoanRequest;
@@ -63,6 +64,23 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 	
 
 	}
+	
+	public boolean checkLoanStatus(String s) {
+		if(s.equals("Pending")) {
+			
+				if(!(s.isEmpty()))
+			
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean creditScore(int n) {
+		if(n>=750) {
+			return true;
+		}
+		return false;
+	}
 
 	// TODO Write Comments
 	public ArrayList<LoanRequest> approveLoan(ArrayList<LoanRequest> loanList) {
@@ -70,7 +88,7 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		
 		for (int i = 0; i < loanList.size(); i++) {
 			
-			if (loanList.get(i).getLoanStatus().equals("Pending")) {
+			if (checkLoanStatus(loanList.get(i).getLoanStatus())) {
 
 				loanList1.add(new LoanRequest(loanList.get(i).getLoanRequestId(), loanList.get(i).getLoanCustomerId(),
 						loanList.get(i).getLoanAmount(), loanList.get(i).getLoanType(), loanList.get(i).getTenure(),
@@ -92,7 +110,7 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		
 		for (int i = 0; i < loanList1.size(); i++) {
 			System.out.println(loanList1.get(i).getCreditScore());
-			if (loanList1.get(i).getCreditScore() > 750) {
+			if (creditScore(loanList1.get(i).getCreditScore())) {
 				loanList2.add(new LoanRequest(loanList1.get(i).getLoanRequestId(), loanList1.get(i).getLoanCustomerId(),
 						loanList1.get(i).getLoanAmount(), loanList1.get(i).getLoanType(), loanList1.get(i).getTenure(),
 						loanList1.get(i).getLoanRoi(), loanList1.get(i).getLoanStatus(), loanList1.get(i).getLoanEmi(),
