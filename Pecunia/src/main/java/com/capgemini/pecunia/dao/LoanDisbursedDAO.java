@@ -15,3 +15,4 @@ public interface LoanDisbursedDAO {
 	public void releaseLoanSheet(ArrayList<LoanRequest> LoanList) throws IOException;
 
 }
+

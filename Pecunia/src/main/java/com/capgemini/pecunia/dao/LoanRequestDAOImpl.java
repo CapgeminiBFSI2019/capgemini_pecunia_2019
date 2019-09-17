@@ -79,7 +79,9 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 		double emi = calculateEMI(loanAmount, tenure, loanRoi);
 
 		// Getting loan request ID generated using Utility function
+
 		String loanRequestId = Utility.getAlphaNumericString(20);
+
 
 		// Creating object of loanRequest and passing values to it
 		LoanRequest loanreq = new LoanRequest(loanRequestId, loanCustomerId, loanAmount, loanType, tenure, loanRoi,
