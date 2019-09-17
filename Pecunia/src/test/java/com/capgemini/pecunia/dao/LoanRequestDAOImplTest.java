@@ -112,7 +112,7 @@ class LoanRequestDAOImplTest {
 		});
 	}
 
-	//
+	//If tenure entered is negative
 	@Test
 	void createLoanRequestTest5() {
 		assertThrows(InvalidParameterException.class, () -> {
@@ -120,6 +120,7 @@ class LoanRequestDAOImplTest {
 		});
 	}
 
+	//If loan amount entered is negative
 	@Test
 	void createLoanRequestTest6() {
 		assertThrows(InvalidParameterException.class, () -> {
@@ -127,6 +128,7 @@ class LoanRequestDAOImplTest {
 		});
 	}
 
+	//If rate of interest entered is negative
 	@Test
 	void createLoanRequestTest7() {
 		assertThrows(InvalidParameterException.class, () -> {
@@ -134,13 +136,15 @@ class LoanRequestDAOImplTest {
 		});
 	}
 
+	//If Credit Card entered is zero 
 	@Test
 	void createLoanRequestTest8() {
 		assertThrows(InvalidParameterException.class, () -> {
 			new LoanRequestDAOImpl().createLoanRequest("bdbujsbdu", 200000, "Vehicle Loan", 24, -9.6, "Pending", 0);
 		});
 	}
-
+	
+	//If credit score entered is negative
 	@Test
 	void createLoanRequestTest9() {
 		assertThrows(InvalidParameterException.class, () -> {
