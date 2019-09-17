@@ -6,7 +6,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.text.SimpleDateFormat;  
-
 public class Utility {
 	public static String getAlphaNumericString() {
 
@@ -68,6 +67,8 @@ public class Utility {
 		else 
 			return false;
 	}
+	
+	
 	//dfgr
 	public static void main(String[] args) {
 		System.out.println(getAlphaNumericString());

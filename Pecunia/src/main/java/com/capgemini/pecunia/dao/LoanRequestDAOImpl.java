@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
+import java.util.InputMismatchException;
 
 import com.capgemini.pecunia.Utility;
 import com.capgemini.pecunia.dao.LoanRequestDAO;
@@ -53,7 +54,11 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 		
 		if(!validateCustomerId(loanCustomerId))
 		{
-			throw new InvalidParameterException();
+			//throw new InputMismatchException();
+			return null;
+		}
+		if(loanCustomerId.equals(null)||loanType.equals(null)||loanStatus.equals(null)) {
+			return null;
 		}
 		if(loanType!="Home Loan"|| loanType!= "Vehicle Loan" || loanType!= "Jewel Loan"|| loanType!= "Perosonal Loan")
 		{
