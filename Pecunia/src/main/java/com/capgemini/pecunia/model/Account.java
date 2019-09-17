@@ -168,6 +168,7 @@ public class Account {
 			String arr[] = row.split(",");
 			Date date;
 			try {
+//				System.out.println("Row : "+row);
 				date =  (Date) new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[7]);
 				Account acc= new Account(arr[0],arr[1],arr[2],arr[3],arr[4],Double.parseDouble(arr[5]),Double.parseDouble(arr[6]),date);
 				return acc;
