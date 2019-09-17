@@ -5,11 +5,10 @@ import com.capgemini.pecunia.dao.EmployeeDAOimpl;
 public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
-	public String login(String username, String password) {
+	public void login(String username, String password) {
 		// TODO Auto-generated method stub
 		EmployeeDAOimpl employeeDAOimpl = new EmployeeDAOimpl();
 		employeeDAOimpl.login(username, password);
-		return null;
 	}
 
 }
