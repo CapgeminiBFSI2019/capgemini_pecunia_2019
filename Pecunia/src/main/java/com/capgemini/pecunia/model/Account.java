@@ -180,7 +180,7 @@ public class Account {
 		
 		public String getAccountString() {
 			DateFormat dateFormat = new SimpleDateFormat(Values.DATE_FORMAT);
-			return (this.accountHolderId + "," + this.accountBranchId + "," + this.accountType + "," + this.accountStatus + "," + this.accountBalance + "," + this.accountInterest + "," +dateFormat.format(this.lastUpdated) );
+			return (this.accountId+","+this.accountHolderId + "," + this.accountBranchId + "," + this.accountType + "," + this.accountStatus + "," + this.accountBalance + "," + this.accountInterest + "," +dateFormat.format(this.lastUpdated) );
 		}
 		
 		
