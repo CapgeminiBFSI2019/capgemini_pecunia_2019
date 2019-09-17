@@ -106,14 +106,12 @@ class DebitUsingChequeTest {
     
     @Test
     public void validateAccountName_Null() {
-       // setup
-        String accountName = null;
-        AccountService accService= new AccountServiceImpl();
-        // execute
-        boolean actual = accService.validateAccountName(accountName);
+    	  // setup
+        String accName = null;
+      
  
         // assert
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, ()->{new AccountServiceImpl().validateAccountName(accName);});
     }
  
     @Test

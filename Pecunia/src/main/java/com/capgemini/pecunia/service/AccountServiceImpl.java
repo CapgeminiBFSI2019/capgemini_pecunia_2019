@@ -273,6 +273,11 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean validateAccountName(String accountName) {
 		 String[] Nametmp = accountName.split("\\s+");
+
+		 if(accountName.equals(null)) {
+			 throw new NullPointerException();
+		 }
+		   if(!accountName.equals(null) && !accountName.isEmpty()) {
 		 if(accountName!=null && !accountName.isEmpty()) {
 				if(Nametmp[0].matches("[A-Za-z]+") && Nametmp[1].matches("[A-Za-z]+")) {
 					return true;
