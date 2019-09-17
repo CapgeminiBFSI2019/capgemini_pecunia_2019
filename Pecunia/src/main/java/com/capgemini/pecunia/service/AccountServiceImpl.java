@@ -19,9 +19,6 @@ import com.capgemini.pecunia.model.Transaction;
 
 public class AccountServiceImpl implements AccountService {
 
-
-
-	
 	public static ArrayList<Transaction> updatePassbookOne(String accountId){
 
 		try {
@@ -81,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
 	public  String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
 			String addressState, String addressCountry, String addressZipcode, String accountType,
-			double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
+			double accountBalance, double accountInterest, Date lastUpdated, String accountBranchId) {
 
 		try {	
 			if( customerName== null || customerAadhar== null || customerPan== null || customerContact== null || customerGender== null
@@ -92,7 +89,7 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("All fields compulsory");
 			}
-			if(Pattern.matches(".*[0-9]+.*", customerName))
+			if(Pattern.matches(".*[0-9]+.*", customerName) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",customerName ))
 			{
 				throw new InvalidParameterException("Your name is a digit?");
 			}		
@@ -100,16 +97,16 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("Invalid Input");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCity))
+			if(Pattern.matches(".*[0-9]+.*", addressCity) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",addressCity))
 			{
 				throw new InvalidParameterException("Invalid Input");
 			}
 
-			if(Pattern.matches(".*[0-9]+.*", addressState))
+			if(Pattern.matches(".*[0-9]+.*", addressState) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",addressState))
 			{
 				throw new InvalidParameterException("Invalid Input");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCountry))
+			if(Pattern.matches(".*[0-9]+.*", addressCountry) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",addressCountry))
 			{
 				throw new InvalidParameterException("Invalid Input");
 			}
@@ -120,25 +117,25 @@ public class AccountServiceImpl implements AccountService {
 				throw new InvalidParameterException("Invalid Input");
 			}
 
-			if(customerAadhar.length()!= 12 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar))
+			if(customerAadhar.length()!= 12 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",customerAadhar))
 			{
 				throw new InvalidParameterException("Invalid Aadhar");
 				//System.out.println("Invalid Aadhar");
 
 			}
 
-			if(customerPan.length()!=10)
+			if(customerPan.length()!=10 ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",customerPan))
 			{
 				throw new InvalidParameterException("Invalid PAN");
 				//System.out.println("Invalid PAN");
 			}
-			if(customerContact.length()!=10 && Pattern.matches((".*[a-zA-Z]+.*"),customerContact) )
+			if(customerContact.length()!=10 || Pattern.matches((".*[a-zA-Z]+.*"),customerContact) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",customerContact))
 			{
 				throw new InvalidParameterException("Invalid Contact Number");
 				//			System.out.println("Invalid Number");
 			}
 
-			if(addressZipcode.length()!=6 && Pattern.matches((".*[a-zA-Z]+.*"),addressZipcode) )
+			if(addressZipcode.length()!=6 || Pattern.matches((".*[a-zA-Z]+.*"),addressZipcode) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",addressZipcode)) 
 			{
 				throw new InvalidParameterException("Invalid Zipcode");
 				//System.out.println("Invalid Zip");
@@ -192,7 +189,7 @@ public class AccountServiceImpl implements AccountService {
 			String tempcustId= cust.getCustomerAddressId(); //generating customer Id
 
 			Account acc= new Account (tempcustId, accountBranchId, accountType,
-					"Active",accountBalance, accountInterest, lastUpdated);
+					"Active",accountBalance, accountInterest, (java.sql.Date) lastUpdated);
 			FILE_PATH = Paths.get("Account.csv");
 			BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
 			List<String> fileContentAcc = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
@@ -222,7 +219,9 @@ public class AccountServiceImpl implements AccountService {
 		String inputAcc;
 		String[] arrAcc = new String[50];
 		try {
-
+			if(accountId==null || accountId.equals("")) {
+				throw new Exception();
+			}
 			boolean validated = validateAccountId(accountId);
 			if (validated) {
 				Path FILE_PATH = Paths.get("Account.csv");
@@ -325,7 +324,7 @@ public class AccountServiceImpl implements AccountService {
 				{
 					throw new InvalidParameterException("New name has to be given");
 				}
-				if(Pattern.matches(".*[0-9]+.*", newName) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", newName))
+				if(Pattern.matches(".*[0-9]+.*", newName) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*", newName))
 				{
 					throw new InvalidParameterException("Your name has a digit?");
 				}
@@ -380,7 +379,7 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("New number has to be given");
 			}
-			if(newContact.length()!=10 || Pattern.matches(".*[a-zA-Z]+.*",newContact) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", newContact))
+			if(newContact.length()!=10 || Pattern.matches(".*[a-zA-Z]+.*",newContact) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*", newContact))
 			{
 				throw new InvalidParameterException("Invalid Contact Number");
 			}
@@ -436,20 +435,20 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("Fill all the fields");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCity) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressCity))
+			if(Pattern.matches(".*[0-9]+.*", addressCity) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*", addressCity))
 			{
 				throw new InvalidParameterException("Invalid City");
 			}
 
-			if(Pattern.matches(".*[0-9]+.*", addressState) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressState))
+			if(Pattern.matches(".*[0-9]+.*", addressState) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*", addressState))
 			{
 				throw new InvalidParameterException("Invalid State");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCountry) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressCountry))
+			if(Pattern.matches(".*[0-9]+.*", addressCountry) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*", addressCountry))
 			{
 				throw new InvalidParameterException("Invalid Country");
 			}
-			if(addressZipcode.length()!=6 || Pattern.matches(".*[a-zA-Z]+.*",addressZipcode) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressZipcode))
+			if(addressZipcode.length()!=6 || Pattern.matches(".*[a-zA-Z]+.*",addressZipcode) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*", addressZipcode))
 			{
 				throw new InvalidParameterException("Invalid Zipcode");
 			}
@@ -513,6 +512,15 @@ public class AccountServiceImpl implements AccountService {
 		}catch(Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
+			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
+			String addressState, String addressCountry, String addressZipcode, String accountType,
+			double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

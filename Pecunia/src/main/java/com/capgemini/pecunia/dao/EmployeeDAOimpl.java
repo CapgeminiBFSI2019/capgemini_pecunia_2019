@@ -34,9 +34,23 @@ public class EmployeeDAOimpl implements EmployeeDAO {
 
 	@Override
 	public String login(String username, String password) {
-		// TODO Auto-generated method stub
-		List<Employee> employees;
+		
+	
+		
 		try {
+			if(username==null) {
+				throw new Exception(); 
+			}
+			if(username.equals("")) {
+				throw new Exception(); 
+			}
+			if(password==null) {
+				throw new Exception(); 
+			}
+			if(password.equals("")) {
+				throw new Exception(); 
+			}
+			List<Employee> employees;
 			employees = getEmployees();
 			for (Employee obj : employees) {
 				if (obj.getUsername().equals(username)) {
@@ -51,13 +65,8 @@ public class EmployeeDAOimpl implements EmployeeDAO {
 				}
 			}
 			return "No emp found";
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			
 			return null;
 		}
 
