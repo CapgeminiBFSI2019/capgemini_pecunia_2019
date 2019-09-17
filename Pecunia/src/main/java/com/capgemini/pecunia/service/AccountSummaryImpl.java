@@ -26,7 +26,7 @@ public class AccountSummaryImpl implements AccountService {
 	    	double amount = Integer.parseInt(arrTrans[3]);
             double closeBal = Integer.parseInt(arrTrans[9]);
             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(arrTrans[5]);
-    	   Transaction t = new Transaction(arrTrans[0],arrTrans[1],arrTrans[2],amount,arrTrans[4],
+    	   Transaction t = new Transaction(arrTrans[0],arrTrans[1],arrTrans[2],arrTrans[4],amount,
     			   				date1, arrTrans[6],arrTrans[7],arrTrans[8],closeBal);
     	   if(t.getTransDate()==startDate) {
     		   while(t.getTransDate().compareTo(endDate)<0) {

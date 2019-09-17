@@ -30,7 +30,7 @@ public class AccountServiceImpl implements AccountService {
 	        {
 	        	String arr[] = line.split(",");
 	            String updatedDate1= updateCurrentDate(accountId);
-	        	boolean ans = Utility.getUpdatedTrans(arr[5], updatedDate1);
+	        	boolean ans = getUpdatedTrans(arr[5], updatedDate1);
 	        	if(arr[1].equals(accountId) && ans==true )
 	        	{
 	        		Date date1=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(arr[5]);
@@ -60,7 +60,19 @@ public class AccountServiceImpl implements AccountService {
 	        br1.close();
 	        return "Account Id not found";
 	}
-   
+public static boolean getUpdatedTrans(String transDate, String updatedDate) {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	    Date currentDate = new Date();  
+	    String strDate = formatter.format(currentDate);   
+		
+		if(transDate.compareToIgnoreCase(updatedDate)>0 && transDate.compareToIgnoreCase(strDate)<0)
+		{
+			return true;
+		}
+		else 
+			return false;
+	}
 	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 				String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
 				String addressState, String addressCountry, String addressZipcode, String accountType,

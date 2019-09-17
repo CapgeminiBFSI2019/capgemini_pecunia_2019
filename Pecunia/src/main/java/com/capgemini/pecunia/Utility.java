@@ -25,23 +25,11 @@ public class Utility {
 		return sb.toString();
 	}
 	
-	public static boolean getUpdatedTrans(String transDate, String updatedDate) {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-	    Date currentDate = new Date();  
-	    String strDate = formatter.format(currentDate);   
-		
-		if(transDate.compareToIgnoreCase(updatedDate)>0 && transDate.compareToIgnoreCase(strDate)<0)
-		{
-			return true;
-		}
-		else 
-			return false;
-	}
+	
 	//dfgr
 	public static void main(String[] args) {
 		System.out.println(getAlphaNumericString());
-		boolean answer = getUpdatedTrans("08/08/2018 18:00:00", "08/08/2018 10:55:56");
-		System.out.println(answer);
+		
+		
 	}
 }
