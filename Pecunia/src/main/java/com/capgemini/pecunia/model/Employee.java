@@ -7,6 +7,7 @@ import java.util.Date;
 import com.capgemini.pecunia.Values;
 
 public class Employee {
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

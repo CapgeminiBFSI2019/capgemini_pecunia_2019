@@ -1,17 +1,7 @@
 package com.capgemini.pecunia.dao;
-
-
-
-
 import java.text.ParseException;
 
 import com.capgemini.pecunia.model.Employee;
-
- 
-
-
-
- 
 
 public interface EmployeeDAO {
     public void initialiseDatabase() throws ParseException;
