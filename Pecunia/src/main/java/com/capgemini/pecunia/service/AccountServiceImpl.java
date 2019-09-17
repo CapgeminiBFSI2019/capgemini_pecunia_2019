@@ -159,16 +159,17 @@ public class AccountServiceImpl implements AccountService {
 
 				Customer cust= new Customer(customerName, tempaddId,  customerAadhar,
 						customerPan,  customerContact, customerGender, (java.sql.Date) customerDob);
-				FILE_PATH = Paths.get("Customer.csv");
+				FILE_PATH = Paths.get("Customer.csv"); //reading the csv file and storing in a list
 				BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
 				List<String> fileContentCust = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
-				while((inputCust = bufferedReaderCust.readLine()) != null) {
-					countCust++;
+				while((inputCust = bufferedReaderCust.readLine()) != null) //reading till the end of line 
+					{
+					countCust++; //increasingthecount
 				}
 				fileContentCust.set(countCust+1,cust.getCustomerId()+","+cust.getCustomerName()+","+cust.getCustomerAddressId()+
 								","+cust.getCustomerAadhar()+","+cust.getCustomerPan()+","+cust.getCustomerContact()+
 								","+cust.getCustomerGender()+","+cust.getCustomerDob());
-		        Files.write(FILE_PATH, fileContentCust, StandardCharsets.UTF_8);
+		        Files.write(FILE_PATH, fileContentCust, StandardCharsets.UTF_8); 
 				bufferedReaderCust.close();
 				
 				String tempcustId= cust.getCustomerAddressId(); //generating customer Id
