@@ -23,7 +23,7 @@ class addAccountTest {
 	@Test
 	void addAccount_AadharValidity() {
 		
-		String line="123456789876543211dD^&_+";
+		String line="1234567g*+9871";
 		assertThrows(InvalidParameterException.class, () -> {
 		      
 			new AccountServiceImpl().addAccount(null, line, null, null, null, null, null, null, null, null, null, null, null, -1.4, -1.0, null, null);
