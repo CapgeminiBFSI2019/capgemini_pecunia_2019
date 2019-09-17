@@ -121,7 +121,7 @@ public int hashCode() {
 	public Customer( String customerName, String customerAddressId, String customerAadhar,
 			String customerPan, String customerContact, String customerGender, Date customerDob) {
 		super();
-		this.customerId = Utility.getAlphaNumericString();
+		this.customerId = Utility.getAlphaNumericString(20);
 		this.customerName = customerName;
 		this.customerAddressId = customerAddressId;
 		this.customerAadhar = customerAadhar;

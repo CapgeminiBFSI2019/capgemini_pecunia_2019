@@ -7,14 +7,25 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.capgemini.pecunia.MyException;
 import com.capgemini.pecunia.Utility;
 import com.capgemini.pecunia.Values;
+import com.capgemini.pecunia.model.Account;
 import com.capgemini.pecunia.model.Cheque;
+import com.capgemini.pecunia.model.Employee;
 import com.capgemini.pecunia.model.Transaction;
+
+import sun.font.CreatedFontTracker;
 
 public class TransactionDAOImpl implements TransactionDAO {
 
@@ -46,189 +57,218 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public int saveTransaction(Transaction transaction) {
 		// TODO Auto-generated method stub
-		try
-		{
+		try {
 			String transString = transaction.getTransactionString();
 			File customerFile = new File(Values.TRANSACTION_CSV_FILE);
-	        FileWriter fr = new FileWriter(customerFile,true);
-	        BufferedWriter br = new BufferedWriter(fr);
-	        br.write(transString);
-	        br.newLine();
-	        br.close();
-	        fr.close();
-	        return 1;
-		}
-		catch(Exception e)
-		{
+			FileWriter fr = new FileWriter(customerFile, true);
+			BufferedWriter br = new BufferedWriter(fr);
+			br.write(transString);
+			br.newLine();
+			br.close();
+			fr.close();
+			return 1;
+		} catch (Exception e) {
 			return 0;
 		}
 	}
 
 	@Override
-	public int creditUsingSlip(String accountId, Double amount, Date transactionDate) {
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
-			String accountRow = getAccountRow(accountId);
-
-			if (accountRow != null) {
-				String accountArray[] = accountRow.split(",");
-
-				double oldBalance, newbalance;
-				oldBalance = Double.parseDouble(accountArray[5]);
-				newbalance = oldBalance + amount;
-				accountArray[5] = Double.toString(newbalance);
-				String transId = Utility.getAlphaNumericString();
-				Transaction transaction1 = new Transaction(transId, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_SLIP,amount, transactionDate, Values.NA, Values.NA,Values.NA, newbalance);
-				// return transId;
-			} else {
-				System.out.println("Account does not exist");
-
+	public String creditUsingSlip(String accountId, Double amount, Date transactionDate) throws MyException {
+		try
+		{
+			Account account = getAccountObject(accountId);
+			if(account != null)
+			{
+				double oldBalance,newBalance;
+				oldBalance = account.getAccountBalance();
+				newBalance = oldBalance + amount;
+				// Need to update balance 
+				String transId = Utility.getAlphaNumericString(20);
+				Transaction transaction = new Transaction(transId, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_SLIP, amount, transactionDate, Values.NA, Values.NA, Values.NA,newBalance);
+				saveTransaction(transaction);
+				return transId;
 			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			else
+			{
+				throw new MyException(Values.INVALID_ACCOUNT_EXCEPTION);
+			}
 		}
-		return 0;
+		catch(Exception e)
+		{
+			throw new MyException(Values.EXCEPTION_DURING_TRANSACTION);
+		}
 	}
 
 	@Override
-	public int debitUsingSlip(String accountId, double amount, Date transactionDate) {
-		// TODO Auto-generated method stub
-
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
-//				 String acountId;
-			String accountRow = getAccountRow(accountId);
-
-			if (accountRow != null) {
-				String accountArray[] = accountRow.split(",");
-
-				double oldBalance, newbalance;
-				oldBalance = Double.parseDouble(accountArray[5]);
-
-				if (isSufficientBalance(accountId, amount)) {
-					newbalance = oldBalance - amount;
-					accountArray[5] = Double.toString(newbalance);
-					String transId = Utility.getAlphaNumericString();
-					// return transId;
-				} else {
-					System.out.println("Debit amount is more than account balance");
+	public String debitUsingSlip(String accountId, double amount, Date transactionDate) throws MyException {
+		try
+		{
+			Account account = getAccountObject(accountId);
+			if(account != null)
+			{
+				double oldBalance,newBalance;
+				oldBalance = account.getAccountBalance();
+				
+				if(isSufficientBalance(accountId, amount))
+				{
+					newBalance = oldBalance - amount;
+					// Need to update balance 
+					String transId = Utility.getAlphaNumericString(20);
+					Transaction transaction = new Transaction(transId, accountId, Values.TRANSACTION_DEBIT,Values.TRANSACTION_OPTION_SLIP, amount, transactionDate, Values.NA, Values.NA, Values.NA,newBalance);
+					saveTransaction(transaction);
+					return transId;
 				}
-
-			} else {
-				System.out.println("Account does not exist");
-
+				else
+				{
+					throw new MyException(Values.INSUFFICIENT_BALANCE_EXCEPTION);
+				}
+				
 			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			else
+			{
+				throw new MyException(Values.INVALID_ACCOUNT_EXCEPTION);
+			}
 		}
-		return 0;
+		catch(Exception e)
+		{
+			throw new MyException(Values.EXCEPTION_DURING_TRANSACTION);
+		}
 	}
 
 	@Override
-	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String chequeNum,
+	public String creditUsingCheque(String accountId, Double amount, Date transactionDate, String chequeNum,
 			String chequeAccount, String chequeBankName, String chequeHolderName, String chequeIFSC,
-			Date chequeIssueDate, String chequeStatus) {
-		// TODO Auto-generated method stub
+			Date chequeIssueDate, String chequeStatus) throws MyException{
+		
 		double oldBalPayee, newBalPayee, oldBalBeneficiary, newBalBenificiary;
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
-			String accountRow = getAccountRow(accountId);
-
-			if (accountRow != null) {
-				String accountArray[] = accountRow.split(",");
-				oldBalBeneficiary = Double.parseDouble(accountArray[5]);
-				if (chequeBankName.equals(Values.BANK_NAME)) {
-					if (isSufficientBalance(chequeAccount, amount)) {
-						String payeeAccount = getAccountRow(chequeAccount);
-						String payeeAccArray[] = payeeAccount.split(",");
-						oldBalPayee = Double.parseDouble(payeeAccArray[5]);
-
+		try
+		{
+			Account beneficiaryAccount = getAccountObject(accountId);
+			Account payeeAccount = getAccountObject(chequeAccount);
+			
+			if(beneficiaryAccount != null && payeeAccount != null)
+			{
+				oldBalBeneficiary = beneficiaryAccount.getAccountBalance();
+				if(chequeBankName.equals(Values.BANK_NAME))
+				{
+					if(isSufficientBalance(chequeAccount, amount))
+					{
+						oldBalPayee = payeeAccount.getAccountBalance();
+						
 						newBalBenificiary = oldBalBeneficiary + amount;
 						newBalPayee = oldBalPayee - amount;
-
-						String chequeId = Utility.getAlphaNumericString();
+						
+						//update balance reqyuired
+						
+						String chequeId = Utility.getAlphaNumericString(20);
 						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
-								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
-						String transId1 = Utility.getAlphaNumericString();
-						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_CHEQUE,
-								amount,  transactionDate, chequeId, payeeAccount, Values.NA,
-								newBalBenificiary);
-						String transId2 = Utility.getAlphaNumericString();
-						Transaction transaction2 = new Transaction(transId2, payeeAccount, Values.TRANSACTION_DEBIT,Values.TRANSACTION_OPTION_CHEQUE,
-								amount,  transactionDate, chequeId, Values.NA, payeeAccount,
-								newBalPayee);
-					} else {
-						String chequeId = Utility.getAlphaNumericString();
-						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
-								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_BOUNCED);
-						System.out.println("Insufficient balance");
+								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate,
+								Values.CHEQUE_STATUS_CLEARED);
+						
+						//cheque should be saved
+						String transId1 = Utility.getAlphaNumericString(20);
+						
+						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
+								Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, chequeAccount,
+								Values.NA, newBalBenificiary);
+						String transId2 = Utility.getAlphaNumericString(20);
+						Transaction transaction2 = new Transaction(transId2, chequeAccount, Values.TRANSACTION_DEBIT,
+								Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, Values.NA,
+								chequeAccount, newBalPayee);
+						//transaction should be saved
 					}
-				} else {
-					String chequeId = Utility.getAlphaNumericString();
-					Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount, chequeHolderName,
-							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_PENDING);
-
+					else
+					{
+						String chequeId = Utility.getAlphaNumericString(20);
+						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
+								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate,
+								Values.CHEQUE_STATUS_BOUNCED);
+						throw new MyException(Values.CHEQUE_BOUNCE_EXCEPTION);
+					}
+						
 				}
-
-			} else {
-				System.out.println("Account does not exist");
-
+				else
+				{
+					boolean chequebankFlag = false;
+					for(String temp:Values.OTHER_BANK_NAME)
+					{
+						if(temp.equals(chequeBankName))
+						{
+							chequebankFlag = true;
+							break;
+						}
+					}
+					
+					if(chequebankFlag)
+					{
+						String chequeId = Utility.getAlphaNumericString(20);
+						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount, chequeHolderName,
+								chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_PENDING);
+					}
+					else
+					{
+						throw new MyException(Values.INVALID_BANK_EXCEPTION);
+					}
+					
+				}
 			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			else
+			{
+				throw new MyException(Values.INVALID_ACCOUNT_EXCEPTION);
+			}
+				
 		}
-		return 0;
+		catch(Exception e)
+		{
+			throw new MyException(Values.EXCEPTION_DURING_TRANSACTION);
+		}
+		return null;
 	}
 
 	@Override
-	public int debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
+	public String debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
 			String chequeAccount, String chequeBankName, String chequeHolderName, String chequeIFSC,
-			String chequeStatus,Date transactionDate) {
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(Values.ACCOUNT_CSV_FILE));
-			String accountRow = getAccountRow(accountId);
-
-			if (accountRow != null) {
-				String accountArray[] = accountRow.split(",");
-
-				double oldBalance, newbalance;
-				oldBalance = Double.parseDouble(accountArray[5]);
-				if (amount > oldBalance) {
-					String chequeId = Utility.getAlphaNumericString();
-					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount,
-							chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_BOUNCED);
-					System.out.println("Debit amount is less than account balance");
-
-				} else {
-					newbalance = oldBalance - amount;
-					accountArray[5] = Double.toString(newbalance);
-					String transId = Utility.getAlphaNumericString();
-					String chequeId = Utility.getAlphaNumericString();
-					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount,
-							chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
-					String transId1 = Utility.getAlphaNumericString();
-					Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_CHEQUE,
-							amount,  transactionDate, chequeId, Values.NA,
-							transId1, newbalance);
-					// return transId;
+			String chequeStatus, Date transactionDate) throws MyException {
+		
+		try
+		{
+			Account account = getAccountObject(accountId);
+			if(account != null)
+			{
+				double oldBalance,newBalance;
+				oldBalance = account.getAccountBalance();
+				
+				if(isSufficientBalance(accountId, amount))
+				{
+					newBalance = oldBalance - amount;
+					// Need to update balance 
+					String chequeId = Utility.getAlphaNumericString(20);
+					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount, chequeHolderName,
+							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
+					String transId1 = Utility.getAlphaNumericString(20);
+					Transaction transaction = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
+							Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, Values.NA, transId1,
+							newBalance);
+					 return transId1;
 				}
-
-			} else {
-				System.out.println("Account does not exist");
-
+				else
+				{
+					String chequeId = Utility.getAlphaNumericString(20);
+					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount, chequeHolderName,
+							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_BOUNCED);
+					throw new MyException(Values.INSUFFICIENT_BALANCE_EXCEPTION);
+				}
+				
 			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			else
+			{
+				throw new MyException(Values.INVALID_ACCOUNT_EXCEPTION);
+			}
 		}
-		return 0;
+		catch(Exception e)
+		{
+			throw new MyException(Values.EXCEPTION_DURING_TRANSACTION);
+		}
 	}
 
 	@Override
@@ -249,9 +289,38 @@ public class TransactionDAOImpl implements TransactionDAO {
 			return null;
 		}
 	}
-
 	
-
-
+	public static Account getAccountObject(String accountNo)
+	{
+		try
+		{
+			List<Account> allAccountList = getAllAccounts();
+			for(Account acc : allAccountList)
+			{
+				if(acc.getAccountId().equals(accountNo))
+				{
+					return acc;
+				}
+			}
+			return null;
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error");
+			return null;
+		}
+	}
 	
+	public static List<Account> getAllAccounts() throws IOException {
+		Path FILE_PATH = Paths.get(Values.ACCOUNT_CSV_FILE);
+		List<String> fileContent = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+		List<Account> accList = new ArrayList<Account>();
+		for (String line : fileContent) {
+			Account acc = Account.getAccountObject(line);
+			accList.add(acc);
+		}
+		return accList;
+	}
+
 }
