@@ -159,16 +159,17 @@ public class AccountServiceImpl implements AccountService {
 
 				Customer cust= new Customer(customerName, tempaddId,  customerAadhar,
 						customerPan,  customerContact, customerGender, (java.sql.Date) customerDob);
-				FILE_PATH = Paths.get("Customer.csv");
+				FILE_PATH = Paths.get("Customer.csv"); //reading the csv file and storing in a list
 				BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
 				List<String> fileContentCust = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
-				while((inputCust = bufferedReaderCust.readLine()) != null) {
-					countCust++;
+				while((inputCust = bufferedReaderCust.readLine()) != null) //reading till the end of line 
+					{
+					countCust++; //increasingthecount
 				}
 				fileContentCust.set(countCust+1,cust.getCustomerId()+","+cust.getCustomerName()+","+cust.getCustomerAddressId()+
 								","+cust.getCustomerAadhar()+","+cust.getCustomerPan()+","+cust.getCustomerContact()+
 								","+cust.getCustomerGender()+","+cust.getCustomerDob());
-		        Files.write(FILE_PATH, fileContentCust, StandardCharsets.UTF_8);
+		        Files.write(FILE_PATH, fileContentCust, StandardCharsets.UTF_8); 
 				bufferedReaderCust.close();
 				
 				String tempcustId= cust.getCustomerAddressId(); //generating customer Id
@@ -247,9 +248,23 @@ public class AccountServiceImpl implements AccountService {
 				else {
 				return false;
 				}
-			
-				
 			}
+			String inputAcc;
+			try {
+				BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
+				while((inputAcc = bufferedReaderAcc.readLine()) != null)
+				{
+				   String[] arrAcc = inputAcc.split(",");
+				   if(arrAcc[0] == accountId)
+				   {
+					   return true;	
+				   }
+				}
+				bufferedReaderAcc.close();
+			}catch (Exception e) {
+				return false;
+			} 
+			
 		return false;
 		//implemented
 	
@@ -258,21 +273,21 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean validateAccountName(String accountName) {
 		 String[] Nametmp = accountName.split("\\s+");
+
 		 if(accountName.equals(null)) {
 			 throw new NullPointerException();
 		 }
 		   if(!accountName.equals(null) && !accountName.isEmpty()) {
+		 if(accountName!=null && !accountName.isEmpty()) {
 				if(Nametmp[0].matches("[A-Za-z]+") && Nametmp[1].matches("[A-Za-z]+")) {
 					return true;
 				}
 					else {
 					return false;
-					}
-				
-					
+					}	
 				}
-			return false;	
-			}
+		   return false;
+		   }
 
 	@Override
 	public boolean validateTransAmt(Double transAmt){
