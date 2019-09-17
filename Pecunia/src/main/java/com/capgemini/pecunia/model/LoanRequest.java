@@ -16,10 +16,11 @@ public class LoanRequest {
 	double loanEmi;
 	int creditScore;
 
+	// Default Constructor
 	public LoanRequest() {
 
 	}
-	
+
 	public int getCreditScore() {
 		return creditScore;
 	}
@@ -91,7 +92,8 @@ public class LoanRequest {
 	public void setLoanEmi(double loanEmi) {
 		this.loanEmi = loanEmi;
 	}
-
+	
+	//Parameterized Constructor for LoanRequest
 	public LoanRequest(String loanRequestId, String loanCustomerId, double loanAmount, String loanType, int tenure,
 			double loanRoi, String loanStatus, double loanEmi, int creditScore) {
 		super();
@@ -105,10 +107,11 @@ public class LoanRequest {
 		this.loanEmi = loanEmi;
 		this.creditScore = creditScore;
 	}
-
+	
 	public String getLoanRequestData() {
 		return (this.loanRequestId + "," + this.loanCustomerId + "," + this.loanAmount + "," + this.loanType + ","
-				+ this.tenure + "," + this.loanRoi + "," + this.loanStatus + "," + this.loanEmi + "," + this.creditScore);
+				+ this.tenure + "," + this.loanRoi + "," + this.loanStatus + "," + this.loanEmi + ","
+				+ this.creditScore);
 	}
 
 	@Override
@@ -147,19 +150,18 @@ public class LoanRequest {
 			return false;
 		return true;
 	}
-	
+
 	public static LoanRequest getLoanRequestObject(String row) {
 		String arr[] = row.split(",");
-		LoanRequest loanreq= new LoanRequest(arr[0],arr[1],Double.parseDouble(arr[2]),arr[3],Integer.parseInt(arr[4]),Double.parseDouble(arr[5]),arr[6],Double.parseDouble(arr[7]));
+		LoanRequest loanreq = new LoanRequest(arr[0], arr[1], Double.parseDouble(arr[2]), arr[3],
+				Integer.parseInt(arr[4]),Double.parseDouble(arr[5]),arr[6],Double.parseDouble(arr[7]),Integer.parseInt(arr[8]));
 		return loanreq;
-}
-	
+	}
+
 	@Override
 	public String toString() {
-		return this.loanRequestId+" "+this.loanCustomerId+" "+this.loanAmount+" "+this.loanType+" "+this.tenure+
-				" "+this.loanRoi+" "+this.loanStatus+" "+this.loanEmi;
+		return this.loanRequestId + " " + this.loanCustomerId + " " + this.loanAmount + " " + this.loanType + " "
+				+ this.tenure + " " + this.loanRoi + " " + this.loanStatus + " " + this.loanEmi;
 	}
-	
-
 
 }
