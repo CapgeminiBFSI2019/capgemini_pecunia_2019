@@ -219,7 +219,9 @@ public class AccountServiceImpl implements AccountService {
 		String inputAcc;
 		String[] arrAcc = new String[50];
 		try {
-
+			if(accountId==null || accountId.equals("")) {
+				throw new Exception();
+			}
 			boolean validated = validateAccountId(accountId);
 			if (validated) {
 				Path FILE_PATH = Paths.get("Account.csv");
