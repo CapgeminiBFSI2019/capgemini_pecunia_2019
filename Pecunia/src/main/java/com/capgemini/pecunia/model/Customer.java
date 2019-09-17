@@ -118,10 +118,10 @@ public int hashCode() {
 	}
 
 
-	public Customer( String customerName, String customerAddressId, String customerAadhar,
+	public Customer(String customerId, String customerName, String customerAddressId, String customerAadhar,
 			String customerPan, String customerContact, String customerGender, Date customerDob) {
 		super();
-		this.customerId = Utility.getAlphaNumericString(20);
+		this.customerId = customerId;
 		this.customerName = customerName;
 		this.customerAddressId = customerAddressId;
 		this.customerAadhar = customerAadhar;
@@ -166,7 +166,7 @@ public int hashCode() {
 		Date date;
 		try {
 			date = (Date) new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[7]);
-			Customer cust= new Customer(arr[1],arr[2],arr[3],arr[4],arr[5],arr[6],date);
+			Customer cust= new Customer(arr[0],arr[1],arr[2],arr[3],arr[4],arr[5],arr[6],date);
 		}
 		 catch (ParseException e) {
 				// TODO Auto-generated catch block

@@ -7,9 +7,11 @@ import com.capgemini.pecunia.model.LoanRequest;
 
 public interface LoanDisbursedDAO {
 	public ArrayList<LoanRequest> updateLoanList() throws IOException;
-	public void approveLoan();
-	public void checkCreditScore();
-	public void releaseLoanSheet(String loanRequestId) throws IOException;
-	
-	
+
+	public ArrayList<LoanRequest> approveLoan(ArrayList<LoanRequest> loanList);
+
+	//public ArrayList<LoanRequest> checkCreditScore(ArrayList<LoanRequest> loanList);
+
+	public void releaseLoanSheet(ArrayList<LoanRequest> LoanList) throws IOException;
+
 }

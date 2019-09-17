@@ -1,5 +1,6 @@
 package com.capgemini.pecunia.model;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -188,7 +189,8 @@ public class Transaction {
 	
 	public String getTransactionString()
 	{
-		return (this.transId + "," + this.transAccountId + "," + this.transType + "," + this.transAmount + "," + this.transOption + "," + this.transDate + "," + this.transChequeId + "," + this.transFrom + "," + this.transTo + "," + this.transClosingBalance );
+		DateFormat dateFormat = new SimpleDateFormat(Values.DATE_FORMAT);
+		return (this.transId + "," + this.transAccountId + "," + this.transType + "," + this.transAmount + "," + this.transOption + "," +dateFormat.format(this.transDate)  + "," + this.transChequeId + "," + this.transFrom + "," + this.transTo + "," + this.transClosingBalance );
 	}
 	
 	public static Transaction getTransactionObject(String row) {

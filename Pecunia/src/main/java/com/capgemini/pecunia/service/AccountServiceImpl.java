@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.InvalidParameterException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -16,6 +17,8 @@ import com.capgemini.pecunia.model.Account;
 import com.capgemini.pecunia.model.Address;
 import com.capgemini.pecunia.model.Customer;
 import com.capgemini.pecunia.model.Transaction;
+
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 public class AccountServiceImpl implements AccountService {
 
@@ -74,13 +77,14 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 
-
+	
 	public  String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
 			String addressState, String addressCountry, String addressZipcode, String accountType,
 			double accountBalance, double accountInterest, Date lastUpdated, String accountBranchId) {
 
 		try {	
+			DateFormat dateFormat = new SimpleDateFormat(Values.DATE_FORMAT);
 			if( customerName== null || customerAadhar== null || customerPan== null || customerContact== null || customerGender== null
 					|| customerDob==null ||addressLine1 == null || addressLine2 == null|| addressCity== null ||
 							addressState == null || addressCountry== null || addressZipcode== null || accountType== null ||
@@ -154,7 +158,8 @@ public class AccountServiceImpl implements AccountService {
 			String inputCust;
 			String inputAddr;
 			int countCust=0, countAcc=0, countAddr=0;
-			Address add= new Address(addressLine1, addressLine2, addressCity, addressState,
+			String addressId = Utility.getAlphaNumericString(20);
+			Address add= new Address(addressId,addressLine1, addressLine2, addressCity, addressState,
 					addressCountry,addressZipcode);
 			Path FILE_PATH = Paths.get("Address.csv");
 			BufferedReader bufferedReaderAddr = new BufferedReader(new FileReader("Address.csv"));
@@ -170,8 +175,8 @@ public class AccountServiceImpl implements AccountService {
 			
 
 			String tempaddId =add.getAddressId(); //generating address Id
-
-			Customer cust= new Customer(customerName, tempaddId,  customerAadhar,
+			String custid = Utility.getAlphaNumericString(20);
+			Customer cust= new Customer(custid,customerName, tempaddId,  customerAadhar,
 					customerPan,  customerContact, customerGender, (java.sql.Date) customerDob);
 			FILE_PATH = Paths.get("Customer.csv"); //reading the csv file and storing in a list
 			BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
@@ -187,9 +192,10 @@ public class AccountServiceImpl implements AccountService {
 			bufferedReaderCust.close();  //closing
 			
 			String tempcustId= cust.getCustomerAddressId(); //generating customer Id
-
-			Account acc= new Account (tempcustId, accountBranchId, accountType,
-					"Active",accountBalance, accountInterest, (java.sql.Date) lastUpdated);
+			
+			String accId = Utility.getAlphaNumericString(20);
+			Account acc= new Account (accId,tempcustId, accountBranchId, accountType,
+					"Active",accountBalance, accountInterest, lastUpdated);
 			FILE_PATH = Paths.get("Account.csv");
 			BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
 			List<String> fileContentAcc = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
@@ -513,15 +519,15 @@ public class AccountServiceImpl implements AccountService {
 			return false;
 		}
 	}
-
-	@Override
-	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
-			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
-			String addressState, String addressCountry, String addressZipcode, String accountType,
-			double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//
+//	@Override
+//	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
+//			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
+//			String addressState, String addressCountry, String addressZipcode, String accountType,
+//			double accountBalance, double accountInterest,  lastUpdated, String accountBranchId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
 

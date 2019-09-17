@@ -33,7 +33,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
 	}
 
 	@Override
-	public String login(String username, String password) {
+	public boolean login(String username, String password) {
 		
 	
 		
@@ -58,16 +58,16 @@ public class EmployeeDAOimpl implements EmployeeDAO {
 					byte arr[] = Utility.getSHA(password + "" + obj.getEmployeeSalt());
 					String hashPassword = Utility.toHexString(arr);
 					if (originalhash.equals(hashPassword)) {
-						return "Success";
+						return true;
 					} else {
-						return "Failure";
+						return false;
 					}
 				}
 			}
-			return "No emp found";
+			return false;
 		} catch (Exception e) {
 			
-			return null;
+			return false;
 		}
 
 	}

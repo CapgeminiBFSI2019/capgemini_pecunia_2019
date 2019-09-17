@@ -135,10 +135,10 @@ public class Address {
 		return addressZipcode;
 	}
 	
-	public Address( String addressLine1, String addressLine2, String addressCity, String addressState,
+	public Address(String addressId ,String addressLine1, String addressLine2, String addressCity, String addressState,
 			String addressCountry, String addressZipcode) {
 		super();
-		this.addressId = Utility.getAlphaNumericString(20);
+		this.addressId = addressId;
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.addressCity = addressCity;
@@ -155,7 +155,7 @@ public class Address {
 	
 	public static Address getAddressObject(String row) {
 		String arr[] = row.split(",");
-			Address address= new Address(arr[1],arr[2],arr[3],arr[4],arr[5],arr[6]);
+			Address address= new Address(arr[0],arr[1],arr[2],arr[3],arr[4],arr[5],arr[6]);
 		return address;
 	}
 
