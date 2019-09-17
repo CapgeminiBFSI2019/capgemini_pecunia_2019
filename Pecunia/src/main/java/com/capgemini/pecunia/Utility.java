@@ -71,7 +71,6 @@ public class Utility {
 	//dfgr
 	public static void main(String[] args) {
 		System.out.println(getAlphaNumericString());
-		boolean answer = getUpdatedTrans("08/08/2018 18:00:00", "08/08/2018 10:55:56");
-		System.out.println(answer);
+		
 	}
 }

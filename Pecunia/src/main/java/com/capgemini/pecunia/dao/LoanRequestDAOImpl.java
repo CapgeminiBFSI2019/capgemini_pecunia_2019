@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 
 import com.capgemini.pecunia.Utility;
@@ -15,18 +16,58 @@ import com.capgemini.pecunia.model.LoanRequest;
 public class LoanRequestDAOImpl implements LoanRequestDAO {
 
 
-	public static double calculateEMI(double amount, int tenure, double loanRoi) {
+	public double calculateEMI(double amount, int tenure, double loanRoi) {
+		if(amount<0||tenure<0||loanRoi<0) {
+			throw new InvalidParameterException();
+			}
 		double p = amount;
 		double r = loanRoi / 1200;
 		int t = tenure - 1;
 		double a = Math.pow(1 + r, tenure);
 		double b = Math.pow(1 + r, t);
-		double emi = p * r * a / b;
-		return emi;
+		double emi = (p * r * a) / b;
+		return Math.round(emi);
 	}
 
+	public boolean validateCustomerId(String loanCustomerId)
+	{
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("Customer.csv"));
+			String line;
+			while ((line = br.readLine()) != null) {
+				String arr[] = line.split(",");
+				if (arr[0].equals(loanCustomerId)) {
+					br.close();
+					return true;
+				}
+			}
+			br.close();
+			return false;
+		} catch (Exception e) {
+			
+			return false;
+		}
+	}
 	public String createLoanRequest(String loanCustomerId, double loanAmount, String loanType, int tenure,
 			double loanRoi, String loanStatus) {
+		
+		if(!validateCustomerId(loanCustomerId))
+		{
+			throw new InvalidParameterException();
+		}
+		if(loanType!="Home Loan"|| loanType!= "Vehicle Loan" || loanType!= "Jewel Loan"|| loanType!= "Perosonal Loan")
+		{
+			throw new InvalidParameterException();
+		}
+		if(loanAmount<0||tenure<0||loanRoi<0)
+		{
+			throw new InvalidParameterException();
+		}
+		if(loanStatus!="Pending")
+		{
+			throw new InvalidParameterException();
+		}
+		
 		double emi = calculateEMI(loanAmount, tenure, loanRoi);
 		String loanRequestId = Utility.getAlphaNumericString();
 		LoanRequest loanreq = new LoanRequest(loanRequestId, loanCustomerId, loanAmount, loanType, tenure, loanRoi,
@@ -39,29 +80,26 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 			br.write(loanRequestData);
 			br.newLine();
 			br.close();
-			fr.close();
+			return loanRequestId;
 		} catch (Exception e) {
-			System.out.println(e);
+			return null;
 
 		}
-
-		return loanRequestId;
 	}
-
 	public String getCustomerRow(String loanCustomerId) {
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader("Customer.csv"));
+			BufferedReader br = new BufferedReader(new FileReader("Customer.csv"));
 			String line;
-			while ((line = bufferedReader.readLine()) != null) {
+			while ((line = br.readLine()) != null) {
 				String arr[] = line.split(",");
 				if (arr[0].equals(loanCustomerId)) {
-					return line;
+					break;
 				}
 			}
+			br.close();
 			return line;
 		} catch (Exception e) {
-			System.out.println(e);
-			return null;
+			return null; 
 		}
 	}
 }

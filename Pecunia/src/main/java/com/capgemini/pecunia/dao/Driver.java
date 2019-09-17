@@ -63,7 +63,11 @@ import com.capgemini.pecunia.model.*;
 	                SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
 	                
 	                Employee e=new Employee(empId, empName, designation, gender, sdf.parse(dob), emailId, phoneNo, username, Utility.getAlphaNumericString(),password, securityQuestion, securityAnswer);
+<<<<<<< HEAD
 	                //Employee e=new Employee("E6","Ramesh","Analyst","Male",null,"ramesh46@gmail.com","9112345678","ramesh45","1234","Your nickname?","Ramu");
+=======
+	                Employee e=new Employee("E6","Ramesh","Analyst","Male",null,"ramesh46@gmail.com","9112345678","ramesh45","1234","Your nickname?","Ramu");
+>>>>>>> 89dc317358bdd500256f827f770d2444a1d327aa
 	                edi.register(e);
 	            }
 	            else if(choice==2) 
