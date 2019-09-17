@@ -89,7 +89,7 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("All fields compulsory");
 			}
-			if(Pattern.matches(".*[0-9]+.*", customerName))
+			if(Pattern.matches(".*[0-9]+.*", customerName) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",customerName ))
 			{
 				throw new InvalidParameterException("Your name is a digit?");
 			}		
@@ -97,16 +97,16 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("Invalid Input");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCity))
+			if(Pattern.matches(".*[0-9]+.*", addressCity) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",addressCity))
 			{
 				throw new InvalidParameterException("Invalid Input");
 			}
 
-			if(Pattern.matches(".*[0-9]+.*", addressState))
+			if(Pattern.matches(".*[0-9]+.*", addressState) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",addressState))
 			{
 				throw new InvalidParameterException("Invalid Input");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCountry))
+			if(Pattern.matches(".*[0-9]+.*", addressCountry) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",addressCountry))
 			{
 				throw new InvalidParameterException("Invalid Input");
 			}
@@ -117,25 +117,25 @@ public class AccountServiceImpl implements AccountService {
 				throw new InvalidParameterException("Invalid Input");
 			}
 
-			if(customerAadhar.length()!= 12 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar))
+			if(customerAadhar.length()!= 12 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",customerAadhar))
 			{
 				throw new InvalidParameterException("Invalid Aadhar");
 				//System.out.println("Invalid Aadhar");
 
 			}
 
-			if(customerPan.length()!=10)
+			if(customerPan.length()!=10 ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",customerPan))
 			{
 				throw new InvalidParameterException("Invalid PAN");
 				//System.out.println("Invalid PAN");
 			}
-			if(customerContact.length()!=10 && Pattern.matches((".*[a-zA-Z]+.*"),customerContact) )
+			if(customerContact.length()!=10 || Pattern.matches((".*[a-zA-Z]+.*"),customerContact) ||  Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",customerContact))
 			{
 				throw new InvalidParameterException("Invalid Contact Number");
 				//			System.out.println("Invalid Number");
 			}
 
-			if(addressZipcode.length()!=6 && Pattern.matches((".*[a-zA-Z]+.*"),addressZipcode) )
+			if(addressZipcode.length()!=6 || Pattern.matches((".*[a-zA-Z]+.*"),addressZipcode) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}.\\[\\]~-]+.*",addressZipcode)) 
 			{
 				throw new InvalidParameterException("Invalid Zipcode");
 				//System.out.println("Invalid Zip");
