@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 import com.capgemini.pecunia.Utility;
+import com.capgemini.pecunia.Values;
 import com.capgemini.pecunia.model.Account;
 import com.capgemini.pecunia.model.Address;
 import com.capgemini.pecunia.model.Customer;
@@ -21,8 +22,9 @@ public class AccountServiceImpl implements AccountService {
 
 
 	
-	public static ArrayList<Transaction> updatePassbookOne(String accountId) throws Exception {
+	public static ArrayList<Transaction> updatePassbookOne(String accountId){
 
+		try {
 		File file = new File("Transaction.csv");
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		String line;
@@ -33,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
 			String updatedDate1 = updateCurrentDate(accountId);
 			boolean ans = getUpdatedTrans(arr[5], updatedDate1);
 			if (arr[1].equals(accountId) && ans == true) {
-				Date date1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(arr[5]);
+				Date date1 = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
 				double amount = Integer.parseInt(arr[4]);
 				double closeBal = Integer.parseInt(arr[9]);
 				Transaction t = new Transaction(arr[0], arr[1], arr[2], arr[3], amount, date1, arr[6], arr[7], arr[8],
@@ -43,6 +45,9 @@ public class AccountServiceImpl implements AccountService {
 		}
 		br.close();
 		return transactionList;
+		}catch (Exception e) {
+			return null;
+		}
 	}
 
 	public static boolean getUpdatedTrans(String transDate, String updatedDate) {

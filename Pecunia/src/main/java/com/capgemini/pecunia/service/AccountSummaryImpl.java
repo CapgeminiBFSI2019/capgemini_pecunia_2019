@@ -5,14 +5,16 @@ import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.capgemini.pecunia.Values;
 import com.capgemini.pecunia.model.Transaction;
 
 public class AccountSummaryImpl {
 
 
 
-	public ArrayList<Transaction> getAccountSummary(String accountId, Date startDate, Date endDate)throws Exception
+	public ArrayList<Transaction> getAccountSummary(String accountId, Date startDate, Date endDate)
 	{
+		try {
 		String[] arrTrans = new String[10];
 		ArrayList<Transaction> l= new ArrayList<Transaction>();
 		String line;
@@ -26,18 +28,21 @@ public class AccountSummaryImpl {
 	    	double amount = Integer.parseInt(arrTrans[4]);
             double closeBal = Integer.parseInt(arrTrans[9]);
 
-            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(arrTrans[5]);
+            Date date1 = new SimpleDateFormat(Values.DATE_FORMAT).parse(arrTrans[5]);
     	   Transaction t = new Transaction(arrTrans[0],arrTrans[1],arrTrans[2],arrTrans[4],amount,date1, arrTrans[6],arrTrans[7],arrTrans[8],closeBal);
     	   if(t.getTransDate()==startDate) {
     		   while(t.getTransDate().compareTo(endDate)<0) {
     			   l.add(t);
-        		   c.add(Calendar.DATE, 1);
+        		   c.add(Calendar.SECOND, 1);
     		   }
     	   }
         }
 	    br.close();
 		
 		return l;
+		}catch (Exception e) {
+			return null;
+		}
 		}
 
 	
