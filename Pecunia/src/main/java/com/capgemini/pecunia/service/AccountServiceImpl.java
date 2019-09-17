@@ -19,9 +19,6 @@ import com.capgemini.pecunia.model.Transaction;
 
 public class AccountServiceImpl implements AccountService {
 
-
-
-	
 	public static ArrayList<Transaction> updatePassbookOne(String accountId){
 
 		try {
@@ -81,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
 	public  String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
 			String addressState, String addressCountry, String addressZipcode, String accountType,
-			double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
+			double accountBalance, double accountInterest, Date lastUpdated, String accountBranchId) {
 
 		try {	
 			if( customerName== null || customerAadhar== null || customerPan== null || customerContact== null || customerGender== null
@@ -192,7 +189,7 @@ public class AccountServiceImpl implements AccountService {
 			String tempcustId= cust.getCustomerAddressId(); //generating customer Id
 
 			Account acc= new Account (tempcustId, accountBranchId, accountType,
-					"Active",accountBalance, accountInterest, lastUpdated);
+					"Active",accountBalance, accountInterest, (java.sql.Date) lastUpdated);
 			FILE_PATH = Paths.get("Account.csv");
 			BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
 			List<String> fileContentAcc = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
@@ -513,6 +510,15 @@ public class AccountServiceImpl implements AccountService {
 		}catch(Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
+			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
+			String addressState, String addressCountry, String addressZipcode, String accountType,
+			double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
