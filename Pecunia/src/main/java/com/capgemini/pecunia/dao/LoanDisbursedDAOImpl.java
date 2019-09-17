@@ -109,12 +109,7 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		File file1 = new File(Values.LOAN_DISBURSED_CSV_FILE);
 		BufferedWriter wr = new BufferedWriter(new FileWriter(file1));
 		StringBuffer sb1 = new StringBuffer();
-		
-		sb1.append("loanRequestId").append(",").append("loanCustomerId").append(",").append("loanAmount").append(",")
-				.append("loanType").append(",").append("tenure").append(",").append("loanRoi").append(",")
-				.append("loanStatus").append(",").append("loanEmi");
-		wr.write(sb1.toString());
-		wr.write("\n");
+	
 
 		String loanRequestId1;
 		String loanCustomerId1;
