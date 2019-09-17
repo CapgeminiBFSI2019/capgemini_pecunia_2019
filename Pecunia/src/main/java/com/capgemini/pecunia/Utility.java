@@ -7,15 +7,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.text.SimpleDateFormat;  
 public class Utility {
-	public static String getAlphaNumericString() {
+	public static String getAlphaNumericString(int n) {
 
 		// chose a Character random from this String
 		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
 
 		// create StringBuffer size of AlphaNumericStringsss
-		StringBuilder sb = new StringBuilder(10);
+		StringBuilder sb = new StringBuilder(n);
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < n; i++) {
 
 			// generate a random number between
 			// 0 to AlphaNumericString variable length
@@ -55,24 +55,11 @@ public class Utility {
 
 		return hexString.toString(); 
 	}
-	public static boolean getUpdatedTrans(String transDate, String updatedDate) {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-	    Date currentDate = new Date();  
-	    String strDate = formatter.format(currentDate);   
-		
-		if(transDate.compareToIgnoreCase(updatedDate)>0 && transDate.compareToIgnoreCase(strDate)<0)
-		{
-			return true;
-		}
-		else 
-			return false;
-	}
 	
 	
 	//dfgr
 	public static void main(String[] args) {
-		System.out.println(getAlphaNumericString());
+		System.out.println(getAlphaNumericString(20));
 		
 	}
 }

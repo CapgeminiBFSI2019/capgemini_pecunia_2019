@@ -5,50 +5,48 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Date;
 
+import com.capgemini.pecunia.MyException;
 import com.capgemini.pecunia.Utility;
 import com.capgemini.pecunia.dao.TransactionDAOImpl;
 
 public class TransactionServiceImpl implements TransactionService{
 
 	@Override
-	public int creditUsingSlip(String accountId, Double amount, Date transactionDate) {
+	public String creditUsingSlip(String accountId, Double amount, Date transactionDate) throws MyException {
 		// TODO Auto-generated method stub
 		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
-		int transactionId = transactionDAOImpl.creditUsingSlip(accountId, amount, transactionDate);
-		//return transactionId;
+		String transactionId = transactionDAOImpl.creditUsingSlip(accountId, amount, transactionDate);
+		return transactionId;
 		//changed again
-		return 0;
 		
 	}
 
 	@Override
-	public int creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
-			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,Date chequeIssueDate,String chequeStatus) {
+	public String creditUsingCheque(String accountId, Double amount, Date transactionDate, String checkNum,
+			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,Date chequeIssueDate,String chequeStatus) throws MyException {
 		// TODO Auto-generated method stub
 		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
-		int transactionId = transactionDAOImpl.creditUsingCheque(accountId,amount,transactionDate,checkNum,
+		String transactionId = transactionDAOImpl.creditUsingCheque(accountId,amount,transactionDate,checkNum,
 				chequeAccount,chequeBankName,chequeHolderName,chequeIFSC, chequeIssueDate,chequeStatus);
 		return transactionId;
 	}
 
 	@Override
-	public int debitUsingSlip(String accountId, Double amount, Date transactionDate) {
+	public String debitUsingSlip(String accountId, Double amount, Date transactionDate) throws MyException {
 		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
-		int transactionId = transactionDAOImpl.debitUsingSlip(accountId, amount, transactionDate);
-		//return transactionId;
+		String transactionId = transactionDAOImpl.debitUsingSlip(accountId, amount, transactionDate);
+		return transactionId;
 		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
-	public int debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
-			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus,Date transactionDate) {
+	public String debitUsingCheque(String accountId, Double amount, Date chequeIssueDate, String checkNum,
+			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus,Date transactionDate) throws MyException {
 		TransactionDAOImpl transactionDAOImpl = new TransactionDAOImpl();
-		int transactionId = transactionDAOImpl.debitUsingCheque(accountId,amount,chequeIssueDate,checkNum,
+		String transactionId = transactionDAOImpl.debitUsingCheque(accountId,amount,chequeIssueDate,checkNum,
 				chequeAccount,chequeBankName,chequeHolderName,chequeIFSC,chequeStatus,transactionDate);
-		//return transactionId;
+		return transactionId;
 		//changed again
-		return 0;
 	
 }
 }

@@ -138,7 +138,7 @@ public class Address {
 	public Address( String addressLine1, String addressLine2, String addressCity, String addressState,
 			String addressCountry, String addressZipcode) {
 		super();
-		this.addressId = Utility.getAlphaNumericString();
+		this.addressId = Utility.getAlphaNumericString(20);
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.addressCity = addressCity;

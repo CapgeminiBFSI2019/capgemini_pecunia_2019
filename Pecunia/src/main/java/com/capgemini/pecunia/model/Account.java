@@ -153,7 +153,7 @@ public class Account {
 		public Account(String accountHolderId, String accountBranchId, String accountType,
 			String accountStatus, double accountBalance, double accountInterest, Date lastUpdated) {
 		super();
-		this.accountId = Utility.getAlphaNumericString();
+		this.accountId = Utility.getAlphaNumericString(20);
 		this.accountHolderId = accountHolderId;
 		this.accountBranchId = accountBranchId;
 		this.accountType = accountType;
