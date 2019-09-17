@@ -11,28 +11,20 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 import com.capgemini.pecunia.Utility;
+import com.capgemini.pecunia.Values;
 import com.capgemini.pecunia.model.Account;
 import com.capgemini.pecunia.model.Address;
 import com.capgemini.pecunia.model.Customer;
 import com.capgemini.pecunia.model.Transaction;
 
 public class AccountServiceImpl implements AccountService {
-	public static boolean getUpdatedTrans(String transDate, String updatedDate) {
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-	    Date currentDate = new Date();  
-	    String strDate = formatter.format(currentDate);   
-		
-		if(transDate.compareToIgnoreCase(updatedDate)>0 && transDate.compareToIgnoreCase(strDate)<0)
-		{
-			return true;
-		}
-		else 
-			return false;
-	}
-	
-	public static ArrayList<Transaction> updatePassbookOne(String accountId) throws Exception {
 
+
+
+	
+	public static ArrayList<Transaction> updatePassbookOne(String accountId){
+
+		try {
 		File file = new File("Transaction.csv");
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		String line;
@@ -43,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
 			String updatedDate1 = updateCurrentDate(accountId);
 			boolean ans = getUpdatedTrans(arr[5], updatedDate1);
 			if (arr[1].equals(accountId) && ans == true) {
-				Date date1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(arr[5]);
+				Date date1 = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
 				double amount = Integer.parseInt(arr[4]);
 				double closeBal = Integer.parseInt(arr[9]);
 				Transaction t = new Transaction(arr[0], arr[1], arr[2], arr[3], amount, date1, arr[6], arr[7], arr[8],
@@ -53,6 +45,21 @@ public class AccountServiceImpl implements AccountService {
 		}
 		br.close();
 		return transactionList;
+		}catch (Exception e) {
+			return null;
+		}
+	}
+
+	public static boolean getUpdatedTrans(String transDate, String updatedDate) {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date currentDate = new Date();
+		String strDate = formatter.format(currentDate);
+
+		if (transDate.compareToIgnoreCase(updatedDate) > 0 && transDate.compareToIgnoreCase(strDate) < 0) {
+			return true;
+		} else
+			return false;
 	}
 
 	public static String updateCurrentDate(String accountId) throws Exception {
@@ -69,151 +76,144 @@ public class AccountServiceImpl implements AccountService {
 		return "Account Id not found";
 	}
 
-	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
+
+
+	public  String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 			String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
 			String addressState, String addressCountry, String addressZipcode, String accountType,
 			double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
 
-		try {
-			if (customerName == null || customerAadhar == null || customerPan == null || customerContact == null
-					|| customerGender == null || customerDob == null || addressLine1 == null || addressLine2 == null
-					|| addressCity == null || addressState == null || addressCountry == null || addressZipcode == null
-					|| accountType == null || lastUpdated == null || accountBranchId == null) // all fields compulsory
-
+		try {	
+			if( customerName== null || customerAadhar== null || customerPan== null || customerContact== null || customerGender== null
+					|| customerDob==null ||addressLine1 == null || addressLine2 == null|| addressCity== null ||
+							addressState == null || addressCountry== null || addressZipcode== null || accountType== null ||
+							 lastUpdated== null ||accountBranchId == null) //all fields compulsory
+		
 			{
 				throw new InvalidParameterException("All fields compulsory");
 			}
-			if (Pattern.matches(".*[0-9]+.*", customerName)) {
+			if(Pattern.matches(".*[0-9]+.*", customerName))
+			{
 				throw new InvalidParameterException("Your name is a digit?");
-			}
-			if (customerGender != "Male" || customerGender != "Female" || customerGender != "Prefer not to say") {
+			}		
+			if(customerGender!= "Male" || customerGender!= "Female" || customerGender!="Prefer not to say" )	
+			{
 				throw new InvalidParameterException("Invalid Input");
 			}
-			if (Pattern.matches(".*[0-9]+.*", addressCity)) {
-				throw new InvalidParameterException("Invalid Input");
-			}
-
-			if (Pattern.matches(".*[0-9]+.*", addressState)) {
-				throw new InvalidParameterException("Invalid Input");
-			}
-			if (Pattern.matches(".*[0-9]+.*", addressCountry)) {
+			if(Pattern.matches(".*[0-9]+.*", addressCity))
+			{
 				throw new InvalidParameterException("Invalid Input");
 			}
 
-			if (accountType != "Savings" || accountType != "FD" || accountType != "Current") {
+			if(Pattern.matches(".*[0-9]+.*", addressState))
+			{
+				throw new InvalidParameterException("Invalid Input");
+			}
+			if(Pattern.matches(".*[0-9]+.*", addressCountry))
+			{
+				throw new InvalidParameterException("Invalid Input");
+			}
+
+			if(accountType!= "Savings" || accountType!="FD" || accountType!="Current")
+			{
 
 				throw new InvalidParameterException("Invalid Input");
 			}
 
-			if (customerAadhar.length() != 12 && Pattern.matches((".*[a-zA-Z]+.*"), customerAadhar)) {
+			if(customerAadhar.length()!= 12 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar))
+			{
 				throw new InvalidParameterException("Invalid Aadhar");
-				// System.out.println("Invalid Aadhar");
+				//System.out.println("Invalid Aadhar");
+
 			}
 
-			if (customerPan.length() != 10) {
+			if(customerPan.length()!=10)
+			{
 				throw new InvalidParameterException("Invalid PAN");
-				// System.out.println("Invalid PAN");
+				//System.out.println("Invalid PAN");
 			}
-			if (customerContact.length() != 10 && Pattern.matches((".*[a-zA-Z]+.*"), customerContact)) {
+			if(customerContact.length()!=10 && Pattern.matches((".*[a-zA-Z]+.*"),customerContact) )
+			{
 				throw new InvalidParameterException("Invalid Contact Number");
-				// System.out.println("Invalid Number");
+				//			System.out.println("Invalid Number");
 			}
 
-			if (addressZipcode.length() != 6 && Pattern.matches((".*[a-zA-Z]+.*"), addressZipcode)) {
+			if(addressZipcode.length()!=6 && Pattern.matches((".*[a-zA-Z]+.*"),addressZipcode) )
+			{
 				throw new InvalidParameterException("Invalid Zipcode");
-				// System.out.println("Invalid Zip");
+				//System.out.println("Invalid Zip");
 			}
-			if (accountBalance < 0) {
+			if(accountBalance<0)
+			{
 				throw new InvalidParameterException("Invalid Account Balance");
-				// System.out.print("Invalid Balance");
+				//		System.out.print("Invalid Balance");
 			}
-			if (accountInterest < 0) {
-				throw new InvalidParameterException("Invalid Account Interest");
-				// System.out.print("Invalid Interest");
+			if(accountInterest<0)
+			{
+				throw new InvalidParameterException("Invalid Account Interest");	
+				//System.out.print("Invalid Interest");
 			}
+			String inputAcc;
+			String inputCust;
+			String inputAddr;
+			int countCust=0, countAcc=0, countAddr=0;
+			Address add= new Address(addressLine1, addressLine2, addressCity, addressState,
+					addressCountry,addressZipcode);
+			Path FILE_PATH = Paths.get("Address.csv");
+			BufferedReader bufferedReaderAddr = new BufferedReader(new FileReader("Address.csv"));
+			List<String> fileContentAddr = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+			while((inputAddr = bufferedReaderAddr.readLine()) != null) {
+				countAddr++;
+			}
+			fileContentAddr.set(countAddr+1,add.getAddressId()+","+add.getAddressLine1()+","+add.getAddressLine2()+","+
+							add.getAddressCity()+","+add.getAddressState()+","+add.getAddressCountry()+","+
+							add.getAddressZipcode());
+	        Files.write(FILE_PATH, fileContentAddr, StandardCharsets.UTF_8);
+			bufferedReaderAddr.close();
+			
 
-			Address add = new Address(addressLine1, addressLine2, addressCity, addressState, addressCountry,
-					addressZipcode);
-				if(addressZipcode.length()!=6 && Pattern.matches((".*[a-zA-Z]+.*"),addressZipcode) )
+			String tempaddId =add.getAddressId(); //generating address Id
+
+			Customer cust= new Customer(customerName, tempaddId,  customerAadhar,
+					customerPan,  customerContact, customerGender, (java.sql.Date) customerDob);
+			FILE_PATH = Paths.get("Customer.csv"); //reading the csv file and storing in a list
+			BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
+			List<String> fileContentCust = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+			while((inputCust = bufferedReaderCust.readLine()) != null) //reading till the end of line 
 				{
-					throw new InvalidParameterException("Invalid Zipcode");
-					//System.out.println("Invalid Zip");
+				countCust++; //increasingthecount
 				}
-				if(accountBalance<0)
-				{
-					throw new InvalidParameterException("Invalid Account Balance");
-					//		System.out.print("Invalid Balance");
-				}
-				if(accountInterest<0)
-				{
-					throw new InvalidParameterException("Invalid Account Interest");	
-					//System.out.print("Invalid Interest");
-				}
-				String inputAcc;
-				String inputCust;
-				String inputAddr;
-				int countCust=0, countAcc=0, countAddr=0;
-				Address add= new Address(addressLine1, addressLine2, addressCity, addressState,
-						addressCountry,addressZipcode);
-				Path FILE_PATH = Paths.get("Address.csv");
-				BufferedReader bufferedReaderAddr = new BufferedReader(new FileReader("Address.csv"));
-				List<String> fileContentAddr = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
-				while((inputAddr = bufferedReaderAddr.readLine()) != null) {
-					countAddr++;
-				}
-				fileContentAddr.set(countAddr+1,add.getAddressId()+","+add.getAddressLine1()+","+add.getAddressLine2()+","+
-								add.getAddressCity()+","+add.getAddressState()+","+add.getAddressCountry()+","+
-								add.getAddressZipcode());
-		        Files.write(FILE_PATH, fileContentAddr, StandardCharsets.UTF_8);
-				bufferedReaderAddr.close();
+			fileContentCust.set(countCust+1,cust.getCustomerId()+","+cust.getCustomerName()+","+cust.getCustomerAddressId()+
+							","+cust.getCustomerAadhar()+","+cust.getCustomerPan()+","+cust.getCustomerContact()+
+							","+cust.getCustomerGender()+","+cust.getCustomerDob());
+	        Files.write(FILE_PATH, fileContentCust, StandardCharsets.UTF_8); 
+			bufferedReaderCust.close();  //closing
+			
+			String tempcustId= cust.getCustomerAddressId(); //generating customer Id
 
-			String tempaddId = add.getAddressId(); // generating address Id
-
-			Customer cust = new Customer(customerName, tempaddId, customerAadhar, customerPan, customerContact,
-					customerGender, (java.sql.Date) customerDob);
-			String tempcustId = cust.getCustomerAddressId(); // generating customer Id
-
-			Account acc = new Account(tempcustId, accountBranchId, accountType, "Active", accountBalance,
-					accountInterest, lastUpdated);
-				Customer cust= new Customer(customerName, tempaddId,  customerAadhar,
-						customerPan,  customerContact, customerGender, (java.sql.Date) customerDob);
-				FILE_PATH = Paths.get("Customer.csv"); //reading the csv file and storing in a list
-				BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
-				List<String> fileContentCust = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
-				while((inputCust = bufferedReaderCust.readLine()) != null) //reading till the end of line 
-					{
-					countCust++; //increasingthecount
-				}
-				fileContentCust.set(countCust+1,cust.getCustomerId()+","+cust.getCustomerName()+","+cust.getCustomerAddressId()+
-								","+cust.getCustomerAadhar()+","+cust.getCustomerPan()+","+cust.getCustomerContact()+
-								","+cust.getCustomerGender()+","+cust.getCustomerDob());
-		        Files.write(FILE_PATH, fileContentCust, StandardCharsets.UTF_8); 
-				bufferedReaderCust.close();  //closing
-				
-				String tempcustId= cust.getCustomerAddressId(); //generating customer Id
-
-				Account acc= new Account (tempcustId, accountBranchId, accountType,
-						"Active",accountBalance, accountInterest, lastUpdated);
-				FILE_PATH = Paths.get("Account.csv");
-				BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
-				List<String> fileContentAcc = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
-				while((inputAcc = bufferedReaderAcc.readLine()) != null) {
-					countAcc++;
-				}
-				fileContentAcc.set(countAcc+1,acc.getAccountId()+","+acc.getAccountHolderId()+","+acc.getAccountBranchId()+
-									","+acc.getAccountType()+","+acc.getAccountStatus()+","+acc.getAccountBalance()+
-									","+acc.getAccountInterest()+","+acc.getLastUpdated());
-		        Files.write(FILE_PATH, fileContentAcc, StandardCharsets.UTF_8);
-				bufferedReaderAcc.close();
+			Account acc= new Account (tempcustId, accountBranchId, accountType,
+					"Active",accountBalance, accountInterest, lastUpdated);
+			FILE_PATH = Paths.get("Account.csv");
+			BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
+			List<String> fileContentAcc = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+			while((inputAcc = bufferedReaderAcc.readLine()) != null) {
+				countAcc++;
+			}
+			fileContentAcc.set(countAcc+1,acc.getAccountId()+","+acc.getAccountHolderId()+","+acc.getAccountBranchId()+
+								","+acc.getAccountType()+","+acc.getAccountStatus()+","+acc.getAccountBalance()+
+								","+acc.getAccountInterest()+","+acc.getLastUpdated());
+	        Files.write(FILE_PATH, fileContentAcc, StandardCharsets.UTF_8);
+			bufferedReaderAcc.close();
 
 			return acc.getAccountId();
-		} catch (Exception e) {
+		}catch (Exception e) {
 			throw new InvalidParameterException("Failure occured.");
-//				return "Account not created!";
+//			return "Account not created!";
 			// TODO: handle exception
 		}
-		// generating AccountId
-	}
+//generating AccountId
+}
+
 
 	@Override
 	public boolean deleteAccount(String accountId) {
@@ -271,29 +271,7 @@ public class AccountServiceImpl implements AccountService {
 					}
 				} catch (Exception e) {
 					return false;
-		if(accountId!=null && !accountId.isEmpty() && accountId.length()==14) {
-			if(accountId.matches("^[0-9]+$")) {
-				String inputAcc;
-				try {
-					BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
-					while((inputAcc = bufferedReaderAcc.readLine()) != null)
-					{
-					   String[] arrAcc = inputAcc.split(",");
-					   if(arrAcc[0] == accountId)
-					   {
-						   return true;	
-					   }
-					}
-					bufferedReaderAcc.close();
-				}catch (Exception e) {
-					return false;
-				} 
-			}
-				else {
-				return false;
-				}
 
-				return false;
 			}
 
 		}
@@ -315,25 +293,9 @@ public class AccountServiceImpl implements AccountService {
 			} else {
 				return false;
 			}
-		 String[] Nametmp = accountName.split("\\s+");
 
-		 if(accountName.equals(null)) {
-			 throw new NullPointerException();
-		 }
-		   if(!accountName.equals(null) && !accountName.isEmpty()) {
-		 if(accountName!=null && !accountName.isEmpty()) {
-				if(Nametmp[0].matches("[A-Za-z]+") && Nametmp[1].matches("[A-Za-z]+")) {
-					return true;
-				}
-					else {
-					return false;
-					}	
-		   }
-
-		   }
+	}
 		return false;
-
-		   return false;
 
 	}
 
@@ -342,78 +304,74 @@ public class AccountServiceImpl implements AccountService {
 		
 		if(transAmt==null || transAmt<0.00 || transAmt> 1000000.00 || transAmt<50.00)
 		return false;
-		else 
+		else {
 			return true;			
 		}
-		return false;
 	}
 
-	@Override
-	public boolean validateTransAmt(Double transAmt) {
 
-		if (transAmt == null || transAmt < 0.00 || transAmt > 1000000.00 || transAmt < 50.00)
-			return false;
-		else
-			return true;
-	}
 	@Override
 	public boolean validateChequeNum(Integer ChequeNum) {
 		if (ChequeNum != null && Integer.toString(ChequeNum).length() == 6)
 			return true;
 		else
 			return false;
-	public boolean updateCustomerName(String accountId, String newName) {
-		try {	
-			if( newName== null)
-			{
-				throw new InvalidParameterException("New name has to be given");
-			}
-			if(Pattern.matches(".*[0-9]+.*", newName))
-			{
-				throw new InvalidParameterException("Your name has a digit?");
-			}
-		}catch(Exception e) {
-			throw new InvalidParameterException("Failure occured.");
-		}
-		String inputAcc = null;
-		String inputCust = null;
-		String arrCust[] = new String[40];
-		int countAcc=0;
-		int countCust=0;
-		String customerRow=null;
-		try {
-			Path FILE_PATH = Paths.get("Customer.csv");
-			BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
-			List<String> fileContent = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
-			while((inputAcc = bufferedReaderAcc.readLine()) != null)
-		    {
-			    String[] arrAcc = inputAcc.split(",");
-			    if(arrAcc[0] == accountId)
-		    	{
-				BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
-				while((inputCust = bufferedReaderCust.readLine())!=null) {
-					arrCust = inputCust.split(",");
-	    			if(arrCust[0]==arrAcc[1]) {
-		    			customerRow = inputCust;
-		    			break;
-		    		}
-		    		countCust++;
-		    	}
-		    	bufferedReaderCust.close();
-		    	break;
-		    	}
-			    countAcc++;
-		    }
-			arrCust[1] = newName;
-			String newDataName = String.join(",",arrCust);
-	        fileContent.set(countCust,newDataName);
-	        Files.write(FILE_PATH, fileContent, StandardCharsets.UTF_8);
-			bufferedReaderAcc.close();
-			return true;
+		
+	}
+
+		public boolean updateCustomerName(String accountId, String newName) {
+			try {	
+				if( newName== null)
+				{
+					throw new InvalidParameterException("New name has to be given");
+				}
+				if(Pattern.matches(".*[0-9]+.*", newName) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", newName))
+				{
+					throw new InvalidParameterException("Your name has a digit?");
+				}
 			}catch(Exception e) {
-				return false;
+				throw new InvalidParameterException("Failure occured.");
 			}
-		}
+			String inputAcc = null;
+			String inputCust = null;
+			String arrCust[] = new String[40];
+			int countAcc=0;
+			int countCust=0;
+			String customerRow=null;
+			try {
+				Path FILE_PATH = Paths.get("Customer.csv");
+				BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
+				List<String> fileContent = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
+				while((inputAcc = bufferedReaderAcc.readLine()) != null)
+			    {
+				    String[] arrAcc = inputAcc.split(",");
+				    if(arrAcc[0] == accountId)
+			    	{
+					BufferedReader bufferedReaderCust = new BufferedReader(new FileReader("Customer.csv"));
+					while((inputCust = bufferedReaderCust.readLine())!=null) {
+						arrCust = inputCust.split(",");
+		    			if(arrCust[0]==arrAcc[1]) {
+			    			customerRow = inputCust;
+			    			break;
+			    		}
+			    		countCust++;
+			    	}
+			    	bufferedReaderCust.close();
+			    	break;
+			    	}
+				    countAcc++;
+			    }
+				arrCust[1] = newName;
+				String newDataName = String.join(",",arrCust);
+		        fileContent.set(countCust,newDataName);
+		        Files.write(FILE_PATH, fileContent, StandardCharsets.UTF_8);
+				bufferedReaderAcc.close();
+				return true;
+				}catch(Exception e) {
+					return false;
+				}
+			}
+
 
 	@Override
 	public boolean updateCustomerContact(String accountId, String newContact) {
@@ -422,7 +380,7 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("New number has to be given");
 			}
-			if(newContact.length()!=10 && Pattern.matches(".*[a-zA-Z]+.*",newContact) )
+			if(newContact.length()!=10 || Pattern.matches(".*[a-zA-Z]+.*",newContact) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", newContact))
 			{
 				throw new InvalidParameterException("Invalid Contact Number");
 			}
@@ -478,20 +436,20 @@ public class AccountServiceImpl implements AccountService {
 			{
 				throw new InvalidParameterException("Fill all the fields");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCity))
+			if(Pattern.matches(".*[0-9]+.*", addressCity) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressCity))
 			{
 				throw new InvalidParameterException("Invalid City");
 			}
 
-			if(Pattern.matches(".*[0-9]+.*", addressState))
+			if(Pattern.matches(".*[0-9]+.*", addressState) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressState))
 			{
 				throw new InvalidParameterException("Invalid State");
 			}
-			if(Pattern.matches(".*[0-9]+.*", addressCountry))
+			if(Pattern.matches(".*[0-9]+.*", addressCountry) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressCountry))
 			{
 				throw new InvalidParameterException("Invalid Country");
 			}
-			if(addressZipcode.length()!=6 && Pattern.matches(".*[a-zA-Z]+.*",addressZipcode) )
+			if(addressZipcode.length()!=6 || Pattern.matches(".*[a-zA-Z]+.*",addressZipcode) || Pattern.matches(".*[!@#$%&*()_+=|<>?{}\\[\\]~-]+.*", addressZipcode))
 			{
 				throw new InvalidParameterException("Invalid Zipcode");
 			}
@@ -557,7 +515,6 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 
-	
-	}
-
 }
+
+
