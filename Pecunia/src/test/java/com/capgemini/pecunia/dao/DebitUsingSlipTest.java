@@ -107,13 +107,11 @@ class DebitUsingSlipTest {
     @Test
     public void validateAccountName_Null() {
        // setup
-        String accountName = null;
-        AccountService accService= new AccountServiceImpl();
-        // execute
-        boolean actual = accService.validateAccountName(accountName);
+        String accName = null;
+      
  
         // assert
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, ()->{new AccountServiceImpl().validateAccountName(accName);});
     }
  
     @Test
@@ -131,7 +129,7 @@ class DebitUsingSlipTest {
     @Test
     public void validateAccountName_Digits() {
        // setup
-        String accountName ="Darshana Me65a";
+        String accountName ="Darshana8799Me65a";
         AccountService accService= new AccountServiceImpl();
         // execute
         boolean actual = accService.validateAccountName(accountName);
