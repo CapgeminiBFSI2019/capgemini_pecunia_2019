@@ -3,6 +3,7 @@ package com.capgemini.pecunia.service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.security.InvalidParameterException;
+import java.util.Date;
 
 import javax.activity.InvalidActivityException;
 
@@ -45,7 +46,7 @@ class addAccountTest {
 	@Test
 	void addAccount_customernameValidity() {
 		
-		String line="123";
+		String line="vidu@";
 		assertThrows(InvalidParameterException.class, () -> {
 		      
 			new AccountServiceImpl().addAccount(line, null,null, null, null, null, null, null, null, null, null, null, null, -1.4, -1.0, null, null);
@@ -136,10 +137,12 @@ class addAccountTest {
 	@Test
 	void addAccount_accountinterestValidity() {
 		
-		double line= -15;
+		double line= -2;
+		@SuppressWarnings("deprecation")
+		Date dt= new Date("12/11/1998 12:33:21");
 		assertThrows(InvalidParameterException.class, () -> {
 		      
-			new AccountServiceImpl().addAccount(null,null,null,null,null, null, null, null, null, null,null,null,null,-1.6,line, null, null);
+			new AccountServiceImpl().addAccount("vidu","112345678923","1gf5123fg5","8879771137","Female", dt ,"South anarkali extension","Near sanatan dharam mandir","Delhi","Delhi","India","110051","Savings",-1.6,line, null, null);
 			
 		    });		
 	}
