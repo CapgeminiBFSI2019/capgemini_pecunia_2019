@@ -2,6 +2,7 @@ package com.capgemini.pecunia.dao;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 
 import com.capgemini.pecunia.MyException;
@@ -17,5 +18,5 @@ public interface TransactionDAO {
 			String chequeAccount,String chequeBankName,String chequeHolderName,String chequeIFSC,String chequeStatus,Date transactionDate)throws MyException;;
 	public String creditUsingSlip(String accountId, Double amount, Date transactionDate)throws MyException;
 	public String getAccountRow(String accountNo);
-	
+	public int updatebalance(String accountId,double newBalance) throws IOException;
 }

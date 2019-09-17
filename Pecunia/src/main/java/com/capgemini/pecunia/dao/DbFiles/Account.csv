@@ -1,6 +1,5 @@
-accountId,accountHolderId,accountBranchId,accountType,accountStatus,accountBalance,accountInterest,lastUpdated
-20190001000001,jilmSOrNBgkJbV9vn4mA,1,Savings,Active,5678,0,2019-05-10 18:45:34.555
-20190002000001,acBg5mDyzU3ghlYZIjQM,2,Current,Active,6895,0,2019-07-12 14:54.455
-20190003000001,623sgNxOxGsHjU7AOuBk,3,FD,Active,1000,0,2019-09-01 13:36:08.689
-20190004000001,b2FpM7hFrqzJkAY699fZ,4,Current,Active,500,0,2019-08-28 15:21:05.019
-20190005000001,egoM3CYJiooSzfKuPcNr,5,Savings,Active,4356,0,2019-07-15 09:27:18.234
+jilmSOrNBgkJbV9vn4mA,1,Savings,Active,56178.0,0.0,12/12/2019 18:45:34
+acBg5mDyzU3ghlYZIjQM,2,Current,Active,6895.0,0.0,12/12/2019 14:54:44
+623sgNxOxGsHjU7AOuBk,3,FD,Active,1000.0,0.0,12/12/2019 13:36:08
+b2FpM7hFrqzJkAY699fZ,4,Current,Active,500.0,0.0,12/12/2019 15:21:05
+egoM3CYJiooSzfKuPcNr,5,Savings,Active,4356.0,0.0,12/12/2019 09:27:18
