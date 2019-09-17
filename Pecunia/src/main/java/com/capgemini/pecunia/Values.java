@@ -25,4 +25,8 @@ public class Values {
 	public static final String EXCEPTION_DURING_TRANSACTION = "Error occured while transaction";
 	public static final String INSUFFICIENT_BALANCE_EXCEPTION = "Insufficient balance";
 	public static final String CHEQUE_BOUNCE_EXCEPTION = "Cheque bounce due to insufficient balance";
+	
+//	public static final String LOGIN_SUCCESS = "Login succesful";
+	public static final String LOGIN_FAILURE = "Login unsuccesful";
+	public static final String LOGIN_NO_USER_FOUND = "No user found";
 }
