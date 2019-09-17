@@ -1,5 +1,10 @@
 package com.capgemini.pecunia.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.capgemini.pecunia.Values;
+
 public class LoanRequest {
 	String loanRequestId;
 	String loanCustomerId; 
@@ -128,6 +133,18 @@ public class LoanRequest {
 		if (tenure != other.tenure)
 			return false;
 		return true;
+	}
+	
+	public static LoanRequest getLoanRequestObject(String row) {
+		String arr[] = row.split(",");
+		LoanRequest loanreq= new LoanRequest(arr[0],arr[1],Double.parseDouble(arr[2]),arr[3],Integer.parseInt(arr[4]),Double.parseDouble(arr[5]),arr[6],Double.parseDouble(arr[7]));
+		return loanreq;
+}
+	
+	@Override
+	public String toString() {
+		return this.loanRequestId+" "+this.loanCustomerId+" "+this.loanAmount+" "+this.loanType+" "+this.tenure+
+				" "+this.loanRoi+" "+this.loanStatus+" "+this.loanEmi;
 	}
 	
 

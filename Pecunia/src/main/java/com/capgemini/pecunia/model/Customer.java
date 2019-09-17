@@ -1,8 +1,11 @@
 package com.capgemini.pecunia.model;
 import java.sql.Date;
+import java.text.ParseException;
 //import java.util.*;
+import java.text.SimpleDateFormat;
 
 import com.capgemini.pecunia.Utility;
+import com.capgemini.pecunia.Values;
 
 public class Customer {
 	
@@ -132,18 +135,6 @@ public int hashCode() {
 		this.customerPan = customerPan;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public String getCustomerPan() {
 		return customerPan;
 	}
@@ -169,4 +160,24 @@ public int hashCode() {
 		return customerDob;
 	}
 
+	
+	public static Customer getCustomerObject(String row) {
+		String arr[] = row.split(",");
+		Date date;
+		try {
+			date = (Date) new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[7]);
+			Customer cust= new Customer(arr[1],arr[2],arr[3],arr[4],arr[5],arr[6],date);
+		}
+		 catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	}
+	
+	@Override
+	public String toString() {
+		return this.customerName+" "+this.customerAddressId+" "+this.customerAadhar+" "+this.customerPan+" "+this.customerContact+
+				" "+this.customerContact+" -"+this.customerDob;
+	}
 }

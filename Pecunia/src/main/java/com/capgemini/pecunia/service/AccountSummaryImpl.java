@@ -23,10 +23,10 @@ public class AccountSummaryImpl implements AccountService {
 	    while((line = br.readLine())!= null)
         {
 	    	arrTrans = line.split(",");
-	    	double amount = Integer.parseInt(arrTrans[3]);
+	    	double amount = Integer.parseInt(arrTrans[4]);
             double closeBal = Integer.parseInt(arrTrans[9]);
-            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(arrTrans[5]);
-    	   Transaction t = new Transaction(arrTrans[0],arrTrans[1],arrTrans[2],amount,arrTrans[4],
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(arrTrans[5]); 
+    	   Transaction t = new Transaction(arrTrans[0],arrTrans[1],arrTrans[2],arrTrans[3],amount,
     			   				date1, arrTrans[6],arrTrans[7],arrTrans[8],closeBal);
     	   if(t.getTransDate()==startDate) {
     		   while(t.getTransDate().compareTo(endDate)<0) {

@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
 	        return "Account Id not found";
 	}
    
-	public String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
+	public  String addAccount(String customerName, String customerAadhar, String customerPan, String customerContact,
 				String customerGender, Date customerDob, String addressLine1, String addressLine2, String addressCity,
 				String addressState, String addressCountry, String addressZipcode, String accountType,
 				double accountBalance, double accountInterest, java.sql.Date lastUpdated, String accountBranchId) {
@@ -103,7 +103,7 @@ public class AccountServiceImpl implements AccountService {
 					throw new InvalidParameterException("Invalid Input");
 				}
 
-				if(customerAadhar.length()!= 16 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar))
+				if(customerAadhar.length()!= 12 && Pattern.matches((".*[a-zA-Z]+.*"),customerAadhar))
 				{
 					throw new InvalidParameterException("Invalid Aadhar");
 					//System.out.println("Invalid Aadhar");
@@ -209,9 +209,23 @@ public class AccountServiceImpl implements AccountService {
 				else {
 				return false;
 				}
-			
-				
 			}
+			String inputAcc;
+			try {
+				BufferedReader bufferedReaderAcc = new BufferedReader(new FileReader("Account.csv"));
+				while((inputAcc = bufferedReaderAcc.readLine()) != null)
+				{
+				   String[] arrAcc = inputAcc.split(",");
+				   if(arrAcc[0] == accountId)
+				   {
+					   return true;	
+				   }
+				}
+				bufferedReaderAcc.close();
+			}catch (Exception e) {
+				return false;
+			} 
+			
 		return false;
 		//implemented
 	
@@ -220,18 +234,16 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean validateAccountName(String accountName) {
 		 String[] Nametmp = accountName.split("\\s+");
-		   if(accountName!=null && !accountName.isEmpty()) {
+		 if(accountName!=null && !accountName.isEmpty()) {
 				if(Nametmp[0].matches("[A-Za-z]+") && Nametmp[1].matches("[A-Za-z]+")) {
 					return true;
 				}
 					else {
 					return false;
-					}
-				
-					
+					}	
 				}
-			return false;	
-			}
+		   return false;
+		   }
 
 	@Override
 	public boolean validateTransAmt(Double transAmt){
