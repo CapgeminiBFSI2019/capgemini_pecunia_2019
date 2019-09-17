@@ -7,17 +7,27 @@ import com.capgemini.pecunia.Values;
 
 public class LoanRequest {
 	String loanRequestId;
-	String loanCustomerId; 
-	double loanAmount; 
-	String loanType; 
+	String loanCustomerId;
+	double loanAmount;
+	String loanType;
 	int tenure;
-	double loanRoi; String loanStatus;
+	double loanRoi;
+	String loanStatus;
 	double loanEmi;
-	
-	public LoanRequest () {
-		
+	int creditScore;
+
+	public LoanRequest() {
+
 	}
 	
+	public int getCreditScore() {
+		return creditScore;
+	}
+
+	public void setCreditScore(int creditScore) {
+		this.creditScore = creditScore;
+	}
+
 	public String getLoanRequestId() {
 		return loanRequestId;
 	}
@@ -83,7 +93,7 @@ public class LoanRequest {
 	}
 
 	public LoanRequest(String loanRequestId, String loanCustomerId, double loanAmount, String loanType, int tenure,
-			double loanRoi, String loanStatus, double loanEmi) {
+			double loanRoi, String loanStatus, double loanEmi, int creditScore) {
 		super();
 		this.loanRequestId = loanRequestId;
 		this.loanCustomerId = loanCustomerId;
@@ -93,12 +103,14 @@ public class LoanRequest {
 		this.loanRoi = loanRoi;
 		this.loanStatus = loanStatus;
 		this.loanEmi = loanEmi;
+		this.creditScore = creditScore;
 	}
-	
+
 	public String getLoanRequestData() {
-		return (this.loanRequestId+","+ this.loanCustomerId+","+
-		this.loanAmount+","+this.loanType+","+this.tenure+","+this.loanRoi+","+this.loanStatus +","+this.loanEmi);
+		return (this.loanRequestId + "," + this.loanCustomerId + "," + this.loanAmount + "," + this.loanType + ","
+				+ this.tenure + "," + this.loanRoi + "," + this.loanStatus + "," + this.loanEmi + "," + this.creditScore);
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,6 +124,7 @@ public class LoanRequest {
 		result = prime * result + tenure;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -134,6 +147,7 @@ public class LoanRequest {
 			return false;
 		return true;
 	}
+<<<<<<< HEAD
 	
 	public static LoanRequest getLoanRequestObject(String row) {
 		String arr[] = row.split(",");
@@ -147,5 +161,20 @@ public class LoanRequest {
 				" "+this.loanRoi+" "+this.loanStatus+" "+this.loanEmi;
 	}
 	
+=======
+
+	public static LoanRequest getLoanRequestObject(String row) {
+		String arr[] = row.split(",");
+		LoanRequest loanreq = new LoanRequest(arr[0], arr[1], Double.parseDouble(arr[2]), arr[3],
+				Integer.parseInt(arr[4]), Double.parseDouble(arr[5]), arr[6], Double.parseDouble(arr[7]), Integer.parseInt(arr[8]));
+		return loanreq;
+	}
+
+	@Override
+	public String toString() {
+		return this.loanRequestId + " " + this.loanCustomerId + " " + this.loanAmount + " " + this.loanType + " "
+				+ this.tenure + " " + this.loanRoi + " " + this.loanStatus + " " + this.loanEmi;
+	}
+>>>>>>> 89dc317358bdd500256f827f770d2444a1d327aa
 
 }
