@@ -285,9 +285,10 @@ public class AccountServiceImpl implements AccountService {
 					else {
 					return false;
 					}	
-				}
-		   return false;
 		   }
+		   }
+		return false;
+	}
 
 	@Override
 	public boolean validateTransAmt(Double transAmt){
