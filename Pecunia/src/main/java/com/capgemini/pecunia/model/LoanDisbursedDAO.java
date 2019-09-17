@@ -1,4 +1,4 @@
-package com.capgemini.pecunia.dao;
+package com.capgemini.pecunia.model;
 
 import java.io.IOException;
 import java.util.ArrayList;

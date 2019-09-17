@@ -150,14 +150,14 @@ public class LoanRequest {
 	
 	public static LoanRequest getLoanRequestObject(String row) {
 		String arr[] = row.split(",");
-		LoanRequest loanreq= new LoanRequest(arr[0],arr[1],Double.parseDouble(arr[2]),arr[3],Integer.parseInt(arr[4]),Double.parseDouble(arr[5]),arr[6],Double.parseDouble(arr[7]));
+		LoanRequest loanreq= new LoanRequest(arr[0],arr[1],Double.parseDouble(arr[2]),arr[3],Integer.parseInt(arr[4]),Double.parseDouble(arr[5]),arr[6],Double.parseDouble(arr[7]),Integer.parseInt(arr[8]));
 		return loanreq;
 }
 	
 	@Override
 	public String toString() {
 		return this.loanRequestId+" "+this.loanCustomerId+" "+this.loanAmount+" "+this.loanType+" "+this.tenure+
-				" "+this.loanRoi+" "+this.loanStatus+" "+this.loanEmi;
+				" "+this.loanRoi+" "+this.loanStatus+" "+this.loanEmi + " "+ this.creditScore;
 	}
 	
 

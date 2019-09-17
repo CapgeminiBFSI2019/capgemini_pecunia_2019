@@ -1,4 +1,4 @@
-package com.capgemini.pecunia.dao;
+package com.capgemini.pecunia.model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
