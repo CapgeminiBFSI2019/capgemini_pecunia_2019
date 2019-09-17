@@ -6,9 +6,9 @@ public class LoanRequestServiceImpl implements LoanRequestService{
 
 	@Override
 	public String createLoanRequest(String loanCustomerId, double loanAmount, String loanType, int tenure,
-			double loanRoi, String loanStatus) {
+			double loanRoi, String loanStatus, int creditScore) {
 		LoanRequestDAOImpl loanRequestDAOImpl=new LoanRequestDAOImpl();
-		loanRequestDAOImpl.createLoanRequest(loanCustomerId, loanAmount, loanType, tenure, loanRoi, loanStatus);
+		loanRequestDAOImpl.createLoanRequest(loanCustomerId, loanAmount, loanType, tenure, loanRoi, loanStatus,creditScore);
 		// TODO Auto-generated method stub
 		return null;
 	}
