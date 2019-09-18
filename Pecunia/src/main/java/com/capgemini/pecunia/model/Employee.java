@@ -1,5 +1,5 @@
 package com.capgemini.pecunia.model;
-
+//field declaration of class employee
 public class Employee {
 	
 	private String employeeId;
@@ -13,7 +13,7 @@ public class Employee {
 	
 	
 	
-	
+//parametrized constructor	
 	public Employee(String employeeId, String employeeName, String employeeBranchId, String employeeDesignation,
 			String employeeUsername, String employeePassword, String employeeSalt) {
 		super();
@@ -27,7 +27,7 @@ public class Employee {
 	}
 
 
-
+//getters and setters
 	public String getEmployeeId() {
 		return employeeId;
 	}
@@ -111,7 +111,7 @@ public class Employee {
 	}
 
 
-
+//function to fetch data from csv file and store in the arraylist, separated by a comma
 	public static Employee getEmployeeObject(String row) {
 		// TODO Auto-generated method stub
 		String arr[] = row.split(",");
