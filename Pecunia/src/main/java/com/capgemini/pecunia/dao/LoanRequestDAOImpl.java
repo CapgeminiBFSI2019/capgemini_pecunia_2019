@@ -103,21 +103,5 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 		}
 	}
 
-	// Fetching Loan applicant's Personal Data
-	public String getCustomerRow(String loanCustomerId) {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("Customer.csv"));
-			String line;
-			while ((line = br.readLine()) != null) {
-				String arr[] = line.split(",");
-				if (arr[0].equals(loanCustomerId)) {
-					break;
-				}
-			}
-			br.close();
-			return line;
-		} catch (Exception e) {
-			return null;
-		}
-	}
+	
 }
