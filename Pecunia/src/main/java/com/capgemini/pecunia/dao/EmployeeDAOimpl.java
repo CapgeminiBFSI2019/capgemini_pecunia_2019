@@ -18,7 +18,8 @@ import java.util.List;
 
 import com.capgemini.pecunia.Utility;
 import com.capgemini.pecunia.model.Employee;
-
+//implementation of EmployeeDAO
+//reads data from csv file and storing in array list
 public class EmployeeDAOimpl implements EmployeeDAO {
 
 	public static List<Employee> getEmployees() throws IOException {
@@ -31,7 +32,10 @@ public class EmployeeDAOimpl implements EmployeeDAO {
 		}
 		return emplist;
 	}
-
+//method is overridden and checked for different conditions
+	//arraylist is created 
+	
+	//hashcode is generated to make the password encrypted
 	@Override
 	public boolean login(String username, String password) {
 		
