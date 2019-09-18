@@ -31,7 +31,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public boolean isSufficientBalance(String accountId, double transactionAmount) {
-		// TODO Auto-generated method stub
+		// Method to check if sufficient balance is in account
 		try {
 			File file = new File(Values.ACCOUNT_CSV_FILE);
 			BufferedReader br = new BufferedReader(new FileReader(file));
@@ -56,7 +56,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public int saveTransaction(Transaction transaction) {
-		// TODO Auto-generated method stub
+		// new transaction instance is written into file
 		try {
 			String transString = transaction.getTransactionString();
 			File customerFile = new File(Values.TRANSACTION_CSV_FILE);
@@ -75,6 +75,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public int updatebalance(String accountId,double newBalance) throws IOException
 	{
+		//balance is updated in the list and updated into the file
 		try
 		{
 			List<Account> accountList = getAllAccounts();
@@ -109,8 +110,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public String creditUsingSlip(String accountId, Double amount, Date transactionDate) throws MyException {
+		
 		try
 		{
+			//Account object is fetched corresponding to account id 
 			Account account = getAccountObject(accountId);
 			System.out.println("account info :" + account);
 			if(account != null)
@@ -141,12 +144,15 @@ public class TransactionDAOImpl implements TransactionDAO {
 	public String debitUsingSlip(String accountId, double amount, Date transactionDate) throws MyException {
 		try
 		{
+				//Account object is fetched corresponding to account id 
+
 			Account account = getAccountObject(accountId);
 			if(account != null)
 			{
 				double oldBalance,newBalance;
 				oldBalance = account.getAccountBalance();
 				
+				//Sufficient balance is checked
 				if(isSufficientBalance(accountId, amount))
 				{
 					newBalance = oldBalance - amount;
@@ -182,12 +188,14 @@ public class TransactionDAOImpl implements TransactionDAO {
 		double oldBalPayee, newBalPayee, oldBalBeneficiary, newBalBenificiary;
 		try
 		{
+			//get account object of payee and beneficiary
 			Account beneficiaryAccount = getAccountObject(accountId);
 			Account payeeAccount = getAccountObject(chequeAccount);
 			
 			if(beneficiaryAccount != null && payeeAccount != null)
 			{
 				oldBalBeneficiary = beneficiaryAccount.getAccountBalance();
+				//for Pecunia cheques
 				if(chequeBankName.equals(Values.BANK_NAME))
 				{
 					if(isSufficientBalance(chequeAccount, amount))
@@ -197,11 +205,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 						newBalBenificiary = oldBalBeneficiary + amount;
 						newBalPayee = oldBalPayee - amount;
 						
-						//update balance reqyuired
+						//update balance required
 						updatebalance(accountId, newBalBenificiary);
 						updatebalance(chequeAccount, newBalPayee);
 						
 						String chequeId = Utility.getAlphaNumericString(20);
+						//cheque object generated
 						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
 								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate,
 								Values.CHEQUE_STATUS_CLEARED);
@@ -209,25 +218,30 @@ public class TransactionDAOImpl implements TransactionDAO {
 						//cheque should be saved
 						String transId1 = Utility.getAlphaNumericString(20);
 						
+						//beneficary trans_id generataed
 						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
 								Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, chequeAccount,
 								Values.NA, newBalBenificiary);
 						
+						//trans_id1 recorded
 						saveTransaction(transaction1);
 						String transId2 = Utility.getAlphaNumericString(20);
+						//beneficary trans_id generataed
 						Transaction transaction2 = new Transaction(transId2, chequeAccount, Values.TRANSACTION_DEBIT,
 								Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, Values.NA,
 								chequeAccount, newBalPayee);
-						
+						//trans_id1 recorded
 						saveTransaction(transaction2);
 						//transaction should be saved
 					}
 					else
 					{
+						//If insufficient balance
 						String chequeId = Utility.getAlphaNumericString(20);
 						Cheque cheque = new Cheque(chequeId, Integer.parseInt(chequeNum), chequeAccount,
 								chequeHolderName, chequeBankName, chequeIFSC, chequeIssueDate,
 								Values.CHEQUE_STATUS_BOUNCED);
+						//No trans_id will be generated
 						//save cheque
 						throw new MyException(Values.CHEQUE_BOUNCE_EXCEPTION);
 					}
@@ -235,6 +249,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 				}
 				else
 				{
+					//If the cheque is from other banks
 					boolean chequebankFlag = false;
 					for(String temp:Values.OTHER_BANK_NAME)
 					{
@@ -261,6 +276,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			else
 			{
+				//If no account is found
 				throw new MyException(Values.INVALID_ACCOUNT_EXCEPTION);
 			}
 				
@@ -279,30 +295,37 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 		try
 		{
+			//Account object is fetched corresponding to account id 
+
 			Account account = getAccountObject(accountId);
 			if(account != null)
 			{
 				double oldBalance,newBalance;
 				oldBalance = account.getAccountBalance();
 				
+				//Sufficient balance is checked
 				if(isSufficientBalance(accountId, amount))
 				{
 					newBalance = oldBalance - amount;
 					// Need to update balance 
 					updatebalance(accountId, newBalance);
 					String chequeId = Utility.getAlphaNumericString(20);
+					//cheque object generated
 					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount, chequeHolderName,
 							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 					//save cheque
 					String transId1 = Utility.getAlphaNumericString(20);
-					Transaction transaction = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
+					//trans_id1 recorded
+					Transaction transaction = new Transaction(transId1, accountId, Values.TRANSACTION_DEBIT,
 							Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, Values.NA, transId1,
 							newBalance);
+					//transaction should be saved
 					saveTransaction(transaction);
 					 return transId1;
 				}
 				else
 				{
+					//If insufficient balance
 					String chequeId = Utility.getAlphaNumericString(20);
 					Cheque cheque = new Cheque(chequeId, Integer.parseInt(checkNum), chequeAccount, chequeHolderName,
 							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_BOUNCED);
@@ -313,6 +336,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			else
 			{
+				//If no account is found
 				throw new MyException(Values.INVALID_ACCOUNT_EXCEPTION);
 			}
 		}
@@ -341,10 +365,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 		}
 	}
 	
+	//Account object of corresponding account_id is created
 	public static Account getAccountObject(String accountNo)
 	{
 		try
 		{
+			//returns list of all accounts objects
 			List<Account> allAccountList = getAllAccounts();
 			for(Account acc : allAccountList)
 			{
@@ -364,6 +390,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		}
 	}
 	
+	//returns list of all account objects after reading from file
 	public static List<Account> getAllAccounts() throws IOException {
 		Path FILE_PATH = Paths.get(Values.ACCOUNT_CSV_FILE);
 		List<String> fileContent = new ArrayList<>(Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8));
