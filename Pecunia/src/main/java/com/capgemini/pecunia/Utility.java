@@ -3,9 +3,7 @@ package com.capgemini.pecunia;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-import java.text.SimpleDateFormat;  
+import java.security.NoSuchAlgorithmException; 
 public class Utility {
 	public static String getAlphaNumericString(int n) {
 
