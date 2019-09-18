@@ -23,33 +23,38 @@ import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 public class AccountServiceImpl implements AccountService {
 
 	public static ArrayList<Transaction> updatePassbookOne(String accountId){
-
-		try {
+       
+		try 
+		{
+			//reads data from csv file and storing in array list
 		File file = new File("Transaction.csv");
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		String line;
-
+        
 		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 		while ((line = br.readLine()) != null) {
-			String arr[] = line.split(",");
-			String updatedDate1 = updateCurrentDate(accountId);
-			boolean ans = getUpdatedTrans(arr[5], updatedDate1);
+			String arr[] = line.split(","); //storing the data in the arr
+			
+			String updatedDate1 = updateCurrentDate(accountId); // calling the function to get the current date
+			boolean ans = getUpdatedTrans(arr[5], updatedDate1); // calling function to get the updated transaction details
 			if (arr[1].equals(accountId) && ans == true) {
-				Date date1 = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
+				Date date1 = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]); 
 				double amount = Integer.parseInt(arr[4]);
 				double closeBal = Integer.parseInt(arr[9]);
 				Transaction t = new Transaction(arr[0], arr[1], arr[2], arr[3], amount, date1, arr[6], arr[7], arr[8],
 						closeBal);
-				transactionList.add(t);
+				transactionList.add(t); // return the list of transactions
 			}
 		}
 		br.close();
 		return transactionList;
-		}catch (Exception e) {
+		}
+		catch (Exception e) 
+		{
 			return null;
 		}
 	}
-
+    // function to get the updated transaction details
 	public static boolean getUpdatedTrans(String transDate, String updatedDate) {
 
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -61,7 +66,7 @@ public class AccountServiceImpl implements AccountService {
 		} else
 			return false;
 	}
-
+    //function to get the current date and return it
 	public static String updateCurrentDate(String accountId) throws Exception {
 		File file = new File("Account.csv");
 		BufferedReader br1 = new BufferedReader(new FileReader(file));
@@ -88,7 +93,7 @@ public class AccountServiceImpl implements AccountService {
 			if( customerName== null || customerAadhar== null || customerPan== null || customerContact== null || customerGender== null
 					|| customerDob==null ||addressLine1 == null || addressLine2 == null|| addressCity== null ||
 							addressState == null || addressCountry== null || addressZipcode== null || accountType== null ||
-							 lastUpdated== null ||accountBranchId == null) //all fields compulsory
+							 lastUpdated== null ||accountBranchId == null) //checking if all fields compulsory
 		
 			{
 				throw new InvalidParameterException("All fields compulsory");

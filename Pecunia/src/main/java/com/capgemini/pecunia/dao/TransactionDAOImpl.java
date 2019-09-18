@@ -31,7 +31,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public boolean isSufficientBalance(String accountId, double transactionAmount) {
+
 		// Method to check if sufficient balance is in account
+
 		try {
 			File file = new File(Values.ACCOUNT_CSV_FILE);
 			BufferedReader br = new BufferedReader(new FileReader(file));
@@ -56,7 +58,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public int saveTransaction(Transaction transaction) {
+
 		// new transaction instance is written into file
+
 		try {
 			String transString = transaction.getTransactionString();
 			File customerFile = new File(Values.TRANSACTION_CSV_FILE);

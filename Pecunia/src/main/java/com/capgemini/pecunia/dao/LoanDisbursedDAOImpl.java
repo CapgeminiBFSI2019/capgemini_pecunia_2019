@@ -32,7 +32,8 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 	ArrayList<LoanRequest> loanList2 = new ArrayList<LoanRequest>();
 
 	
-	// TODO Write Comments
+	// Retrieve the loan requests from LoanRequest.csv and then make a list from it.
+	
 	public ArrayList<LoanRequest> updateLoanList() throws IOException {
 
 		FileReader file = new FileReader(Values.LOAN_REQUEST_CSV_FILE1);
@@ -82,7 +83,10 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		return false;
 	}
 
-	// TODO Write Comments
+	/* From the list, i.e. loanList, check whether the loan status is pending or not. 
+	 * If yes, then create another list of requests, having status pending. Or throws error 
+	 * 
+	 */
 	public ArrayList<LoanRequest> approveLoan(ArrayList<LoanRequest> loanList) {
 	
 		
@@ -104,8 +108,10 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		}
 		return loanList1;
 	}
-
-	// TODO Comments
+	
+	/* From the list, i.e. loanList1, check whether the credit score is greater than 750 or not.
+	 * If yes then create another list of requests having required credit score. Else throw error.
+	 */
 	public ArrayList<LoanRequest> checkCreditScore(ArrayList<LoanRequest> loanList) {
 		
 		for (int i = 0; i < loanList1.size(); i++) {
@@ -121,7 +127,7 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		return loanList2;
 	}
 
-	// TODO Comments
+	/* Finally, release a list of all applicant's requests which are approved */
 	public void releaseLoanSheet(ArrayList<LoanRequest> loanList) throws IOException {
 
 		File file1 = new File(Values.LOAN_DISBURSED_CSV_FILE);
