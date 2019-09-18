@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.security.InvalidParameterException;
 
 import com.capgemini.pecunia.Utility;
+import com.capgemini.pecunia.Values;
 import com.capgemini.pecunia.model.LoanRequest;
 
 public class LoanRequestDAOImpl implements LoanRequestDAO {
@@ -89,7 +90,7 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 
 		// Writing loan applicant's loan Data to file
 			String loanRequestData = loanreq.getLoanRequestData();
-			File loancustomerFile = new File("LoanRequest.csv");
+			File loancustomerFile = new File(Values.LOAN_REQUEST_CSV_FILE1);
 			FileWriter fr = new FileWriter(loancustomerFile, true);
 			BufferedWriter br = new BufferedWriter(fr);
 			br.write(loanRequestData);
