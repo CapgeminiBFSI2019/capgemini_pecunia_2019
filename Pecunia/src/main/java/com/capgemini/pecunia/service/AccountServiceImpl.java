@@ -43,7 +43,7 @@ public class AccountServiceImpl implements AccountService {
 				double closeBal = Integer.parseInt(arr[9]);
 				Transaction t = new Transaction(arr[0], arr[1], arr[2], arr[3], amount, date1, arr[6], arr[7], arr[8],
 						closeBal);
-				transactionList.add(t); // return the list of transactions.
+				transactionList.add(t); // return the list of transactions
 			}
 		}
 		br.close();
