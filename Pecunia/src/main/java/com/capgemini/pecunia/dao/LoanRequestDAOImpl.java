@@ -54,41 +54,40 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 			double loanRoi, String loanStatus, int creditScore) {
 
 		try {
-		if (!validateCustomerId(loanCustomerId)) {
-			// throw new InputMismatchException();
-			throw new InvalidParameterException();
-		}
-		if (loanCustomerId.equals(null) || loanType.equals(null) || loanStatus.equals(null)) {
-			return null;
-		}
-		if (loanType != "Home Loan" || loanType != "Vehicle Loan" || loanType != "Jewel Loan"
-				|| loanType != "Personal Loan") {
-			throw new InvalidParameterException();
-		}
-		if (loanAmount < 0 || tenure < 0 || loanRoi < 0) {
-			throw new InvalidParameterException();
-		}
-		if (loanStatus != "Pending") {
-			throw new InvalidParameterException();
-		}
-		if (creditScore <= 0) {
-			throw new InvalidParameterException();
-		}
+			if (!validateCustomerId(loanCustomerId)) {
+				// throw new InputMismatchException();
+				throw new InvalidParameterException();
+			}
+			if (loanCustomerId.equals(null) || loanType.equals(null) || loanStatus.equals(null)) {
+				return null;
+			}
+			if (loanType != "Home Loan" || loanType != "Vehicle Loan" || loanType != "Jewel Loan"
+					|| loanType != "Personal Loan") {
+				throw new InvalidParameterException();
+			}
+			if (loanAmount < 0 || tenure < 0 || loanRoi < 0) {
+				throw new InvalidParameterException();
+			}
+			if (loanStatus != "Pending") {
+				throw new InvalidParameterException();
+			}
+			if (creditScore <= 0) {
+				throw new InvalidParameterException();
+			}
 
-		// Getting EMI using calculateEMI method for given values of loan amount,tenure
-		// and rate of interest
-		double emi = calculateEMI(loanAmount, tenure, loanRoi);
+			// Getting EMI using calculateEMI method for given values of loan amount,tenure
+			// and rate of interest
+			double emi = calculateEMI(loanAmount, tenure, loanRoi);
 
-		// Getting loan request ID generated using Utility function
+			// Getting loan request ID generated using Utility function
 
-		String loanRequestId = Utility.getAlphaNumericString(20);
+			String loanRequestId = Utility.getAlphaNumericString(20);
 
+			// Creating object of loanRequest and passing values to it
+			LoanRequest loanreq = new LoanRequest(loanRequestId, loanCustomerId, loanAmount, loanType, tenure, loanRoi,
+					loanStatus, emi, creditScore);
 
-		// Creating object of loanRequest and passing values to it
-		LoanRequest loanreq = new LoanRequest(loanRequestId, loanCustomerId, loanAmount, loanType, tenure, loanRoi,
-				loanStatus, emi, creditScore);
-
-		// Writing loan applicant's loan Data to file
+			// Writing loan applicant's loan Data to file
 			String loanRequestData = loanreq.getLoanRequestData();
 			File loancustomerFile = new File(Values.LOAN_REQUEST_CSV_FILE1);
 			FileWriter fr = new FileWriter(loancustomerFile, true);
@@ -97,10 +96,9 @@ public class LoanRequestDAOImpl implements LoanRequestDAO {
 			br.newLine();
 			br.close();
 			return loanRequestId;
-		}catch (InvalidParameterException e) {
+		} catch (InvalidParameterException e) {
 			throw new InvalidParameterException("Some input mismatch found.");
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
