@@ -6,59 +6,40 @@ import java.util.Date;
 import com.capgemini.pecunia.Values;
 
 public class LoanRequest {
-	String loanRequestId;
-	String loanCustomerId;
-	double loanAmount;
-	String loanType;
+	String requestId;
+	String customerId;
+	double amount;
+	String type;
 	int tenure;
-	double loanRoi;
+	double roi;
 	String loanStatus;
-	double loanEmi;
+	double emi;
 	int creditScore;
 
-	// Default Constructor
-	public LoanRequest() {
-
+	
+	
+	public String getRequestId() {
+		return requestId;
 	}
 
-	public int getCreditScore() {
-		return creditScore;
+	public String getCustomerId() {
+		return customerId;
 	}
 
-	public void setCreditScore(int creditScore) {
-		this.creditScore = creditScore;
+	public double getAmount() {
+		return amount;
 	}
 
-	public String getLoanRequestId() {
-		return loanRequestId;
+	public void setAmount(double loanAmount) {
+		this.amount = loanAmount;
 	}
 
-	public void setLoanRequestId(String loanRequestId) {
-		this.loanRequestId = loanRequestId;
+	public String getType() {
+		return type;
 	}
 
-	public String getLoanCustomerId() {
-		return loanCustomerId;
-	}
-
-	public void setLoanCustomerId(String loanCustomerId) {
-		this.loanCustomerId = loanCustomerId;
-	}
-
-	public double getLoanAmount() {
-		return loanAmount;
-	}
-
-	public void setLoanAmount(double loanAmount) {
-		this.loanAmount = loanAmount;
-	}
-
-	public String getLoanType() {
-		return loanType;
-	}
-
-	public void setLoanType(String loanType) {
-		this.loanType = loanType;
+	public void setType(String loanType) {
+		this.type = loanType;
 	}
 
 	public int getTenure() {
@@ -69,12 +50,12 @@ public class LoanRequest {
 		this.tenure = tenure;
 	}
 
-	public double getLoanRoi() {
-		return loanRoi;
+	public double getRoi() {
+		return roi;
 	}
 
-	public void setLoanRoi(double loanRoi) {
-		this.loanRoi = loanRoi;
+	public void setRoi(double loanRoi) {
+		this.roi = loanRoi;
 	}
 
 	public String getLoanStatus() {
@@ -85,32 +66,39 @@ public class LoanRequest {
 		this.loanStatus = loanStatus;
 	}
 
-	public double getLoanEmi() {
-		return loanEmi;
+	public double getEmi() {
+		return emi;
 	}
 
-	public void setLoanEmi(double loanEmi) {
-		this.loanEmi = loanEmi;
+	public void setEmi(double loanEmi) {
+		this.emi = loanEmi;
 	}
-	
-	//Parameterized Constructor for LoanRequest
-	public LoanRequest(String loanRequestId, String loanCustomerId, double loanAmount, String loanType, int tenure,
-			double loanRoi, String loanStatus, double loanEmi, int creditScore) {
-		super();
-		this.loanRequestId = loanRequestId;
-		this.loanCustomerId = loanCustomerId;
-		this.loanAmount = loanAmount;
-		this.loanType = loanType;
-		this.tenure = tenure;
-		this.loanRoi = loanRoi;
-		this.loanStatus = loanStatus;
-		this.loanEmi = loanEmi;
+
+	public int getCreditScore() {
+		return creditScore;
+	}
+
+	public void setCreditScore(int creditScore) {
 		this.creditScore = creditScore;
 	}
-	
+
+	public LoanRequest(String requestId, String customerId, double loanAmount, String loanType, int tenure,
+			double loanRoi, String loanStatus, double loanEmi, int creditScore) {
+		super();
+		this.requestId = requestId;
+		this.customerId = customerId;
+		this.amount = loanAmount;
+		this.type = loanType;
+		this.tenure = tenure;
+		this.roi = loanRoi;
+		this.loanStatus = loanStatus;
+		this.emi = loanEmi;
+		this.creditScore = creditScore;
+	}
+
 	public String getLoanRequestData() {
-		return (this.loanRequestId + "," + this.loanCustomerId + "," + this.loanAmount + "," + this.loanType + ","
-				+ this.tenure + "," + this.loanRoi + "," + this.loanStatus + "," + this.loanEmi + ","
+		return (this.requestId + "," + this.customerId + "," + this.amount + "," + this.type + ","
+				+ this.tenure + "," + this.roi + "," + this.loanStatus + "," + this.emi + ","
 				+ this.creditScore);
 	}
 
@@ -119,10 +107,10 @@ public class LoanRequest {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(loanAmount);
+		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((loanType == null) ? 0 : loanType.hashCode());
-		temp = Double.doubleToLongBits(loanRoi);
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		temp = Double.doubleToLongBits(roi);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + tenure;
 		return result;
@@ -137,14 +125,14 @@ public class LoanRequest {
 		if (getClass() != obj.getClass())
 			return false;
 		LoanRequest other = (LoanRequest) obj;
-		if (Double.doubleToLongBits(loanAmount) != Double.doubleToLongBits(other.loanAmount))
+		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
-		if (loanType == null) {
-			if (other.loanType != null)
+		if (type == null) {
+			if (other.type != null)
 				return false;
-		} else if (!loanType.equals(other.loanType))
+		} else if (!type.equals(other.type))
 			return false;
-		if (Double.doubleToLongBits(loanRoi) != Double.doubleToLongBits(other.loanRoi))
+		if (Double.doubleToLongBits(roi) != Double.doubleToLongBits(other.roi))
 			return false;
 		if (tenure != other.tenure)
 			return false;
@@ -162,8 +150,8 @@ public class LoanRequest {
 	@Override
 	public String toString() {
 
-		return this.loanRequestId+" "+this.loanCustomerId+" "+this.loanAmount+" "+this.loanType+" "+this.tenure+
-				" "+this.loanRoi+" "+this.loanStatus+" "+this.loanEmi + " "+ this.creditScore;
+		return this.requestId+" "+this.customerId+" "+this.amount+" "+this.type+" "+this.tenure+
+				" "+this.roi+" "+this.loanStatus+" "+this.emi + " "+ this.creditScore;
 
 	}
 

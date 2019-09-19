@@ -78,10 +78,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 			List<Account> accountList = getAllAccounts();
 			for(int i=0;i<accountList.size();i++)
 			{
-				if(accountList.get(i).getAccountId().equals(accountId))
+				if(accountList.get(i).getId().equals(accountId))
 				{
 					Account temp = accountList.get(i);
-					temp.setAccountBalance(newBalance);
+					temp.setBalance(newBalance);
 					accountList.set(i, temp);
 					
 					
@@ -114,12 +114,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 			if(account != null)
 			{
 				double oldBalance,newBalance;
-				oldBalance = account.getAccountBalance();
+				oldBalance = account.getBalance();
 				newBalance = oldBalance + amount;
 				// Need to update balance 
 				updatebalance(accountId, newBalance);
 				String transId = Utility.getAlphaNumericString(20);
-				Transaction transaction = new Transaction(transId, accountId, Values.TRANSACTION_CREDIT,Values.TRANSACTION_OPTION_SLIP, amount, transactionDate, Values.NA, Values.NA, Values.NA,newBalance);
+				Transaction transaction = new Transaction(transId, accountId, Values.TRANSACTION_CREDIT,amount,Values.TRANSACTION_OPTION_SLIP,  transactionDate, Values.NA, Values.NA, Values.NA,newBalance);
 				saveTransaction(transaction);
 				return transId;
 			}
@@ -143,7 +143,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			if(account != null)
 			{
 				double oldBalance,newBalance;
-				oldBalance = account.getAccountBalance();
+				oldBalance = account.getBalance();
 				
 				if(isSufficientBalance(accountId, amount))
 				{
@@ -151,7 +151,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 					// Need to update balance 
 					updatebalance(accountId, newBalance);
 					String transId = Utility.getAlphaNumericString(20);
-					Transaction transaction = new Transaction(transId, accountId, Values.TRANSACTION_DEBIT,Values.TRANSACTION_OPTION_SLIP, amount, transactionDate, Values.NA, Values.NA, Values.NA,newBalance);
+					Transaction transaction = new Transaction(transId, accountId, Values.TRANSACTION_DEBIT,amount,Values.TRANSACTION_OPTION_SLIP, transactionDate, Values.NA, Values.NA, Values.NA,newBalance);
 					saveTransaction(transaction);
 					return transId;
 				}
@@ -185,12 +185,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 			
 			if(beneficiaryAccount != null && payeeAccount != null)
 			{
-				oldBalBeneficiary = beneficiaryAccount.getAccountBalance();
+				oldBalBeneficiary = beneficiaryAccount.getBalance();
 				if(chequeBankName.equals(Values.BANK_NAME))
 				{
 					if(isSufficientBalance(chequeAccount, amount))
 					{
-						oldBalPayee = payeeAccount.getAccountBalance();
+						oldBalPayee = payeeAccount.getBalance();
 						
 						newBalBenificiary = oldBalBeneficiary + amount;
 						newBalPayee = oldBalPayee - amount;
@@ -207,14 +207,14 @@ public class TransactionDAOImpl implements TransactionDAO {
 						//cheque should be saved
 						String transId1 = Utility.getAlphaNumericString(20);
 						
-						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
-								Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, chequeAccount,
+						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,amount,
+								Values.TRANSACTION_OPTION_CHEQUE,  transactionDate, chequeId, chequeAccount,
 								Values.NA, newBalBenificiary);
 						
 						saveTransaction(transaction1);
 						String transId2 = Utility.getAlphaNumericString(20);
-						Transaction transaction2 = new Transaction(transId2, chequeAccount, Values.TRANSACTION_DEBIT,
-								Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, Values.NA,
+						Transaction transaction2 = new Transaction(transId2, chequeAccount, Values.TRANSACTION_DEBIT, amount,
+								Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA,
 								chequeAccount, newBalPayee);
 						
 						saveTransaction(transaction2);
@@ -281,7 +281,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			if(account != null)
 			{
 				double oldBalance,newBalance;
-				oldBalance = account.getAccountBalance();
+				oldBalance = account.getBalance();
 				
 				if(isSufficientBalance(accountId, amount))
 				{
@@ -293,8 +293,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 					//save cheque
 					String transId1 = Utility.getAlphaNumericString(20);
-					Transaction transaction = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,
-							Values.TRANSACTION_OPTION_CHEQUE, amount, transactionDate, chequeId, Values.NA, transId1,
+					Transaction transaction = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT, amount,
+							Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA, transId1,
 							newBalance);
 					saveTransaction(transaction);
 					 return transId1;
@@ -346,8 +346,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 			List<Account> allAccountList = getAllAccounts();
 			for(Account acc : allAccountList)
 			{
-				System.out.println(acc.getAccountId());
-				if(acc.getAccountId().equals(accountNo))
+				System.out.println(acc.getId());
+				if(acc.getId().equals(accountNo))
 				{
 					return acc;
 				}

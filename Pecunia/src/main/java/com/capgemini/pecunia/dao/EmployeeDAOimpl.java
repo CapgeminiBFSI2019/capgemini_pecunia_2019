@@ -58,8 +58,8 @@ public class EmployeeDAOimpl implements EmployeeDAO {
 			employees = getEmployees();
 			for (Employee obj : employees) {
 				if (obj.getUsername().equals(username)) {
-					String originalhash = obj.getEmployeePassword();
-					byte arr[] = Utility.getSHA(password + "" + obj.getEmployeeSalt());
+					String originalhash = obj.getPassword();
+					byte arr[] = Utility.getSHA(password + "" + obj.getSalt());
 					String hashPassword = Utility.toHexString(arr);
 					if (originalhash.equals(hashPassword)) {
 						return true;
