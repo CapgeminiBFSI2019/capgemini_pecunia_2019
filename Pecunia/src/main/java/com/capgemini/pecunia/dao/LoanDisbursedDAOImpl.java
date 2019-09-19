@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import org.hamcrest.core.IsNull;
 
 import com.capgemini.pecunia.Values;
 import com.capgemini.pecunia.model.LoanRequest;
@@ -31,25 +30,24 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 	ArrayList<LoanRequest> loanList1 = new ArrayList<LoanRequest>();
 	ArrayList<LoanRequest> loanList2 = new ArrayList<LoanRequest>();
 
-	
 	// Retrieve the loan requests from LoanRequest.csv and then make a list from it.
-	
-	// Method to calculate EMI
-		public double calculateEMI(double amount, int tenure, double loanRoi) {
 
-			// Checking the parameter values
-			if (amount < 0 || tenure < 0 || loanRoi < 0) {
-				throw new InvalidParameterException();
-			}
-			double p = amount;
-			double r = loanRoi / 1200;
-			int t = tenure - 1;
-			double a = Math.pow(1 + r, tenure);
-			double b = Math.pow(1 + r, t);
-			double emi = (p * r * a) / b;
-			return Math.round(emi);
+	// Method to calculate EMI
+	public double calculateEMI(double amount, int tenure, double loanRoi) {
+
+		// Checking the parameter values
+		if (amount < 0 || tenure < 0 || loanRoi < 0) {
+			throw new InvalidParameterException();
 		}
-	
+		double p = amount;
+		double r = loanRoi / 1200;
+		int t = tenure - 1;
+		double a = Math.pow(1 + r, tenure);
+		double b = Math.pow(1 + r, t);
+		double emi = (p * r * a) / b;
+		return Math.round(emi);
+	}
+
 	public ArrayList<LoanRequest> updateLoanList() throws IOException {
 
 		FileReader file = new FileReader(Values.LOAN_REQUEST_CSV_FILE1);
@@ -75,39 +73,38 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 
 		}
 		br.close();
-	    System.out.println(loanList.get(1));
+		System.out.println(loanList.get(1));
 		return loanList;
-		
-	
 
 	}
-	
+
 	public boolean checkLoanStatus(String s) {
-		if(s.equals("Pending")) {
-			
-				if(!(s.isEmpty()))
-			
-			return true;
+		if (s.equals("Pending")) {
+
+			if (!(s.isEmpty()))
+
+				return true;
 		}
 		return false;
 	}
-	
+
 	public boolean creditScore(int n) {
-		if(n>=750) {
+		if (n >= 750) {
 			return true;
 		}
 		return false;
 	}
 
-	/* From the list, i.e. loanList, check whether the loan status is pending or not. 
-	 * If yes, then create another list of requests, having status pending. Or throws error 
+	/*
+	 * From the list, i.e. loanList, check whether the loan status is pending or
+	 * not. If yes, then create another list of requests, having status pending. Or
+	 * throws error
 	 * 
 	 */
 	public ArrayList<LoanRequest> approveLoan(ArrayList<LoanRequest> loanList) {
-	
-		
+
 		for (int i = 0; i < loanList.size(); i++) {
-			
+
 			if (checkLoanStatus(loanList.get(i).getLoanStatus())) {
 
 				loanList1.add(new LoanRequest(loanList.get(i).getRequestId(), loanList.get(i).getCustomerId(),
@@ -116,20 +113,22 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 						loanList.get(i).getCreditScore()));
 
 			}
-			
+
 			else {
 				throw new InvalidParameterException();
 			}
-			
+
 		}
 		return loanList1;
 	}
-	
-	/* From the list, i.e. loanList1, check whether the credit score is greater than 750 or not.
-	 * If yes then create another list of requests having required credit score. Else throw error.
+
+	/*
+	 * From the list, i.e. loanList1, check whether the credit score is greater than
+	 * 750 or not. If yes then create another list of requests having required
+	 * credit score. Else throw error.
 	 */
 	public ArrayList<LoanRequest> checkCreditScore(ArrayList<LoanRequest> loanList) {
-		
+
 		for (int i = 0; i < loanList1.size(); i++) {
 			System.out.println(loanList1.get(i).getCreditScore());
 			if (creditScore(loanList1.get(i).getCreditScore())) {
@@ -139,7 +138,7 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 						loanList1.get(i).getCreditScore()));
 			}
 		}
-		
+
 		return loanList2;
 	}
 
@@ -149,7 +148,6 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		File file1 = new File(Values.LOAN_DISBURSED_CSV_FILE);
 		BufferedWriter wr = new BufferedWriter(new FileWriter(file1));
 		StringBuffer sb1 = new StringBuffer();
-	
 
 		String loanRequestId1;
 		String loanCustomerId1;
@@ -184,8 +182,6 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 
 	}
 
-	
-
 	public static void main(String[] args) throws IOException {
 		ArrayList<LoanRequest> loanList2 = new ArrayList<LoanRequest>();
 		ArrayList<LoanRequest> loanList3 = new ArrayList<LoanRequest>();
@@ -196,9 +192,5 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		loanList4 = loan.checkCreditScore(loanList3);
 		loan.releaseLoanSheet(loanList4);
 	}
-
-
-
-
 
 }
