@@ -34,6 +34,22 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 	
 	// Retrieve the loan requests from LoanRequest.csv and then make a list from it.
 	
+	// Method to calculate EMI
+		public double calculateEMI(double amount, int tenure, double loanRoi) {
+
+			// Checking the parameter values
+			if (amount < 0 || tenure < 0 || loanRoi < 0) {
+				throw new InvalidParameterException();
+			}
+			double p = amount;
+			double r = loanRoi / 1200;
+			int t = tenure - 1;
+			double a = Math.pow(1 + r, tenure);
+			double b = Math.pow(1 + r, t);
+			double emi = (p * r * a) / b;
+			return Math.round(emi);
+		}
+	
 	public ArrayList<LoanRequest> updateLoanList() throws IOException {
 
 		FileReader file = new FileReader(Values.LOAN_REQUEST_CSV_FILE1);

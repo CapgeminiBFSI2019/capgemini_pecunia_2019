@@ -9,7 +9,7 @@ import java.util.List;
 import com.capgemini.pecunia.dao.TransactionDAOImpl;
 import com.capgemini.pecunia.model.Account;
 import com.capgemini.pecunia.service.TransactionServiceImpl;
-import com.capgemini.pecunia.service.AccountServiceImpl;
+
 
 /**
  * Hello world!

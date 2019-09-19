@@ -8,16 +8,17 @@ import java.util.*;
 import com.capgemini.pecunia.Values;
 
 public class Transaction {
-	String id;
-	String accountId;
-	String type;
-	Double amount;
-	String option;
-	Date transDate;
-	String chequeId;
-	String transFrom;
-	String transTo;
-	Double closingBalance;
+	private String id;
+	private String accountId;
+	private String type;
+	private Double amount;
+	private String option;
+	private Date transDate;
+	private String chequeId;
+	private String transFrom;
+	private String transTo;
+	private Double closingBalance;
+
 
 	
 

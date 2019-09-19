@@ -3,17 +3,16 @@ package com.capgemini.pecunia.service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.security.InvalidParameterException;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.activity.InvalidActivityException;
 
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
+
+
 import org.junit.jupiter.api.Test;
 
 import com.capgemini.pecunia.Values;
-import com.sun.scenario.animation.shared.InfiniteClipEnvelope;
+
 
 class addAccountTest {
 
