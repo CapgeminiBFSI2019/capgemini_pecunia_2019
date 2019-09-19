@@ -199,9 +199,6 @@ public class Transaction {
 		try {
 			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
 
-			transaction = new Transaction(arr[0],arr[1],arr[2],arr[3],Double.parseDouble(arr[4]),date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
-			
-
 			transaction = new Transaction(arr[0],arr[1],arr[2],Double.parseDouble(arr[3]),arr[4],date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
 			return transaction;
 		} catch (ParseException e) {

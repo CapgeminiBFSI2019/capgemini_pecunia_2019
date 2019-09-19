@@ -150,7 +150,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		{
 				//Account object is fetched corresponding to account id 
 
-			Account account = getAccountObject(accountId);
+			Account account =getAccountObject(accountId);
 			if(account != null)
 			{
 				double oldBalance,newBalance;
@@ -163,7 +163,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 					// Need to update balance 
 					updatebalance(accountId, newBalance);
 					String transId = Utility.getAlphaNumericString(20);
-					Transaction transaction = new Transaction(transId, accountId, Values.TRANSACTION_DEBIT,amount,Values.TRANSACTION_OPTION_SLIP, transactionDate, Values.NA, Values.NA, Values.NA,newBalance);
+					Transaction transaction = new Transaction(transId, accountId, Values.TRANSACTION_DEBIT,amount,Values.TRANSACTION_OPTION_SLIP,  transactionDate, Values.NA, Values.NA, Values.NA,newBalance);
 					saveTransaction(transaction);
 					return transId;
 				}
@@ -199,7 +199,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			if(beneficiaryAccount != null && payeeAccount != null)
 			{
 				oldBalBeneficiary = beneficiaryAccount.getBalance();
-
+				//for Pecunia cheques
 				if(chequeBankName.equals(Values.BANK_NAME))
 				{
 					if(isSufficientBalance(chequeAccount, amount))
@@ -222,14 +222,18 @@ public class TransactionDAOImpl implements TransactionDAO {
 						//cheque should be saved
 						String transId1 = Utility.getAlphaNumericString(20);
 						
-						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT,amount,
-								Values.TRANSACTION_OPTION_CHEQUE,  transactionDate, chequeId, chequeAccount,Values.NA, newBalBenificiary);
+						//beneficary trans_id generataed
+						Transaction transaction1 = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT, amount,
+								Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, chequeAccount,
+								Values.NA, newBalBenificiary);
 						
 						//trans_id1 recorded
 						saveTransaction(transaction1);
 						String transId2 = Utility.getAlphaNumericString(20);
-						Transaction transaction2 = new Transaction(transId2, chequeAccount, Values.TRANSACTION_DEBIT, amount,
-								Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA,chequeAccount, newBalPayee);
+						//beneficary trans_id generataed
+						Transaction transaction2 = new Transaction(transId2, chequeAccount, Values.TRANSACTION_DEBIT,amount,
+								Values.TRANSACTION_OPTION_CHEQUE,  transactionDate, chequeId, Values.NA,
+								chequeAccount, newBalPayee);
 						//trans_id1 recorded
 						saveTransaction(transaction2);
 						//transaction should be saved
@@ -315,9 +319,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 							chequeBankName, chequeIFSC, chequeIssueDate, Values.CHEQUE_STATUS_CLEARED);
 					//save cheque
 					String transId1 = Utility.getAlphaNumericString(20);
-
-					Transaction transaction = new Transaction(transId1, accountId, Values.TRANSACTION_CREDIT, amount,
-							Values.TRANSACTION_OPTION_CHEQUE, transactionDate, chequeId, Values.NA, transId1,newBalance);
+					//trans_id1 recorded
+					Transaction transaction = new Transaction(transId1, accountId, Values.TRANSACTION_DEBIT,amount,
+							Values.TRANSACTION_OPTION_CHEQUE,  transactionDate, chequeId, Values.NA, transId1,
+							newBalance);
 					//transaction should be saved
 					saveTransaction(transaction);
 					 return transId1;
