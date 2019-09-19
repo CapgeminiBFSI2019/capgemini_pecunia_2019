@@ -7,10 +7,10 @@ public class Branch
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((branchAddress == null) ? 0 : branchAddress.hashCode());
-		result = prime * result + ((branchIFSC == null) ? 0 : branchIFSC.hashCode());
-		result = prime * result + ((branchId == null) ? 0 : branchId.hashCode());
-		result = prime * result + ((branchName == null) ? 0 : branchName.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((ifsc == null) ? 0 : ifsc.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 	@Override
@@ -23,77 +23,69 @@ public class Branch
 		if (getClass() != obj.getClass())
 			return false;
 		Branch other = (Branch) obj;
-		if (branchAddress == null) 
+		if (address == null) 
 		{
-			if (other.branchAddress != null)
+			if (other.address != null)
 				return false;
-		} else if (!branchAddress.equals(other.branchAddress))
+		} else if (!address.equals(other.address))
 			return false;
-		if (branchIFSC == null) 
+		if (ifsc == null) 
 		{
-			if (other.branchIFSC != null)
+			if (other.ifsc != null)
 				return false;
-		} else if (!branchIFSC.equals(other.branchIFSC))
+		} else if (!ifsc.equals(other.ifsc))
 			return false;
-		if (branchId == null) 
+		if (id == null) 
 		{
-			if (other.branchId != null)
+			if (other.id != null)
 				return false;
-		} else if (!branchId.equals(other.branchId))
+		} else if (!id.equals(other.id))
 			return false;
-		if (branchName == null) 
+		if (name == null) 
 		{
-			if (other.branchName != null)
+			if (other.name != null)
 				return false;
-		} else if (!branchName.equals(other.branchName))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
-	private String branchId;
-	private String branchName;
-	public Branch(String branchId, String branchName, String branchIFSC, String branchAddress) 
-	{
-		super();
-		this.branchId = branchId;
-		this.branchName = branchName;
-		this.branchIFSC = branchIFSC;
-		this.branchAddress = branchAddress;
-	}
-	private String branchIFSC;
-	private String branchAddress;
-	public String getBranchId() 
-	{
-		return branchId;
-	}
-	public void setBranchId(String branchId) 
-	{
-		this.branchId = branchId;
-	}
-	public String getBranchName() 
-	{
-		return branchName;
-	}
-	public void setBranchName(String branchName) 
-	{
-		this.branchName = branchName;
-	}
-	public String getBranchIFSC() 
-	{
-		return branchIFSC;
-	}
-	public void setBranchIFSC(String branchIFSC)
-	{
-		this.branchIFSC = branchIFSC;
-	}
-	public String getBranchAddress() 
-	{
-		return branchAddress;
-	}
-	public void setBranchAddress(String branchAddress) 
-	{
-		this.branchAddress = branchAddress;
+	private String id;
+	private String name;
+	private String ifsc;
+	private String address;
+	
+	
+	
+	
+	public String getId() {
+		return id;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getIfsc() {
+		return ifsc;
+	}
+	public void setIfsc(String ifsc) {
+		this.ifsc = ifsc;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public Branch(String id, String name, String ifsc, String address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.ifsc = ifsc;
+		this.address = address;
+	}
 	public static Branch getBranchObject(String row) {
 		String arr[] = row.split(",");
 		Branch branch=new Branch(arr[0],arr[1],arr[2],arr[3]);
@@ -102,7 +94,7 @@ public class Branch
 	
 	@Override
 	public String toString() {
-		return this.branchId+" "+this.branchName+" "+this.branchIFSC+" "+this.branchAddress;
+		return this.id+" "+this.name+" "+this.ifsc+" "+this.address;
 	}
 
 

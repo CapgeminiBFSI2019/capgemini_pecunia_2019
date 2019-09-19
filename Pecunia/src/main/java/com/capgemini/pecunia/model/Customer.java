@@ -9,27 +9,27 @@ import com.capgemini.pecunia.Values;
 
 public class Customer {
 	
-	private String customerId;
-	private String customerName;
-	private String customerAddressId;
-	private String customerAadhar;
-	private String customerPan;
-	private String customerContact;
-	private String customerGender;
-	private Date customerDob;
+	private String id;
+	private String name;
+	private String addressId;
+	private String aadhar;
+	private String pan;
+	private String contact;
+	private String gender;
+	private Date dob;
 
 @Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + ((customerAadhar == null) ? 0 : customerAadhar.hashCode());
-	result = prime * result + ((customerAddressId == null) ? 0 : customerAddressId.hashCode());
-	result = prime * result + ((customerContact == null) ? 0 : customerContact.hashCode());
-	result = prime * result + ((customerDob == null) ? 0 : customerDob.hashCode());
-	result = prime * result + ((customerGender == null) ? 0 : customerGender.hashCode());
-	result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
-	result = prime * result + ((customerName == null) ? 0 : customerName.hashCode());
-	result = prime * result + ((customerPan == null) ? 0 : customerPan.hashCode());
+	result = prime * result + ((aadhar == null) ? 0 : aadhar.hashCode());
+	result = prime * result + ((addressId == null) ? 0 : addressId.hashCode());
+	result = prime * result + ((contact == null) ? 0 : contact.hashCode());
+	result = prime * result + ((dob == null) ? 0 : dob.hashCode());
+	result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	result = prime * result + ((name == null) ? 0 : name.hashCode());
+	result = prime * result + ((pan == null) ? 0 : pan.hashCode());
 	return result;
 }
 
@@ -42,125 +42,122 @@ public int hashCode() {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		if (customerAadhar == null) {
-			if (other.customerAadhar != null)
+		if (aadhar == null) {
+			if (other.aadhar != null)
 				return false;
-		} else if (!customerAadhar.equals(other.customerAadhar))
+		} else if (!aadhar.equals(other.aadhar))
 			return false;
-		if (customerAddressId == null) {
-			if (other.customerAddressId != null)
+		if (addressId == null) {
+			if (other.addressId != null)
 				return false;
-		} else if (!customerAddressId.equals(other.customerAddressId))
+		} else if (!addressId.equals(other.addressId))
 			return false;
-		if (customerContact == null) {
-			if (other.customerContact != null)
+		if (contact == null) {
+			if (other.contact != null)
 				return false;
-		} else if (!customerContact.equals(other.customerContact))
+		} else if (!contact.equals(other.contact))
 			return false;
-		if (customerDob == null) {
-			if (other.customerDob != null)
+		if (dob == null) {
+			if (other.dob != null)
 				return false;
-		} else if (!customerDob.equals(other.customerDob))
+		} else if (!dob.equals(other.dob))
 			return false;
-		if (customerGender == null) {
-			if (other.customerGender != null)
+		if (gender == null) {
+			if (other.gender != null)
 				return false;
-		} else if (!customerGender.equals(other.customerGender))
+		} else if (!gender.equals(other.gender))
 			return false;
-		if (customerId == null) {
-			if (other.customerId != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!customerId.equals(other.customerId))
+		} else if (!id.equals(other.id))
 			return false;
-		if (customerName == null) {
-			if (other.customerName != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!customerName.equals(other.customerName))
+		} else if (!name.equals(other.name))
 			return false;
-		if (customerPan == null) {
-			if (other.customerPan != null)
+		if (pan == null) {
+			if (other.pan != null)
 				return false;
-		} else if (!customerPan.equals(other.customerPan))
+		} else if (!pan.equals(other.pan))
 			return false;
 		return true;
 	}
 
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
 	
-	public String getCustomerId() {
-		return customerId;
-	}
-	
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-	
-	public String getCustomerName() {
-		return customerName;
-	}
-	public void setCustomerAadhar(String  customerAadhar) {
-		this. customerAadhar =  customerAadhar;
-	}
-	
-	public String getCustomerAadhar() {
-		return customerAadhar;
-	}
-	
-	public String getCustomerAddressId() {
-		return customerAddressId;
-	}
-
-	public void setCustomerAddressId(String customerAddressId) {
-		this.customerAddressId = customerAddressId;
+		
+	public String getId() {
+		return id;
 	}
 
 
-	public Customer(String customerId, String customerName, String customerAddressId, String customerAadhar,
-			String customerPan, String customerContact, String customerGender, Date customerDob) {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddressId() {
+		return addressId;
+	}
+
+	public String getAadhar() {
+		return aadhar;
+	}
+
+	public void setAadhar(String aadhar) {
+		this.aadhar = aadhar;
+	}
+
+	public String getPan() {
+		return pan;
+	}
+
+	public void setPan(String pan) {
+		this.pan = pan;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public Customer(String id, String name, String addressId, String aadhar, String pan, String contact, String gender,
+			Date dob) {
 		super();
-		this.customerId = customerId;
-		this.customerName = customerName;
-		this.customerAddressId = customerAddressId;
-		this.customerAadhar = customerAadhar;
-		this.customerPan = customerPan;
-		this.customerContact = customerContact;
-		this.customerGender = customerGender;
-		this.customerDob = customerDob;
+		this.id = id;
+		this.name = name;
+		this.addressId = addressId;
+		this.aadhar = aadhar;
+		this.pan = pan;
+		this.contact = contact;
+		this.gender = gender;
+		this.dob = dob;
 	}
 
-	public void setCustomerPan(String customerPan) {
-		this.customerPan = customerPan;
-	}
-	
-	public String getCustomerPan() {
-		return customerPan;
-	}
-	public void setCustomerContact(String customerContact) {
-		this.customerContact = customerContact;
-	}
-	
-	public String getCustomerContact() {
-		return customerContact;
-	}
-	public void setCustomerGender(String customerGender) {
-		this.customerGender = customerGender;
-	}
-	
-	public String getCustomerGender() {
-		return customerGender;
-	}
-	public void setCustomerDob(Date customerDob) {
-		this.customerDob = customerDob;
-	}
-	
-	public Date getCustomerDob() {
-		return customerDob;
-	}
-
-	
 	public static Customer getCustomerObject(String row) {
 		String arr[] = row.split(",");
 		Date date;
@@ -177,7 +174,7 @@ public int hashCode() {
 	
 	@Override
 	public String toString() {
-		return this.customerName+" "+this.customerAddressId+" "+this.customerAadhar+" "+this.customerPan+" "+this.customerContact+
-				" "+this.customerContact+" -"+this.customerDob;
+		return this.name+" "+this.addressId+" "+this.aadhar+" "+this.pan+" "+this.contact+
+				" "+this.contact+" -"+this.dob;
 	}
 }

@@ -8,10 +8,11 @@ import java.util.*;
 import com.capgemini.pecunia.Values;
 import com.capgemini.pecunia.model.Transaction;
 
-public class AccountSummaryImpl {
+public class AccountSummaryImpl implements AccountSummary{
 
 
 //function to get the account summary
+	@Override
 	public ArrayList<Transaction> getAccountSummary(String accountId, Date startDate, Date endDate)
 	{
 		try {
@@ -25,12 +26,12 @@ public class AccountSummaryImpl {
 	    while((line = br.readLine())!= null) 
         {
 	    	arrTrans = line.split(","); //storing the data in the arrTrans string
-	    	double amount = Integer.parseInt(arrTrans[4]);
-            double closeBal = Integer.parseInt(arrTrans[9]);
+	    	double amount = Double.parseDouble(arrTrans[4]);
+            double closeBal = Double.parseDouble(arrTrans[9]);
 
             Date date1 = new SimpleDateFormat(Values.DATE_FORMAT).parse(arrTrans[5]); //parsing the string into date format
             //storing the elements of arrTrans in object transaction t
-    	   Transaction t = new Transaction(arrTrans[0],arrTrans[1],arrTrans[2],arrTrans[4],amount,date1, arrTrans[6],arrTrans[7],arrTrans[8],closeBal);
+    	   Transaction t = new Transaction(arrTrans[0],arrTrans[1],arrTrans[2],amount,arrTrans[4],date1, arrTrans[6],arrTrans[7],arrTrans[8],closeBal);
     	   //checking and comparing dates
     	   if(t.getTransDate()==startDate) {
     		   while(t.getTransDate().compareTo(endDate)<0) {

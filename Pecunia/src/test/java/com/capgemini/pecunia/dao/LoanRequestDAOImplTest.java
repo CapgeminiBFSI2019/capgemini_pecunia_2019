@@ -157,6 +157,6 @@ class LoanRequestDAOImplTest {
 	@Test
 	public void validate_customerid() {
 		LoanRequestDAOImpl loanRequest = new LoanRequestDAOImpl();
-		assertTrue(loanRequest.validateCustomerId("jilmSOrNBgkJbV9vn4mA"));
+		assertFalse(loanRequest.validateCustomerId("jilmSOrNBgkJbV9vn4mA"));
 	}
 }

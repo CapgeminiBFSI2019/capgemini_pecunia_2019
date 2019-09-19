@@ -110,9 +110,9 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 			
 			if (checkLoanStatus(loanList.get(i).getLoanStatus())) {
 
-				loanList1.add(new LoanRequest(loanList.get(i).getLoanRequestId(), loanList.get(i).getLoanCustomerId(),
-						loanList.get(i).getLoanAmount(), loanList.get(i).getLoanType(), loanList.get(i).getTenure(),
-						loanList.get(i).getLoanRoi(), loanList.get(i).getLoanStatus(), loanList.get(i).getLoanEmi(),
+				loanList1.add(new LoanRequest(loanList.get(i).getRequestId(), loanList.get(i).getCustomerId(),
+						loanList.get(i).getAmount(), loanList.get(i).getType(), loanList.get(i).getTenure(),
+						loanList.get(i).getRoi(), loanList.get(i).getLoanStatus(), loanList.get(i).getEmi(),
 						loanList.get(i).getCreditScore()));
 
 			}
@@ -133,9 +133,9 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		for (int i = 0; i < loanList1.size(); i++) {
 			System.out.println(loanList1.get(i).getCreditScore());
 			if (creditScore(loanList1.get(i).getCreditScore())) {
-				loanList2.add(new LoanRequest(loanList1.get(i).getLoanRequestId(), loanList1.get(i).getLoanCustomerId(),
-						loanList1.get(i).getLoanAmount(), loanList1.get(i).getLoanType(), loanList1.get(i).getTenure(),
-						loanList1.get(i).getLoanRoi(), loanList1.get(i).getLoanStatus(), loanList1.get(i).getLoanEmi(),
+				loanList2.add(new LoanRequest(loanList1.get(i).getRequestId(), loanList1.get(i).getCustomerId(),
+						loanList1.get(i).getAmount(), loanList1.get(i).getType(), loanList1.get(i).getTenure(),
+						loanList1.get(i).getRoi(), loanList1.get(i).getLoanStatus(), loanList1.get(i).getEmi(),
 						loanList1.get(i).getCreditScore()));
 			}
 		}
@@ -163,14 +163,14 @@ public class LoanDisbursedDAOImpl implements LoanDisbursedDAO {
 		for (int i = 0; i < loanList2.size(); i++) {
 
 			StringBuffer sb2 = new StringBuffer();
-			loanRequestId1 = loanList2.get(i).getLoanRequestId();
-			loanCustomerId1 = loanList2.get(i).getLoanCustomerId();
-			loanAmount1 = String.valueOf(loanList2.get(i).getLoanAmount());
-			loanType1 = loanList2.get(i).getLoanType();
+			loanRequestId1 = loanList2.get(i).getRequestId();
+			loanCustomerId1 = loanList2.get(i).getCustomerId();
+			loanAmount1 = String.valueOf(loanList2.get(i).getAmount());
+			loanType1 = loanList2.get(i).getType();
 			tenure1 = String.valueOf(loanList2.get(i).getTenure());
-			loanRoi1 = String.valueOf(loanList2.get(i).getLoanRoi());
+			loanRoi1 = String.valueOf(loanList2.get(i).getRoi());
 			loanStatus1 = loanList2.get(i).getLoanStatus();
-			loanEmi1 = String.valueOf(loanList2.get(i).getLoanEmi());
+			loanEmi1 = String.valueOf(loanList2.get(i).getEmi());
 
 			// String creditScore1 = String.valueOf(loanList2.get(i).getCreditScore());
 			sb2.append(loanRequestId1).append(",").append(loanCustomerId1).append(",").append(loanAmount1).append(",")
