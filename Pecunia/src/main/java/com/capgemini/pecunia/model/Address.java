@@ -13,13 +13,13 @@ public class Address {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((addressCity == null) ? 0 : addressCity.hashCode());
-		result = prime * result + ((addressCountry == null) ? 0 : addressCountry.hashCode());
-		result = prime * result + ((addressId == null) ? 0 : addressId.hashCode());
-		result = prime * result + ((addressLine1 == null) ? 0 : addressLine1.hashCode());
-		result = prime * result + ((addressLine2 == null) ? 0 : addressLine2.hashCode());
-		result = prime * result + ((addressState == null) ? 0 : addressState.hashCode());
-		result = prime * result + ((addressZipcode == null) ? 0 : addressZipcode.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((line1 == null) ? 0 : line1.hashCode());
+		result = prime * result + ((line2 == null) ? 0 : line2.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
 	}
 
@@ -32,125 +32,124 @@ public class Address {
 		if (getClass() != obj.getClass())
 			return false;
 		Address other = (Address) obj;
-		if (addressCity == null) {
-			if (other.addressCity != null)
+		if (city == null) {
+			if (other.city != null)
 				return false;
-		} else if (!addressCity.equals(other.addressCity))
+		} else if (!city.equals(other.city))
 			return false;
-		if (addressCountry == null) {
-			if (other.addressCountry != null)
+		if (country == null) {
+			if (other.country != null)
 				return false;
-		} else if (!addressCountry.equals(other.addressCountry))
+		} else if (!country.equals(other.country))
 			return false;
-		if (addressId == null) {
-			if (other.addressId != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!addressId.equals(other.addressId))
+		} else if (!id.equals(other.id))
 			return false;
-		if (addressLine1 == null) {
-			if (other.addressLine1 != null)
+		if (line1 == null) {
+			if (other.line1 != null)
 				return false;
-		} else if (!addressLine1.equals(other.addressLine1))
+		} else if (!line1.equals(other.line1))
 			return false;
-		if (addressLine2 == null) {
-			if (other.addressLine2 != null)
+		if (line2 == null) {
+			if (other.line2 != null)
 				return false;
-		} else if (!addressLine2.equals(other.addressLine2))
+		} else if (!line2.equals(other.line2))
 			return false;
-		if (addressState == null) {
-			if (other.addressState != null)
+		if (state == null) {
+			if (other.state != null)
 				return false;
-		} else if (!addressState.equals(other.addressState))
+		} else if (!state.equals(other.state))
 			return false;
-		if (addressZipcode == null) {
-			if (other.addressZipcode != null)
+		if (zipcode == null) {
+			if (other.zipcode != null)
 				return false;
-		} else if (!addressZipcode.equals(other.addressZipcode))
+		} else if (!zipcode.equals(other.zipcode))
 			return false;
 		return true;
 	}
 
-	private String addressId;
-	private String addressLine1;
-	private String addressLine2;
-	private String addressCity;
-	private String addressState;
-	private String addressCountry;
-	private String addressZipcode;
+	private String id;
+	private String line1;
+	private String line2;
+	private String city;
+	private String state;
+	private String country;
+	private String zipcode;
 	
 	
-	public void setAddressId(String addressId) {
-		this.addressId = addressId;
-	}
 	
-	public String getAddressId() {
-		return addressId;
-	}
 	
-	public String getAddressLine1() {
-		return addressLine1;
+	
+	public String getId() {
+		return id;
 	}
 
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
+
+	public String getLine1() {
+		return line1;
 	}
 
-	public String getAddressLine2() {
-		return addressLine2;
+	public void setLine1(String line1) {
+		this.line1 = line1;
 	}
 
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
+	public String getLine2() {
+		return line2;
 	}
-	
-	public void setAddressCity(String addressCity) {
-		this.addressCity = addressCity;
+
+	public void setLine2(String line2) {
+		this.line2 = line2;
 	}
-	
-	public String getAddressCity() {
-		return addressCity;
+
+	public String getCity() {
+		return city;
 	}
-	
-	public void setAddressState(String addressState) {
-		this.addressState = addressState;
+
+	public void setCity(String city) {
+		this.city = city;
 	}
-	
-	public String getAddressState() {
-		return addressState;
+
+	public String getState() {
+		return state;
 	}
-	
-	public void setAddressCountry(String addressCountry) {
-		this.addressCountry = addressCountry;
+
+	public void setState(String state) {
+		this.state = state;
 	}
-	
-	public String getAddressCountry() {
-		return addressCountry;
+
+	public String getCountry() {
+		return country;
 	}
-	
-	public void setAddressZipcode(String addressZipcode) {
-		this.addressZipcode = addressZipcode;
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
-	
-	public String getAddressZipcode() {
-		return addressZipcode;
+
+	public String getZipcode() {
+		return zipcode;
 	}
-	
-	public Address(String addressId ,String addressLine1, String addressLine2, String addressCity, String addressState,
-			String addressCountry, String addressZipcode) {
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public Address(String id, String line1, String line2, String city, String state, String country, String zipcode) {
 		super();
-		this.addressId = addressId;
-		this.addressLine1 = addressLine1;
-		this.addressLine2 = addressLine2;
-		this.addressCity = addressCity;
-		this.addressState = addressState;
-		this.addressCountry = addressCountry;
-		this.addressZipcode = addressZipcode;
+		this.id = id;
+		this.line1 = line1;
+		this.line2 = line2;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.zipcode = zipcode;
 	}
 
 	@Override
 	public String toString() {
-		return this.addressLine1+" "+this.addressLine2+" "+this.addressCity+" "+this.addressCountry+" "+this.addressState+
-				" "+this.addressCountry+" -"+this.addressZipcode;
+		return this.line1+" "+this.line2+" "+this.city+" "+this.country+" "+this.state+
+				" "+this.country+" -"+this.zipcode;
 	}
 	
 	public static Address getAddressObject(String row) {

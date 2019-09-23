@@ -2,114 +2,109 @@ package com.capgemini.pecunia.model;
 //field declaration of class employee
 public class Employee {
 	
-	private String employeeId;
-	private String employeeName;
-	private String employeeBranchId;
-	private String employeeDesignation;
-	private String employeeUsername;
-	private String employeePassword;
-	private String employeeSalt;
+	private String id;
+	private String name;
+	private String branchId;
+	private String designation;
+	private String username;
+	private String password;
+	private String salt;
 	
 	
 	
 	
 //parametrized constructor	
-	public Employee(String employeeId, String employeeName, String employeeBranchId, String employeeDesignation,
-			String employeeUsername, String employeePassword, String employeeSalt) {
+	public Employee(String id, String name, String branchId, String designation, String username, String password,
+			String salt) {
 		super();
-		this.employeeId = employeeId;
-		this.employeeName = employeeName;
-		this.employeeBranchId = employeeBranchId;
-		this.employeeDesignation = employeeDesignation;
-		this.employeeUsername = employeeUsername;
-		this.employeePassword = employeePassword;
-		this.employeeSalt = employeeSalt;
+		this.id = id;
+		this.name = name;
+		this.branchId = branchId;
+		this.designation = designation;
+		this.username = username;
+		this.password = password;
+		this.salt = salt;
 	}
+
 
 
 //getters and setters
-	public String getEmployeeId() {
-		return employeeId;
+	
+	public String getId() {
+		return id;
 	}
 
 
 
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
+	
+	public String getName() {
+		return name;
 	}
 
 
 
-	public String getEmployeeName() {
-		return employeeName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
 
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
+	public String getBranchId() {
+		return branchId;
 	}
 
 
 
-	public String getEmployeeBranchId() {
-		return employeeBranchId;
+	public void setBranchId(String branchId) {
+		this.branchId = branchId;
 	}
 
 
 
-	public void setEmployeeBranchId(String employeeBranchId) {
-		this.employeeBranchId = employeeBranchId;
+	public String getDesignation() {
+		return designation;
 	}
 
 
 
-	public String getEmployeeDesignation() {
-		return employeeDesignation;
-	}
-
-
-
-	public void setEmployeeDesignation(String employeeDesignation) {
-		this.employeeDesignation = employeeDesignation;
+	public void setDesignation(String designation) {
+		this.designation = designation;
 	}
 
 
 
 	public String getUsername() {
-		return employeeUsername;
+		return username;
 	}
 
 
 
-	public void setUsername(String username) {
-		this.employeeUsername = username;
+	
+	public String getPassword() {
+		return password;
 	}
 
 
 
-	public String getEmployeePassword() {
-		return employeePassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
 
-	public void setEmployeePassword(String employeePassword) {
-		this.employeePassword = employeePassword;
+	public String getSalt() {
+		return salt;
 	}
 
 
 
-	public String getEmployeeSalt() {
-		return employeeSalt;
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 
 
-	public void setEmployeeSalt(String employeeSalt) {
-		this.employeeSalt = employeeSalt;
-	}
-
+	
 
 //function to fetch data from csv file and store in the arraylist, separated by a comma
 	public static Employee getEmployeeObject(String row) {
@@ -118,6 +113,11 @@ public class Employee {
 		Employee emp = new Employee(arr[0],arr[1],arr[2],arr[3],arr[4],arr[5],arr[6]);
 		return emp;
 	}
+
+
+
+	
+	
 	
 	
 }

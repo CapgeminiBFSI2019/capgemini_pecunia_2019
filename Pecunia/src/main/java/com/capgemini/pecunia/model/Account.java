@@ -9,13 +9,13 @@ import com.capgemini.pecunia.Values;
 
 
 public class Account {
-	private String accountId;
-	private String accountHolderId;
-	private String accountBranchId;
+	private String id;
+	private String holderId;
+	private String branchId;
 	private String accountType;
-	private String accountStatus;
-	private double accountBalance;
-	private double accountInterest;
+	private String status;
+	private double balance;
+	private double interest;
 	private Date lastUpdated;
 	
 	@Override
@@ -23,14 +23,14 @@ public class Account {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(accountBalance);
+		temp = Double.doubleToLongBits(balance);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((accountBranchId == null) ? 0 : accountBranchId.hashCode());
-		result = prime * result + ((accountHolderId == null) ? 0 : accountHolderId.hashCode());
-		result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
-		temp = Double.doubleToLongBits(accountInterest);
+		result = prime * result + ((branchId == null) ? 0 : branchId.hashCode());
+		result = prime * result + ((holderId == null) ? 0 : holderId.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		temp = Double.doubleToLongBits(interest);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((accountStatus == null) ? 0 : accountStatus.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((accountType == null) ? 0 : accountType.hashCode());
 		result = prime * result + ((lastUpdated == null) ? 0 : lastUpdated.hashCode());
 		//hello
@@ -46,29 +46,29 @@ public class Account {
 		if (getClass() != obj.getClass())
 			return false;
 		Account other = (Account) obj;
-		if (Double.doubleToLongBits(accountBalance) != Double.doubleToLongBits(other.accountBalance))
+		if (Double.doubleToLongBits(balance) != Double.doubleToLongBits(other.balance))
 			return false;
-		if (accountBranchId == null) {
-			if (other.accountBranchId != null)
+		if (branchId == null) {
+			if (other.branchId != null)
 				return false;
-		} else if (!accountBranchId.equals(other.accountBranchId))
+		} else if (!branchId.equals(other.branchId))
 			return false;
-		if (accountHolderId == null) {
-			if (other.accountHolderId != null)
+		if (holderId == null) {
+			if (other.holderId != null)
 				return false;
-		} else if (!accountHolderId.equals(other.accountHolderId))
+		} else if (!holderId.equals(other.holderId))
 			return false;
-		if (accountId == null) {
-			if (other.accountId != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!accountId.equals(other.accountId))
+		} else if (!id.equals(other.id))
 			return false;
-		if (Double.doubleToLongBits(accountInterest) != Double.doubleToLongBits(other.accountInterest))
+		if (Double.doubleToLongBits(interest) != Double.doubleToLongBits(other.interest))
 			return false;
-		if (accountStatus == null) {
-			if (other.accountStatus != null)
+		if (status == null) {
+			if (other.status != null)
 				return false;
-		} else if (!accountStatus.equals(other.accountStatus))
+		} else if (!status.equals(other.status))
 			return false;
 		if (accountType == null) {
 			if (other.accountType != null)
@@ -84,23 +84,33 @@ public class Account {
 	}
 
 		
-	public String getAccountId() {
-		return accountId;
+	
+		
+	public Account(String id, String holderId, String branchId, String accountType, String status, double balance,
+			double interest, Date lastUpdated) {
+		super();
+		this.id = id;
+		this.holderId = holderId;
+		this.branchId = branchId;
+		this.accountType = accountType;
+		this.status = status;
+		this.balance = balance;
+		this.interest = interest;
+		this.lastUpdated = lastUpdated;
 	}
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
+	public String getId() {
+		return id;
 	}
-	public String getAccountHolderId() {
-		return accountHolderId;
+	
+	public String getHolderId() {
+		return holderId;
 	}
-	public void setAccountHolderId(String accountHolderId) {
-		this.accountHolderId = accountHolderId;
+	
+	public String getBranchId() {
+		return branchId;
 	}
-	public String getAccountBranchId() {
-		return accountBranchId;
-	}
-	public void setAccountBranchId(String accountBranchId) {
-		this.accountBranchId = accountBranchId;
+	public void setBranchId(String branchId) {
+		this.branchId = branchId;
 	}
 	public String getAccountType() {
 		return accountType;
@@ -108,23 +118,23 @@ public class Account {
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
-	public String getAccountStatus() {
-		return accountStatus;
+	public String getStatus() {
+		return status;
 	}
-	public void setAccountStatus(String accountStatus) {
-		this.accountStatus = accountStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	public double getAccountBalance() {
-		return accountBalance;
+	public double getBalance() {
+		return balance;
 	}
-	public void setAccountBalance(double accountBalance) {
-		this.accountBalance = accountBalance;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
-	public double getAccountInterest() {
-		return accountInterest;
+	public double getInterest() {
+		return interest;
 	}
-	public void setAccountInterest(double accountInterest) {
-		this.accountInterest = accountInterest;
+	public void setInterest(double interest) {
+		this.interest = interest;
 	}
 	public Date getLastUpdated() {
 		return lastUpdated;
@@ -132,38 +142,6 @@ public class Account {
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-	
-//	public Account(String accountBranchId, String accountType, Date date){
-//		this.accountBranchId = accountBranchId;
-//		this.accountType = accountType;
-//		this.lastUpdated = date;
-//		this.accountBalance = 0.0;
-//		//this.accountId = accountBranchId+ (Integer.toString(id));
-//		//this.id++;
-//		this.accountStatus = "Active";
-//		this.accountHolderId = null;
-//		if(accountType=="Savings")
-//			this.accountInterest = 7.0;
-//		else if(accountType=="Current")
-//			this.accountInterest = 5.5;
-//		else if(accountType=="FD")
-//			this.accountInterest = 10.0;
-//	}
-		
-	
-		public Account(String accountId,String accountHolderId, String accountBranchId, String accountType,
-			String accountStatus, double accountBalance, double accountInterest, Date lastUpdated) {
-		super();
-		this.accountId = accountId;
-		this.accountHolderId = accountHolderId;
-		this.accountBranchId = accountBranchId;
-		this.accountType = accountType;
-		this.accountStatus = accountStatus;
-		this.accountBalance = accountBalance;
-		this.accountInterest = accountInterest;
-		this.lastUpdated = lastUpdated;
-	}
-		
 		public static Account getAccountObject(String row) {
 			String arr[] = row.split(",");
 			Date date;
@@ -180,7 +158,7 @@ public class Account {
 		
 		public String getAccountString() {
 			DateFormat dateFormat = new SimpleDateFormat(Values.DATE_FORMAT);
-			return (this.accountId+","+this.accountHolderId + "," + this.accountBranchId + "," + this.accountType + "," + this.accountStatus + "," + this.accountBalance + "," + this.accountInterest + "," +dateFormat.format(this.lastUpdated) );
+			return (this.id+","+this.holderId + "," + this.branchId + "," + this.accountType + "," + this.status + "," + this.balance + "," + this.interest + "," +dateFormat.format(this.lastUpdated) );
 		}
 		
 		

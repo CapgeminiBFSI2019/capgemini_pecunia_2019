@@ -8,45 +8,33 @@ import java.util.*;
 import com.capgemini.pecunia.Values;
 
 public class Transaction {
-	private String transId;
-	private String transAccountId;
-	private String transType;
-	private Double transAmount;
-	private String transOption;
+	private String id;
+	private String accountId;
+	private String type;
+	private Double amount;
+	private String option;
 	private Date transDate;
-	private String transChequeId;
+	private String chequeId;
 	private String transFrom;
 	private String transTo;
-	private Double transClosingBalance;
+	private Double closingBalance;
 
-	public Transaction(String transId, String transAccountId, String transType, String transOption, Double transAmount,
-			Date transDate, String transChequeId, String transFrom, String transTo, Double transClosingBalance) {
-		super();
-		this.transId = transId;
-		this.transAccountId = transAccountId;
-		this.transType = transType;
-		this.transAmount = transAmount;
-		this.transOption = transOption;
-		this.transDate = transDate;
-		this.transChequeId = transChequeId;
-		this.transFrom = transFrom;
-		this.transTo = transTo;
-		this.transClosingBalance = transClosingBalance;
-	}
+
+	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((transAccountId == null) ? 0 : transAccountId.hashCode());
-		result = prime * result + ((transAmount == null) ? 0 : transAmount.hashCode());
-		result = prime * result + ((transChequeId == null) ? 0 : transChequeId.hashCode());
-		result = prime * result + ((transClosingBalance == null) ? 0 : transClosingBalance.hashCode());
+		result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
+		result = prime * result + ((chequeId == null) ? 0 : chequeId.hashCode());
+		result = prime * result + ((closingBalance == null) ? 0 : closingBalance.hashCode());
 		result = prime * result + ((transDate == null) ? 0 : transDate.hashCode());
 		result = prime * result + ((transFrom == null) ? 0 : transFrom.hashCode());
-		result = prime * result + ((transOption == null) ? 0 : transOption.hashCode());
+		result = prime * result + ((option == null) ? 0 : option.hashCode());
 		result = prime * result + ((transTo == null) ? 0 : transTo.hashCode());
-		result = prime * result + ((transType == null) ? 0 : transType.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
@@ -59,25 +47,25 @@ public class Transaction {
 		if (getClass() != obj.getClass())
 			return false;
 		Transaction other = (Transaction) obj;
-		if (transAccountId == null) {
-			if (other.transAccountId != null)
+		if (accountId == null) {
+			if (other.accountId != null)
 				return false;
-		} else if (!transAccountId.equals(other.transAccountId))
+		} else if (!accountId.equals(other.accountId))
 			return false;
-		if (transAmount == null) {
-			if (other.transAmount != null)
+		if (amount == null) {
+			if (other.amount != null)
 				return false;
-		} else if (!transAmount.equals(other.transAmount))
+		} else if (!amount.equals(other.amount))
 			return false;
-		if (transChequeId == null) {
-			if (other.transChequeId != null)
+		if (chequeId == null) {
+			if (other.chequeId != null)
 				return false;
-		} else if (!transChequeId.equals(other.transChequeId))
+		} else if (!chequeId.equals(other.chequeId))
 			return false;
-		if (transClosingBalance == null) {
-			if (other.transClosingBalance != null)
+		if (closingBalance == null) {
+			if (other.closingBalance != null)
 				return false;
-		} else if (!transClosingBalance.equals(other.transClosingBalance))
+		} else if (!closingBalance.equals(other.closingBalance))
 			return false;
 		if (transDate == null) {
 			if (other.transDate != null)
@@ -89,54 +77,57 @@ public class Transaction {
 				return false;
 		} else if (!transFrom.equals(other.transFrom))
 			return false;
-		if (transOption == null) {
-			if (other.transOption != null)
+		if (option == null) {
+			if (other.option != null)
 				return false;
-		} else if (!transOption.equals(other.transOption))
+		} else if (!option.equals(other.option))
 			return false;
 		if (transTo == null) {
 			if (other.transTo != null)
 				return false;
 		} else if (!transTo.equals(other.transTo))
 			return false;
-		if (transType == null) {
-			if (other.transType != null)
+		if (type == null) {
+			if (other.type != null)
 				return false;
-		} else if (!transType.equals(other.transType))
+		} else if (!type.equals(other.type))
 			return false;
 		return true;
 	}
 
-	public String getTransAccountId() {
-		return transAccountId;
+	
+	public String getId() {
+		return id;
 	}
 
-	public void setTransAccountId(String transAccountId) {
-		this.transAccountId = transAccountId;
+
+	public String getAccountId() {
+		return accountId;
 	}
 
-	public String getTransType() {
-		return transType;
+	
+	public String getType() {
+		return type;
 	}
 
-	public void setTransType(String transType) {
-		this.transType = transType;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public Double getTransAmount() {
-		return transAmount;
+	public Double getAmount() {
+		return amount;
 	}
 
-	public void setTransAmount(Double transAmount) {
-		this.transAmount = transAmount;
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
-	public String getTransOption() {
-		return transOption;
+	public String getOption() {
+		return option;
 	}
 
-	public void setTransOption(String transOption) {
-		this.transOption = transOption;
+	public void setOption(String option) {
+		this.option = option;
 	}
 
 	public Date getTransDate() {
@@ -147,12 +138,12 @@ public class Transaction {
 		this.transDate = transDate;
 	}
 
-	public String getTransChequeId() {
-		return transChequeId;
+	public String getChequeId() {
+		return chequeId;
 	}
 
-	public void setTransChequeId(String transChequeId) {
-		this.transChequeId = transChequeId;
+	public void setChequeId(String chequeId) {
+		this.chequeId = chequeId;
 	}
 
 	public String getTransFrom() {
@@ -171,43 +162,51 @@ public class Transaction {
 		this.transTo = transTo;
 	}
 
-	public Double getTransClosingBalance() {
-		return transClosingBalance;
+	public Double getClosingBalance() {
+		return closingBalance;
 	}
 
-	public void setTransClosingBalance(Double transClosingBalance) {
-		this.transClosingBalance = transClosingBalance;
+	public void setClosingBalance(Double closingBalance) {
+		this.closingBalance = closingBalance;
 	}
 
-	public String getTransId() {
-		return transId;
+	public Transaction(String id, String accountId, String type, Double amount, String option, Date transDate,
+			String chequeId, String transFrom, String transTo, Double closingBalance) {
+		super();
+		this.id = id;
+		this.accountId = accountId;
+		this.type = type;
+		this.amount = amount;
+		this.option = option;
+		this.transDate = transDate;
+		this.chequeId = chequeId;
+		this.transFrom = transFrom;
+		this.transTo = transTo;
+		this.closingBalance = closingBalance;
 	}
 
-	public void setTransId(String transId) {
-		this.transId = transId;
-	}
-	
 	public String getTransactionString()
 	{
 		DateFormat dateFormat = new SimpleDateFormat(Values.DATE_FORMAT);
-		return (this.transId + "," + this.transAccountId + "," + this.transType + "," + this.transAmount + "," + this.transOption + "," +dateFormat.format(this.transDate)  + "," + this.transChequeId + "," + this.transFrom + "," + this.transTo + "," + this.transClosingBalance );
+		return (this.id + "," + this.accountId + "," + this.type + "," + this.amount + "," + this.option + "," +dateFormat.format(this.transDate)  + "," + this.chequeId + "," + this.transFrom + "," + this.transTo + "," + this.closingBalance );
 	}
 	
 	public static Transaction getTransactionObject(String row) {
 		// TODO Auto-generated method stub
 		String arr[] = row.split(",");
 		Date date;
-		Transaction transaction;
+		Transaction transaction=null;
 		try {
 			date = new SimpleDateFormat(Values.DATE_FORMAT).parse(arr[5]);
-			transaction = new Transaction(arr[0],arr[1],arr[2],arr[3],Double.parseDouble(arr[4]),date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
+
+			transaction = new Transaction(arr[0],arr[1],arr[2],Double.parseDouble(arr[3]),arr[4],date,arr[6],arr[7],arr[8],Double.parseDouble(arr[9]));
 			return transaction;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			//return null;
 		}
-		
-		return null;
+		return transaction;
 	}
 
 	
