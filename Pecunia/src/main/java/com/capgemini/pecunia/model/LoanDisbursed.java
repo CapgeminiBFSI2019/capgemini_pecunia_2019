@@ -7,14 +7,14 @@ public class LoanDisbursed {
 
 	
 
-	String loanRequestId;
-	String loanCustomerId;
-	double loanAmount;
-	String loanType;
+	String requestId;
+	String customerId;
+	double amount;
+	String type;
 	int tenure;
-	double loanRoi;
-	String loanStatus;
-	double loanEmi;
+	double roi;
+	String status;
+	double emi;
 	int creditScore;
 	@Override
 	public int hashCode() {
@@ -22,16 +22,16 @@ public class LoanDisbursed {
 		int result = 1;
 		result = prime * result + creditScore;
 		long temp;
-		temp = Double.doubleToLongBits(loanAmount);
+		temp = Double.doubleToLongBits(amount);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((loanCustomerId == null) ? 0 : loanCustomerId.hashCode());
-		temp = Double.doubleToLongBits(loanEmi);
+		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
+		temp = Double.doubleToLongBits(emi);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((loanRequestId == null) ? 0 : loanRequestId.hashCode());
-		temp = Double.doubleToLongBits(loanRoi);
+		result = prime * result + ((requestId == null) ? 0 : requestId.hashCode());
+		temp = Double.doubleToLongBits(roi);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((loanStatus == null) ? 0 : loanStatus.hashCode());
-		result = prime * result + ((loanType == null) ? 0 : loanType.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + tenure;
 		return result;
 	}
@@ -46,59 +46,70 @@ public class LoanDisbursed {
 		LoanDisbursed other = (LoanDisbursed) obj;
 		if (creditScore != other.creditScore)
 			return false;
-		if (Double.doubleToLongBits(loanAmount) != Double.doubleToLongBits(other.loanAmount))
+		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
-		if (loanCustomerId == null) {
-			if (other.loanCustomerId != null)
+		if (customerId == null) {
+			if (other.customerId != null)
 				return false;
-		} else if (!loanCustomerId.equals(other.loanCustomerId))
+		} else if (!customerId.equals(other.customerId))
 			return false;
-		if (Double.doubleToLongBits(loanEmi) != Double.doubleToLongBits(other.loanEmi))
+		if (Double.doubleToLongBits(emi) != Double.doubleToLongBits(other.emi))
 			return false;
-		if (loanRequestId == null) {
-			if (other.loanRequestId != null)
+		if (requestId == null) {
+			if (other.requestId != null)
 				return false;
-		} else if (!loanRequestId.equals(other.loanRequestId))
+		} else if (!requestId.equals(other.requestId))
 			return false;
-		if (Double.doubleToLongBits(loanRoi) != Double.doubleToLongBits(other.loanRoi))
+		if (Double.doubleToLongBits(roi) != Double.doubleToLongBits(other.roi))
 			return false;
-		if (loanStatus == null) {
-			if (other.loanStatus != null)
+		if (status == null) {
+			if (other.status != null)
 				return false;
-		} else if (!loanStatus.equals(other.loanStatus))
+		} else if (!status.equals(other.status))
 			return false;
-		if (loanType == null) {
-			if (other.loanType != null)
+		if (type == null) {
+			if (other.type != null)
 				return false;
-		} else if (!loanType.equals(other.loanType))
+		} else if (!type.equals(other.type))
 			return false;
 		if (tenure != other.tenure)
 			return false;
 		return true;
 	}
-	public String getLoanRequestId() {
-		return loanRequestId;
+	public LoanDisbursed(String requestId, String customerId, double amount, String type, int tenure, double roi,
+			String status, double emi, int creditScore) {
+		super();
+		this.requestId = requestId;
+		this.customerId = customerId;
+		this.amount = amount;
+		this.type = type;
+		this.tenure = tenure;
+		this.roi = roi;
+		this.status = status;
+		this.emi = emi;
+		this.creditScore = creditScore;
 	}
-	public void setLoanRequestId(String loanRequestId) {
-		this.loanRequestId = loanRequestId;
+	
+	
+	public String getRequestId() {
+		return requestId;
 	}
-	public String getLoanCustomerId() {
-		return loanCustomerId;
+
+	public String getCustomerId() {
+		return customerId;
 	}
-	public void setLoanCustomerId(String loanCustomerId) {
-		this.loanCustomerId = loanCustomerId;
+	
+	public double getAmount() {
+		return amount;
 	}
-	public double getLoanAmount() {
-		return loanAmount;
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
-	public void setLoanAmount(double loanAmount) {
-		this.loanAmount = loanAmount;
+	public String getType() {
+		return type;
 	}
-	public String getLoanType() {
-		return loanType;
-	}
-	public void setLoanType(String loanType) {
-		this.loanType = loanType;
+	public void setType(String type) {
+		this.type = type;
 	}
 	public int getTenure() {
 		return tenure;
@@ -106,23 +117,23 @@ public class LoanDisbursed {
 	public void setTenure(int tenure) {
 		this.tenure = tenure;
 	}
-	public double getLoanRoi() {
-		return loanRoi;
+	public double getRoi() {
+		return roi;
 	}
-	public void setLoanRoi(double loanRoi) {
-		this.loanRoi = loanRoi;
+	public void setRoi(double roi) {
+		this.roi = roi;
 	}
-	public String getLoanStatus() {
-		return loanStatus;
+	public String getStatus() {
+		return status;
 	}
-	public void setLoanStatus(String loanStatus) {
-		this.loanStatus = loanStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	public double getLoanEmi() {
-		return loanEmi;
+	public double getEmi() {
+		return emi;
 	}
-	public void setLoanEmi(double loanEmi) {
-		this.loanEmi = loanEmi;
+	public void setEmi(double emi) {
+		this.emi = emi;
 	}
 	public int getCreditScore() {
 		return creditScore;
@@ -130,19 +141,8 @@ public class LoanDisbursed {
 	public void setCreditScore(int creditScore) {
 		this.creditScore = creditScore;
 	}
-	public LoanDisbursed(String loanRequestId, String loanCustomerId, double loanAmount, String loanType, int tenure,
-			double loanRoi, String loanStatus, double loanEmi, int creditScore) {
-		super();
-		this.loanRequestId = loanRequestId;
-		this.loanCustomerId = loanCustomerId;
-		this.loanAmount = loanAmount;
-		this.loanType = loanType;
-		this.tenure = tenure;
-		this.loanRoi = loanRoi;
-		this.loanStatus = loanStatus;
-		this.loanEmi = loanEmi;
-		this.creditScore = creditScore;
-	}
+	
+	
 	
 	
 	
